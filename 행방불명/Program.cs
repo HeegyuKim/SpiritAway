@@ -41,7 +41,8 @@ namespace 행방불명
 			g3d = new Graphics3D(mForm.Handle, mForm.ClientSize.Width, mForm.ClientSize.Height, false);
 			g2d = new Graphics2D(g3d.SwapChain.GetBackBuffer<Surface>(0));
 
-			mCurrStage = new StartStage();
+			mCurrStage = new StartStage(this);
+			mLastTime = DateTime.Now;
 
 			mTimer = new Timer();
 			mTimer.Interval = 16;
@@ -57,12 +58,18 @@ namespace 행방불명
 
 		private Stage mCurrStage;
 		private Timer mTimer;
+		private DateTime mLastTime;
+
 
 		private void OnUpdate(object sender, EventArgs args)
 		{
+			var currTime = DateTime.Now;
+			var delta = currTime - mLastTime;
+			mLastTime = currTime;
+
 			var stage = mCurrStage;
 
-			stage.Update(16.6f);
+			stage.Update((float)delta.TotalSeconds);
 			stage.Draw(this);
 
 			if (stage.IsEnded())
