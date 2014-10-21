@@ -12,7 +12,7 @@ using SharpDX;
 
 namespace 행방불명.Framework
 {
-	class Graphics2D
+	public class Graphics2D
 	{
 		//
 		// fields

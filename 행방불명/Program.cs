@@ -11,10 +11,10 @@ using SharpDX.DXGI;
 
 namespace 행방불명
 {
-	class Program : Form
+	public class Program : Form
 	{
-		Graphics2D g2d;
-		Graphics3D g3d;
+		private Graphics2D g2d;
+		private Graphics3D g3d;
 
 		SharpDX.Direct2D1.Bitmap bitmap;
 
@@ -30,8 +30,6 @@ namespace 행방불명
 
 			g3d = new Graphics3D(Handle, ClientSize.Width, ClientSize.Height, false);
 			g2d = new Graphics2D(g3d.SwapChain.GetBackBuffer<Surface>(0));
-
-			g3d.SwapChain.SetFullscreenState(true, null);
 
 			bitmap = g2d.LoadBitmap("pic_test.png");
 

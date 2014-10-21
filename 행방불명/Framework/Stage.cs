@@ -7,17 +7,11 @@ using System.Threading.Tasks;
 namespace 행방불명.Framework
 {
 
-	public class Stage
+	public interface Stage
 	{
-
-		public delegate void UpdateHandler(float delta);
-		public delegate void DrawHandler();
-
-		public event UpdateHandler OnUpdate;
-		public event DrawHandler OnDraw;
-
-		public Stage NextStage { get; set; }
-		public bool HasNext { get; set; }
-
+		void Update(float delta);
+		void Draw(Program program);
+		Stage getNextStage();
+		bool IsEnd();
 	}
 }

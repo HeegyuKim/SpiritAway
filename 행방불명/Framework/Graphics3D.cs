@@ -71,5 +71,10 @@ namespace 행방불명.Framework
 			Utilities.Dispose(ref mContext);
 			Utilities.Dispose(ref mDevice);
 		}
+
+		public void Present()
+		{
+			mSwapChain.Present(0, PresentFlags.None);
+		}
 	}
 }
