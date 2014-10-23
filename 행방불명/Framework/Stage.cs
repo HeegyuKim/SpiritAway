@@ -15,7 +15,7 @@ namespace 행방불명.Framework
 
 		void Update(float delta);
 		
-		void Draw(Program program);
+		void Draw();
 		
 		Stage getNextStage();
 

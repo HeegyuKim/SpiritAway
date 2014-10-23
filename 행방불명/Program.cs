@@ -9,6 +9,7 @@ using SharpDX.Toolkit;
 using System.Windows.Forms;
 using System.Drawing;
 using SharpDX.DXGI;
+using IrrKlang;
 
 namespace 행방불명
 {
@@ -20,14 +21,16 @@ namespace 행방불명
 	 */
 	public class Program
 	{
+		private Form mForm;
 		private Graphics2D g2d;
 		private Graphics3D g3d;
-		private Form mForm;
-
+		private ISoundEngine engine;
+		
 
 		public Graphics2D Graphics2D { get { return g2d; } }
 		public Graphics3D Graphics3D { get { return g3d; } }
 		public Form Form { get { return mForm; } }
+		public ISoundEngine Sound { get { return engine; } }
 
 
 		public Program()

@@ -37,6 +37,10 @@
     <None Include="test.json" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="irrKlang.NET4, Version=1.0.5235.17346, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\IrrKlang\irrKlang.NET4.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Speech, Version=11.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\Microsoft SDKs\Speech\v11.0\Assembly\Microsoft.Speech.dll</HintPath>
@@ -75,8 +79,21 @@
     <Compile Include="Framework\Media.cs" />
     <Compile Include="Framework\MediaLoadingException.cs" />
     <Compile Include="Framework\MediaSource.cs" />
+    <Compile Include="Framework\Scene.cs" />
+    <Compile Include="Framework\SceneEntity.cs" />
     <Compile Include="Framework\Stage.cs" />
+    <Compile Include="Framework\SceneEventArgs.cs" />
+    <Compile Include="Game\Map\Crossroad.cs" />
+    <Compile Include="Game\Entities\SoundEntity.cs" />
+    <Compile Include="Game\Map\Curve.cs" />
+    <Compile Include="Game\Map\GameMap.cs" />
+    <Compile Include="Game\Map\Link.cs" />
+    <Compile Include="Game\Map\Mistery.cs" />
+    <Compile Include="Game\Map\People.cs" />
+    <Compile Include="Game\Map\Portal.cs" />
+    <Compile Include="Game\Map\WaypointReader.cs" />
     <Compile Include="Game\StartStage.cs" />
+    <Compile Include="Game\Map\Waypoint.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup />
