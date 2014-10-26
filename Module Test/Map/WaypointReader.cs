@@ -56,6 +56,11 @@ namespace 행방불명.Game.Map
 
 			switch (type)
 			{
+				case "waypoint":
+					waypoint = new Waypoint(
+						id, x, y);
+
+					break;
 				// 교차로가 추가됨
 				case "crossroad":
 

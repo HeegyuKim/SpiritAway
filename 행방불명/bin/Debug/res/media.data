@@ -1,0 +1,40 @@
+{
+  "bitmaps": {
+    "character_thumbnail": "res/images/maincharacter.png",
+    "time_ui": "res/images/time_baseui.png",
+    "dialog_bg": "res/images/talk_ui.png",
+    "game_map": "res/images/map_base.png",
+    "start_bg": "res/images/main_title.png",
+    "minister": "res/images/minister.png"
+  },
+  "fonts": [
+    {
+      "name": "default10",
+      "family_name": "°íµñ",
+      "size": 10
+    },
+    {
+      "name": "default14",
+      "family_name": "°íµñ",
+      "size": 14
+    },
+    {
+      "name": "default18",
+      "family_name": "°íµñ",
+      "size": 18
+    },
+    {
+      "name": "default",
+      "family_name": "°íµñ",
+      "size": 24
+    },
+    {
+      "name": "default32",
+      "family_name": "°íµñ",
+      "size" : 32
+    }
+    ],
+  "sounds" : {
+    "start_stage_bgm": "res/sounds/dayofchaos.mp3"
+  }
+}

@@ -63,3 +63,4 @@ C:\Users\희규\Documents\Project\행방불명\행방불명\bin\Debug\SharpDX.Di
 C:\Users\희규\Documents\Project\행방불명\행방불명\bin\Debug\AssimpNet.xml
 C:\Users\희규\Documents\Project\행방불명\행방불명\obj\Debug\행방불명.csprojResolveAssemblyReference.cache
 C:\Users\희규\Documents\Project\행방불명\행방불명\bin\Debug\irrKlang.NET4.dll
+D:\Project\행방불명\행방불명\bin\Debug\irrKlang.NET4.dll

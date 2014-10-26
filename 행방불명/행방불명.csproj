@@ -74,6 +74,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Framework\UI\GameView.cs" />
     <Compile Include="Framework\Graphics2D.cs" />
     <Compile Include="Framework\Graphics3D.cs" />
     <Compile Include="Framework\Media.cs" />
@@ -83,17 +84,30 @@
     <Compile Include="Framework\SceneEntity.cs" />
     <Compile Include="Framework\Stage.cs" />
     <Compile Include="Framework\SceneEventArgs.cs" />
-    <Compile Include="Game\Map\Crossroad.cs" />
-    <Compile Include="Game\Entities\SoundEntity.cs" />
-    <Compile Include="Game\Map\Curve.cs" />
+    <Compile Include="Framework\UI\Container.cs" />
+    <Compile Include="Framework\UI\ExitButton.cs" />
+    <Compile Include="Framework\UI\ImageButton.cs" />
+    <Compile Include="Framework\UI\ImageView.cs" />
+    <Compile Include="Framework\UI\Mouse.cs" />
+    <Compile Include="Framework\UI\ScriptView.cs" />
+    <Compile Include="Framework\UI\TextView.cs" />
+    <Compile Include="Framework\UI\TimeView.cs" />
+    <Compile Include="Framework\UI\View.cs" />
+    <Compile Include="Game\Config.cs" />
+    <Compile Include="Game\Map\DialogProcess.cs" />
+    <Compile Include="Game\Process\IProcess.cs" />
+    <Compile Include="Game\Process\ProcessBuilder.cs" />
+    <Compile Include="Game\Map\SelectProcess.cs" />
+    <Compile Include="Game\Process\StartProcess.cs" />
+    <Compile Include="Game\Map\Talking.cs" />
     <Compile Include="Game\Map\GameMap.cs" />
-    <Compile Include="Game\Map\Link.cs" />
-    <Compile Include="Game\Map\Mistery.cs" />
-    <Compile Include="Game\Map\People.cs" />
-    <Compile Include="Game\Map\Portal.cs" />
-    <Compile Include="Game\Map\WaypointReader.cs" />
+    <Compile Include="Game\Map\MapData.cs" />
+    <Compile Include="Game\Player.cs" />
+    <Compile Include="Game\PlayerState.cs" />
+    <Compile Include="Game\PrologStage.cs" />
     <Compile Include="Game\StartStage.cs" />
-    <Compile Include="Game\Map\Waypoint.cs" />
+    <Compile Include="Game\GameStage.cs" />
+    <Compile Include="Game\VoiceControl.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup />

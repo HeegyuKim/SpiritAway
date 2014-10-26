@@ -6,40 +6,98 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.IO;
 using System.Diagnostics;
-
+using SharpDX;
+using SharpDX.Direct2D1;
+using SharpDX.DirectWrite;
 using Newtonsoft.Json.Linq;
+
 
 namespace 행방불명.Framework
 {
-	class Media
+
+	public class Media
 	{
-		private Dictionary<string, object> mDic = new Dictionary<string, object>();
+		Program app;
+		Dictionary<string, Bitmap> bitmapDic;
+		Dictionary<string, TextFormat> formatDic;
 
-		public Media(String mediaUri)
+		
+		public Dictionary<string, Bitmap> BitmapDic { get { return bitmapDic; } }
+		public Dictionary<string, TextFormat> FormatDic { get { return formatDic; } }
+
+
+		public Media(Program app, String mediaUri)
 		{
-			var obj = JObject.Parse(File.ReadAllText(mediaUri));
-			var res = obj.Property("res").Value as JArray;
+			this.app = app;
 
-			if (res == null)
-				throw new MediaLoadingException(mediaUri + " JSON 형식의 파일에서 res 속성을 찾을 수 없습니다.");
+			bitmapDic = new Dictionary<string, Bitmap>();
+			formatDic = new Dictionary<string, TextFormat>();
 
-			foreach(JObject item in res.Children<JObject>())
+			JObject mediaObj = JObject.Parse(File.ReadAllText(mediaUri));
+			JArray formatObjArr = mediaObj["fonts"].Value<JArray>();
+			JObject bitmapObj= mediaObj["bitmaps"].Value<JObject>();
+			JObject soundObj= mediaObj["sounds"].Value<JObject>();
+
+			foreachJson(formatObjArr, AddFormat);
+
+			foreach (var pair in bitmapObj)
 			{
-				string type = item.Property("type").Value.ToString();
-				Console.WriteLine(type + " type items here!");
-				
+				bitmapDic.Add(
+					pair.Key, 
+					app.Graphics2D.LoadBitmap(pair.Value.Value<string>())
+					);
+			}
+			foreach (var pair in soundObj)
+			{
+				var filename = pair.Value.Value<string>();
+				var source = app.Sound.AddSoundSourceFromFile(filename);
+				app.Sound.AddSoundSourceAlias(source, pair.Key);
 			}
 		}
-
-		public object this[string name] {
-			get {
-				return mDic[name];
-			}
-			set {
-				mDic[name] = value;
-			}
+		
+		private delegate void ParseFunc(JObject obj);
+		private void foreachJson(JArray arr, ParseFunc func)
+		{
+			foreach (var obj in arr.Values<JObject>())
+				func(obj);
 		}
 
+		private void AddFormat(JObject format)
+		{
+			string name = format["name"].Value<string>();
+			string familyName = format["family_name"].Value<string>();
+			float size = format["size"].Value<float>();
+
+			var textFormat = new TextFormat (
+				app.Graphics2D.DWriteFactory,
+				familyName,
+				null,
+				FontWeight.Normal,
+				FontStyle.Normal,
+				FontStretch.Normal,
+				size,
+				"ko-kr"
+				);
+
+			formatDic.Add(name, textFormat);
+		}
+
+		~Media()
+		{
+			foreach (var pair in bitmapDic)
+			{
+				var bitmap = pair.Value;
+				Utilities.Dispose(ref bitmap);
+			}
+			foreach (var pair in formatDic)
+			{
+				var format = pair.Value;
+				Utilities.Dispose(ref format);
+			}
+
+			bitmapDic.Clear();
+			formatDic.Clear();
+		}
 
 	}
 }

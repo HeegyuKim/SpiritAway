@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 
@@ -12,9 +13,11 @@ namespace 행방불명.Game.Map
 {
 	public class GameMap
 	{
-		List<Waypoint> _waypointList;
+		List<Waypoint> waypoints;
+		List<Mistery> misteries;
 
-		public List<Waypoint> Waypoints { get { return _waypointList; } }
+		public List<Waypoint> Waypoints { get { return waypoints; } }
+		public List<Mistery> Misteries { get { return misteries; } }
 
 
 
@@ -22,12 +25,9 @@ namespace 행방불명.Game.Map
 		{
 			// 파일에서 읽어옴
 			var text = File.ReadAllText(filename);
-			var json = new JObject(text);
 
-			// 리더를 생성해서 파싱함
-			_waypointList = new List<Waypoint>();
-			var reader = new WaypointReader(_waypointList);
-			reader.Load(json);
+			MapData data = JsonConvert.DeserializeObject<MapData>(text);
+
 		}
 
 
@@ -35,7 +35,7 @@ namespace 행방불명.Game.Map
 		public Waypoint Find(string id)
 		{
 			var result = from waypoint in Waypoints
-				   where waypoint.ID.Equals(id)
+				   where waypoint.Id.Equals(id)
 				   select waypoint;
 			return result.First<Waypoint>();
 		}

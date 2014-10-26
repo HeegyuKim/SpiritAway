@@ -12,6 +12,7 @@ namespace 행방불명.Framework
 	//
 	public interface Stage
 	{
+		void Start();
 
 		void Update(float delta);
 		

@@ -1,0 +1,33 @@
+{
+  "waypoints": [
+    {
+      "id": "begin",
+      "x": 500,
+      "y": 600,
+      "type": "crossroad",
+      "sfx": "sfx/begin.ogg",
+      "links": [
+        {
+          "name": "동쪽",
+          "id": "east_corridor_end"
+        },
+        {
+          "name": "서쪽",
+          "id": "door_clothing_store"
+        }
+        ]
+    },
+    {
+      "id": "east_corridor_end",
+      "x" : 550,
+      "y" : 600,
+      "type": "waypoint"
+    },
+    {
+      "id": "dorr_clothing_store",
+      "x": 450,
+      "y": 600,
+      "type": "people"
+    }
+    ]
+}

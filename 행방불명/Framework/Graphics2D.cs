@@ -109,6 +109,22 @@ namespace 행방불명.Framework
 		{
 			return new TextFormat(mFacDw, familyName, size);
 		}
-		
+
+		RectangleF rect = new RectangleF();
+
+		public void Draw(SharpDX.Direct2D1.Bitmap bitmap, float x, float y,
+			float opacity = 1, 
+			SharpDX.Direct2D1.BitmapInterpolationMode mode = SharpDX.Direct2D1.BitmapInterpolationMode.Linear)
+		{
+			rect.X = x;
+			rect.Y = y;
+			rect.Size = bitmap.Size;
+			mRt.DrawBitmap(
+				bitmap,
+				rect,
+				opacity,
+				mode
+				);
+		}
 	}
 }
