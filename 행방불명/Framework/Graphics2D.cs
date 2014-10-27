@@ -113,11 +113,26 @@ namespace 행방불명.Framework
 		RectangleF rect = new RectangleF();
 
 		public void Draw(SharpDX.Direct2D1.Bitmap bitmap, float x, float y,
-			float opacity = 1, 
+			float opacity = 1,
 			SharpDX.Direct2D1.BitmapInterpolationMode mode = SharpDX.Direct2D1.BitmapInterpolationMode.Linear)
 		{
 			rect.X = x;
 			rect.Y = y;
+			rect.Size = bitmap.Size;
+			mRt.DrawBitmap(
+				bitmap,
+				rect,
+				opacity,
+				mode
+				);
+		}
+		
+		public void DrawCenter(SharpDX.Direct2D1.Bitmap bitmap, float cx, float cy,
+			float opacity = 1, 
+			SharpDX.Direct2D1.BitmapInterpolationMode mode = SharpDX.Direct2D1.BitmapInterpolationMode.Linear)
+		{
+			rect.X = cx - bitmap.Size.Width / 2;
+			rect.Y = cy - bitmap.Size.Height / 2;
 			rect.Size = bitmap.Size;
 			mRt.DrawBitmap(
 				bitmap,

@@ -30,8 +30,6 @@ namespace 행방불명.Game.Process
 
 		public void Start()
 		{
-			Console.WriteLine("StartProcess started. to " + moveTo.Id);
-			player.StartTo(moveTo);
 		}
 
 		public void Update(float delta)
@@ -41,8 +39,8 @@ namespace 행방불명.Game.Process
 
 		public void End()
 		{
-
-
+			Console.WriteLine("StartProcess started. to " + moveTo.Id);
+			player.StartTo(moveTo);
 		}
 
 		public bool IsEnded()

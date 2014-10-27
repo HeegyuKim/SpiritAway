@@ -32,6 +32,13 @@ namespace 행방불명.Game
 		public Waypoint MoveTo { get { return moveTo; } }
 		public PlayerState State { get; set; }
 
+		public int NumObtained { get; set; }
+		public int NumPatients { get; set; }
+		public bool HasHammer { get; set; }
+		public bool HasKey { get; set; }
+		public int NumMedicalKits { get; set; }
+
+
 		public bool IsArrived
 		{
 			get
@@ -57,6 +64,12 @@ namespace 행방불명.Game
 
 		public Player(Waypoint at)
 		{
+			NumMedicalKits = 0;
+			NumPatients = 0;
+			NumObtained = 0;
+			HasHammer = false;
+			HasKey = false;
+
 			State = PlayerState.Arrived;
 			moveTo = at;
 			moveFrom = at;
@@ -71,6 +84,11 @@ namespace 행방불명.Game
 
 		public void StartTo(Waypoint moveFrom, Waypoint moveTo)
 		{
+			Console.WriteLine("Player is starting movement from {0} to {1}",
+				moveFrom.Id,
+				moveTo.Id
+				);
+
 			movedDistance = 0;
 
 			this.moveFrom = moveFrom;
@@ -96,8 +114,6 @@ namespace 행방불명.Game
 
 		public void Move(float d)
 		{
-			if (!IsMoving) return;
-
 			movedDistance += d;
 			if (movedDistance >= distance)
 			{

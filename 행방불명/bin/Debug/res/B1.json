@@ -1,0 +1,1866 @@
+
+{
+	"background": "map_base.png",
+	"player_position": "lecture_room_door",
+	"waypoints": [
+	
+	
+		{
+			"id": "lecture_room_door",
+			"x": 3274,
+			"y": 1185,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "lecture_room_corridor_end",
+					"name": "동쪽 복도 끝으로가"
+				},
+				{
+					"id": "exit_door_locked",
+					"name": "남쪽 비상구로가",
+					"required": "key"
+				},
+				{
+					"id": "cloth_store_door",
+					"name": "서쪽으로 가"					
+				},
+				{
+					"id": "lecture_room_center",
+					"name": "북쪽 문으로 들어가"					
+				}
+			]
+		},
+		{
+			"id": "lecture_room_corridor_end",
+			"x": 3772,
+			"y": 1189,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "lecture_room_door",
+					"name": "돌아가"
+				}
+			]
+		},
+		{
+			"id": "lecture_room_center",
+			"x": 3272,
+			"y": 1054,
+			"type": "curve",
+			"link1": "lecture_room_door",
+			"link2": "lecture_room_right_bottom"
+		},
+		{
+			"id": "lecture_room_right_bottom",
+			"x": 3770,
+			"y": 1055,
+			"type": "curve",
+			"link1": "lecture_room_center",
+			"link2": "lecture_room_right_top"
+		},
+		{
+			"id": "lecture_room_right_top",
+			"x": 3770,
+			"y": 780,
+			"type": "curve",
+			"link1": "lecture_room_right_bottom",
+			"link2": "lecture_room_office_door"
+		},
+		{
+			"id": "lecture_room_office_door",
+			"x": 3874,
+			"y": 770,
+			"type": "curve",
+			"link1": "lecture_room_right_top",
+			"link2": "office_backdoor"
+		},
+		{
+			"id": "office_backdoor",
+			"x": 3869,
+			"y": 704,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "warehouse_backdoor_people",
+					"name": "문을 열고 들어가.",
+					"required": "key"
+				},
+				{
+					"id": "lecture_room_office_door",
+					"name": "돌아가."
+				}
+			]
+		},
+		
+		
+		
+		{
+			"id": "exit_door_locked",
+			"type": "curve",
+			"x": 3309,
+			"y": 1233,
+			"link1": "lecture_room_door",
+			"link2": "exit_corner1"
+		},
+		{
+			"id": "exit_corner1",
+			"type": "crossroad",
+			"x": 3320,
+			"y": 1726,
+			"link1": "exit_door_locked",
+			"link2": "exit"
+		},
+		{
+			"id": "exit",
+			"type": "portal",
+			"value": "clear",
+			"x": 3671,
+			"y": 1726
+		},
+		
+		
+		{
+			"id": "cloth_store_door",
+			"x": 2750,
+			"y": 1189,
+			"type": "crossroad",
+			"links": [
+				{
+					"id":"cloth_store_corner",
+					"name": "서쪽 통로로 가"
+				},
+				{
+					"id": "cloth_store_center",
+					"name": "남쪽 문으로 들어가"
+				},
+				{
+					"id": "lecture_room_door",
+					"name": "동쪽으로 가"
+				}
+			]
+		},
+		{
+			"id": "cloth_store_corner",
+			"x": 2670,
+			"y": 1189,
+			"type": "curve",
+			"link1": "cloth_store_door",
+			"link2": "cloth_store_corridor_end"
+		},
+		{
+			"id": "cloth_store_center",
+			"x": 2752,
+			"y": 1513,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "cloth_store_warehouse_front",
+					"name": "동쪽 옷창고로 가"
+				},
+				{
+					"id": "cloth_store_dressing_room_door",
+					"name": "서남쪽 탈의실로 가"
+				},
+				{
+					"id": "cloth_store_door",
+					"name": "북쪽 문으로 나가"
+				}
+			]
+		},
+		{
+			"id": "cloth_store_dressing_room_door",
+			"x": 2639,
+			"y": 1659,
+			"type": "curve",
+			"link1": "cloth_store_dressing_room",
+			"link2": "cloth_store_center"
+		},
+		{
+			"id": "cloth_store_dressing_room",
+			"x": 2523,
+			"y": 1650,
+			"type": "people",
+			"obtained": 1,
+			"patients": 0,
+			"next": "cloth_store_dressing_room_door"
+		},
+		{
+			"id": "cloth_store_warehouse_front",
+			"x": 3062,
+			"y": 1590,
+			"type": "curve",
+			"link1": "cloth_store_center",
+			"link2": "cloth_store_warehouse_grandpa"
+		},
+		{
+			"id": "cloth_store_warehouse_grandpa",
+			"x": 3062,
+			"y": 1483,
+			"type": "people",
+			"next": "cloth_store_warehouse_front",
+			"obtained": 1,
+			"patients": 1
+		},
+		
+		
+		{
+			"id": "cloth_store_corridor_end",
+			"x": 2672,
+			"y": 812,
+			"type" : "crossroad",
+			"links": [
+				{
+					"id": "library_front",
+					"name": "서쪽"
+				},
+				{
+					"id": "cloth_store_corner",
+					"name": "남쪽"
+				},
+				{
+					"id": "pcroom_front",
+					"name": "북쪽"
+				}
+			]
+		},
+		{
+			"id": "aquarium_couple",
+			"x": 2426,
+			"y": 571,
+			"type" :"people",
+			"obtained": 2,
+			"patients": 1,
+			"links": [
+				{
+					"id": "parkour_room_front",
+					"name": "북동쪽"
+				},
+				{
+					"id": "utility_top_right",
+					"name": "북서쪽"
+				},
+				{
+					"id": "library_front",
+					"name": "남쪽"
+				}
+			]
+		},
+		{
+			"id": "aquarium_bottom_left",
+			"x": 2150,
+			"y": 815,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "utility_bottom_left",
+					"name": "서쪽"
+				},
+				{
+					"id": "utility_top_right",
+					"name": "북쪽"
+				},
+				{
+					"id": "library_front",
+					"name": "동쪽"
+				}
+			]
+		},
+		{
+			"id": "library_front",
+			"x": 2530,
+			"y": 815,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "aquarium_bottom_left",
+					"name": "서쪽"
+				},
+				{
+					"id": "aquarium_couple",
+					"name": "북쪽"
+				},
+				{
+					"id": "cloth_store_corridor_end",
+					"name": "동쪽"
+				},
+				{
+					"id": "library_guard_front",
+					"name": "남쪽"
+				}
+			]
+		},
+
+
+		
+		
+		{
+			"id": "pcroom_front",
+			"x": 2660,
+			"y": 485,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "parkour_room_front",
+					"name": "서쪽으로 가"
+				},
+				{
+					"id": "pcroom_corridor_end",
+					"name": "북쪽 복도로 가"
+				},
+				{
+					"id": "parkour_room_left",
+					"name": "동쪽 문으로 가"
+				}
+			]
+		},
+		{
+			"id": "pcroom_corridor_end",
+			"x": 2660,
+			"y": 118,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "pcroom_front",
+					"name": "돌아가"
+				}
+			]
+		},
+		{
+			"id": "pcroom_left",
+			"x": 2787,
+			"y": 491,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "pcroom_front",
+					"name": "서쪽 문 밖으로 나가"
+				},
+				{
+					"id": "pcroom_bottom",
+					"name": "동남쪽으로 돌아가"
+				},
+				{
+					"id": "pcroom_bottom",
+					"name": "동북쪽으로 돌아가"
+				}
+			]
+		},
+		{
+			"id": "pcroom_bottom",
+			"x": 2973,
+			"y": 647,
+			"type": "curve",
+			"link1": "pcroom_left",
+			"link2": "pcroom_right"
+		},
+		{
+			"id": "pcroom_right",
+			"x": 3194,
+			"y": 487, 
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "pcroom_top",
+					"name": "서북쪽으로 돌아가"
+				},
+				{
+					"id": "pcroom_bottom",
+					"name": "서남쪽으로 돌아가"
+				},
+				{
+					"id": "warehouse_left_bottom",
+					"name": "동쪽으로 가"
+				}
+			]
+		},
+		{
+			"id": "pcroom_top",
+			"x": 2969,
+			"y": 346,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "pcroom_left",
+					"name": "서남쪽으로 돌아가"
+				},
+				{
+					"id": "pcroom_right",
+					"name": "동남쪽으로 돌아가"
+				},
+				{
+					"id": "musicroom",
+					"name": "북쪽으로 가"
+				}
+			]
+		},
+		{
+			"id": "musicroom",
+			"x": 2969,
+			"y": 200,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "musicroom_right",
+					"name": "동쪽으로 가"
+				},
+				{
+					"id": "pcroom_top",
+					"name": "남쪽으로 가"
+				}
+			] 
+		},
+		{
+			"id": "musicroom_right",
+			"x": 3259,
+			"y": 168,
+			"type": "curve",
+			"link1": "musicroom",
+			"link2": "warehouse_left_top"
+		},
+		
+		
+		{
+			"id": "warehouse_left_top",
+			"x": 3486,
+			"y": 168,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "musicroom_right",
+					"name": "서쪽으로 가"
+				},
+				{
+					"id": "warehouse_left_bottom",
+					"name": "남쪽으로 가"
+				},
+				{
+					"id": "warehouse_alley1",
+					"name": "동남쪽으로 가"
+				}
+			]
+		},
+		{
+			"id": "warehouse_alley1",
+			"x": 3681,
+			"y": 248,
+			"type": "curve",
+			"link1": "warehouse_left_top",
+			"link2": "warehouse_alley2"
+		},
+		{
+			"id": "warehouse_alley2",
+			"x": 3681,
+			"y": 312,
+			"type": "curve",
+			"link1": "warehouse_alley1",
+			"link2": "warehouse_right_top"
+		},
+		{
+			"id": "warehouse_left_bottom",
+			"x": 3481,
+			"y": 471,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "pcroom_right",
+					"name": "서쪽으로 가"
+				},
+				{
+					"id": "warehouse_left_top",
+					"name": "북쪽으로 가"
+				},
+				{
+					"id": "pcroom_right",
+					"name": "서쪽으로 가"
+				}
+			]
+		},
+		{
+			"id": "warehouse_backdoor_front",
+			"x": 3872,
+			"y": 495,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "warehouse_right_top",
+					"name": "북쪽으로 가"
+				},
+				{
+					"id": "warehouse_left_bottom",
+					"name": "서쪽으로 가"
+				},
+				{
+					"id": "warehouse_backdoor_people",
+					"name": "남쪽으로 가"
+				}
+			]
+		},
+		{
+			"id": "warehouse_right_top",
+			"x": 3872,
+			"y": 311,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "warehouse_alley2",
+					"name": "서쪽으로 가"
+				},
+				{
+					"id": "warehouse_backdoor_front",
+					"name": "남쪽으로 가"
+				}
+			]
+		},
+		{
+			"id": "warehouse_backdoor_people",
+			"x": 3866,
+			"y": 627,
+			"type": "people",
+			"obtained": 1,
+			"patients": 1,
+			"links": [
+				{
+					"id": "warehouse_backdoor_front",
+					"name": "북쪽으로 가"
+				},
+				{
+					"id": "office_backdoor",
+					"name": "남쪽문을 지나서 가",
+					"required": "key"
+				}
+			]
+		},
+		
+		
+		{
+			"id": "library_guard_front",
+			"x": 2534,
+			"y": 924,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "library_front",
+					"name": "북쪽 문으로 나가"
+				},
+				{
+					"id": "library_guard_inside",
+					"name": "서쪽 경비실로 들어가"
+				},
+				{
+					"id": "library_right",
+					"name": "남쪽으로 가"
+				}
+			]
+		},
+		{
+			"id": "library_guard_inside",
+			"x": 2376,
+			"y": 924,
+			"type": "medical_kit",
+			"next": "library_guard_front"
+		},
+		{
+			"id": "library_right",
+			"x": 2534,
+			"y": 1055,
+			"type": "curve",
+			"link1": "library_guard_front",
+			"link2": "library_reading_room_front"
+		},
+		{
+			"id": "library_reading_room_front",
+			"x": 2442,
+			"y": 1165,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "library_right",
+					"name": "북쪽으로 가"
+				},
+				{
+					"id": "library_center",
+					"name": "서쪽으로 가"
+				},
+				{
+					"id": "library_reading_room_center",
+					"name": "남쪽 문으로 들어가"
+				}
+			]
+		},
+		{
+			"id": "library_reading_room_center",
+			"x": 2430,
+			"y": 1336,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "library_reading_room_front",
+					"name": "북쪽 문으로 나가"
+				},
+				{
+					"id": "library_reading_room_left",
+					"name": "서쪽으로 가"
+				},
+				{
+					"id": "library_reading_room_right_top",
+					"name": "동북쪽으로 가"
+				}
+			]
+		},
+		{
+			"id": "library_reading_room_left",
+			"x": 2277,
+			"y": 1406,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "library_reading_room_left_bottom",
+					"name": "남쪽 문으로 들어가"
+				},
+				{
+					"id": "library_reading_room_center",
+					"name": "동북쪽 문으로 들어가"
+				}
+			]
+		},
+		{
+			"id": "library_reading_room_right_top",
+			"x": 2609,
+			"y": 1284,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "library_reading_room_center",
+					"name": "서쪽으로 가"
+				},
+				{
+					"id": "library_reading_room_right_bottom",
+					"name": "남쪽으로 가"
+				}
+			]
+		},
+		{
+			"id": "library_reading_room_right_bottom",
+			"x": 2609,
+			"y": 1508,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "library_reading_room_left_bottom",
+					"name": "서쪽으로 가"
+				},
+				{
+					"id": "library_reading_room_right_top",
+					"name": "북쪽으로 가"
+				}
+			]
+		},
+		{
+			"id": "library_reading_room_left_bottom",
+			"x": 2253,
+			"y": 1508,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "library_reading_room_right_bottom",
+					"name": "동쪽으로 가"
+				},
+				{
+					"id": "library_reading_room_left",
+					"name": "북쪽으로 가"
+				}
+			]
+		},
+		{
+			"id": "library_center",
+			"x": 1948,
+			"y": 1195,
+			"type": "crossroad"
+		},
+		
+		
+		{
+			"id": "parkour_room_front",
+			"x": 2498,
+			"y": 490,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "pcroom_front",
+					"name": "동쪽으로 가"					
+				},
+				{
+					"id": "aquarium_couple",
+					"name": "남서쪽으로 가"					
+				},
+				{
+					"id": "parkour_room3",
+					"name": "북쪽 문으로 들어가"					
+				}
+			]
+		},
+		{
+			"id": "parkour_room3",
+			"x": 2510,
+			"y": 264,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "pcroom_front",
+					"name": "남쪽으로 나가"					
+				},
+				{
+					"id": "parkour_room2",
+					"name": "서쪽으로 가"					
+				}
+			]
+		},
+		{
+			"id": "parkour_room2",
+			"x": 2224,
+			"y": 264,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "parkour_room3",
+					"name": "동쪽으로 가"					
+				},
+				{
+					"id": "parkour_room_1to2_door",
+					"name": "서쪽으로 가"					
+				}
+			]
+		},
+		{
+			"id": "parkour_room_1to2_door",
+			"x": 2087,
+			"y": 208,
+			"type": "curve",
+			"link1": "parkour_room1",
+			"link2": "parkour_room2"
+		},
+		{
+			"id": "parkour_room1",
+			"x": 1977,
+			"y": 218,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "parkour_room_1to2_door",
+					"name": "동쪽으로 가"					
+				},
+				{
+					"id": "parkour_room1_front",
+					"name": "남쪽으로 나가"					
+				}
+			]
+		},
+		{
+			"id": "parkour_room1_front",
+			"x": 1966,
+			"y": 414,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "parkour_room1",
+					"name": "북쪽 문으로 들어가"
+				},
+				{
+					"id": "utility_top_left",
+					"name": "서남쪽으로 가"
+				},
+				{
+					"id": "utility_top_right",
+					"name": "동남쪽으로 가"
+				}
+			]
+		},
+		
+		
+		{
+			"id": "utility_top_left",
+			"x": 1785,
+			"y": 504,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "parkour_room1_front",
+					"name": "동북쪽으로 가"
+				},
+				{
+					"id": "utility_bottom_left",
+					"name": "서남쪽으로 가"
+				}
+			]
+		},
+		{
+			"id": "utility_top_right",
+			"x": 2178,
+			"y": 481,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "utility_medical_kit_front",
+					"name": "서남쪽 통로로 가"
+				},
+				{
+					"id": "aquarium_bottom_left",
+					"name": "남쪽으로 가"
+				},
+				{
+					"id": "aquarium_couple",
+					"name": "동남쪽으로 가"
+				},
+				{
+					"id": "parkour_room1_front",
+					"name": "서북쪽으로 가"
+				}
+			]
+		},
+		{
+			"id": "utility_hammer_front",
+			"x": 1872,
+			"y": 678,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "utility_hammer",
+					"name": "북쪽 문으로 들어가"
+				},
+				{
+					"id": "utility_medical_kit_front",
+					"name": "동북쪽으로 가"
+				},
+				{
+					"id": "utility_bottom_left",
+					"name": "서남쪽으로 가"
+				}
+			]
+		},
+		{
+			"id": "utility_medical_kit_front",
+			"x": 1974,
+			"y": 622,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "utiltiy_medical_kit",
+					"name": "동남쪽 문으로 들어가"
+				},
+				{
+					"id": "utility_hammer_front",
+					"name": "서남쪽으로 가"
+				},
+				{
+					"id": "utility_top_right",
+					"name": "동북쪽으로 가"
+				}
+			]
+		},
+		{
+			"id": "utility_bottom_left",
+			"x": 1689,
+			"y": 803,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "kitchen_corridor_start",
+					"name": "남쪽 통로로 가"
+				},
+				{
+					"id": "burgernuri_front",
+					"name": "서쪽으로 가"
+				},
+				{
+					"id": "utility_hammer_front",
+					"name": "동북쪽으로 가"
+				},
+				{
+					"id": "utility_top_left",
+					"name": "북쪽으로 가"
+				},
+				{
+					"id": "aquarium_bottom_left",
+					"name": "동쪽으로 가"
+				}
+			]
+		},
+		{
+			"id": "utiltiy_medical_kit",
+			"type": "medical_kit",
+			"x": 2063,
+			"y": 692,
+			"next": "utility_medical_kit_front"
+		},
+		{
+			"id": "utility_hammer",
+			"type": "hammer",
+			"x": 1860,
+			"y": 576,
+			"next": "utility_hammer_front"
+		},
+		
+		{
+			"id": "kitchen_interior",
+			"x": 1355,
+			"y": 1433,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "kitchen_backdoor",
+					"name": "동쪽 뒷문으로 나가"
+				},
+				{
+					"id": "kitchen_gas_dangerous",
+					"name": "가스를 잠궈"
+				},
+				{
+					"id": "sunflower",
+					"name": "서쪽으로 가"
+				}
+			]
+		},
+		{
+			"id": "kitchen_gas_dangerous",
+			"x": 1255,
+			"y": 1167,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "kitchen_interior",
+					"name": "돌아가"
+				}
+			]
+		},
+		{
+			"id": "kitchen_corridor_start",
+			"x": 1702,
+			"y": 1097,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "utility_bottom_left",
+					"name": "북쪽으로 가"
+				},
+				{
+					"id": "elevator_right_bottom",
+					"name": "서쪽으로 가"
+				},
+				{
+					"id": "kitchen_backdoor",
+					"name": "남쪽 복도로 가"
+				}
+			]
+		},
+		{
+			"id": "kitchen_backdoor",
+			"x": 1702,
+			"y": 1358,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "kitchen_corridor_start",
+					"name": "북쪽으로 가"
+				},
+				{
+					"id": "kitchen_interior",
+					"name": "서쪽 문으로 들어가"
+				},
+				{
+					"id": "kitchen_corridor_end",
+					"name": "남쪽 복도로 가"
+				}
+			]
+		},
+		{
+			"id": "kitchen_corridor_end",
+			"x": 1702,
+			"y": 1512,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "kitchen_backdoor",
+					"name": "돌아가"
+				}
+			]
+		},
+		
+
+
+		{
+			"id": "burgernuri_front",
+			"x": 1425,
+			"y": 807,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "utility_bottom_left",
+					"name": "동쪽으로 가"
+				},
+				{
+					"id": "elevator_right",
+					"name": "서쪽으로 가"
+				},
+				{
+					"id": "burgernuri_interior",
+					"name": "북쪽 문으로 들어가"
+				},
+				{
+					"id": "toilet",
+					"name": "남쪽 화장실로 들어가"
+				}
+			]
+		},
+		{
+			"id": "toilet",
+			"x": 1428,
+			"y": 983,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "burgernuri_front",
+					"name": "북쪽으로 나가"
+				},
+				{
+					"id": "toilet_warehouse",
+					"name": "동쪽 창고로 들어가"
+				}
+			]
+		},
+		{
+			"id": "toilet_warehouse",
+			"x": 1647,
+			"y": 983,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "toilet",
+					"name": "서쪽 화장실로 나가"
+				}
+			]
+		},
+		{
+			"id": "elevator_right",
+			"x": 1251,
+			"y": 807,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "elevator_right_top",
+					"name": "북쪽으로 돌아가"
+				},
+				{
+					"id": "elevator_right_bottom",
+					"name": "남쪽으로 가"
+				},
+				{
+					"id": "burgernuri_front",
+					"name": "동쪽으로 가"
+				}
+			]
+		},
+		{
+			"id": "burgernuri_interior",
+			"x": 1425,
+			"y": 623,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "kiwibrashee_door_locked",
+					"name": "동북쪽으로 가"
+				},
+				{
+					"id": "circular_area",
+					"name": "북쪽으로 가"
+				},
+				{
+					"id": "infodesk_right",
+					"name": "서쪽 문으로 가"
+				},
+				{
+					"id": "burgernuri_front",
+					"name": "남쪽 문으로 나가"
+				}
+			]
+		},
+		{
+			"id": "kiwibrashee_door_locked",
+			"x": 1590,
+			"y": 543,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "kiwibrashee_interior",
+					"name": "건물 안으로 들어가",
+					"required": "hammer"
+				},
+				{
+					"id": "burgernuri_interior",
+					"name": "서남쪽으로 가"
+				}
+			]
+		},
+		{
+			"id": "kiwibrashee_interior",
+			"x": 1697,
+			"y": 390,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "kiwibrashee_door_locked",
+					"name": "서남쪽으로 나가"
+				},
+				{
+					"id": "kiwibrashee_interior_right",
+					"name": "동쪽으로 가"
+				}
+			]
+		},
+		{
+			"id": "kiwibrashee_interior_right",
+			"x": 1797,
+			"y": 352,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "kiwibrashee_interior",
+					"name": "돌아가"
+				}
+			]
+		},
+		{
+			"id": "circular_area",
+			"x": 1426,
+			"y": 414,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "burgernuri_interior",
+					"name": "남쪽으로 나가"
+				},
+				{
+					"id": "guard_center",
+					"name": "북쪽 문으로 들어가"
+				},
+				{
+					"id": "iweb_front",
+					"name": "서북쪽 문으로 가"
+				}
+			]
+		},
+		{
+			"id": "guard_center",
+			"x": 1475,
+			"y": 235,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "circular_area",
+					"name": "남쪽으로 나가"
+				},
+				{
+					"id": "guard_rooms_curve",
+					"name": "동북쪽으로 가"
+				}
+			]
+		},
+		{
+			"id": "guard_rooms_curve",
+			"x": 1646,
+			"y": 200,
+			"type": "curve",
+			"link1": "guard_center",
+			"link2": "guard_rooms_curve"
+		},
+		{
+			"id": "guard_rooms_front",
+			"x": 1646,
+			"y": 140,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "guard_room_right",
+					"name": "동쪽 문으로 들어가"
+				},
+				{
+					"id": "guard_room_left",
+					"name": "서쪽 문으로 들어가"
+				},
+				{
+					"id": "guard_rooms_curve",
+					"name": "남쪽으로 가"
+				}
+			]
+		},
+		{
+			"id": "guard_room_left",
+			"x": 1537,
+			"y": 140,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "guard_rooms_front",
+					"name": "돌아가"
+				}
+			]
+		},
+		{
+			"id": "guard_room_right",
+			"x": 1757,
+			"y": 140,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "guard_rooms_front",
+					"name": "돌아가"
+				}
+			]
+		},
+		
+		{
+			"id": "iweb_front",
+			"x": 1200,
+			"y": 266,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "circular_area",
+					"name": "동남쪽 문으로 나가"
+				},
+				{
+					"id": "iweb_staff",
+					"name": "서쪽으로 가"
+				}
+			]
+		},
+		{
+			"id": "iweb_staff",
+			"x": 318,
+			"y": 280,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "keyroom",
+					"name": "그래"
+				},
+				{
+					"id": "iweb_front",
+					"name": "동쪽으로 가"
+				}
+			]
+		},
+		{
+			"id": "elevator_right_top",
+			"x": 1238,
+			"y": 726,
+			"type": "curve",
+			"link1": "elevator_right",
+			"link2": "elevator_left_top"
+		},
+		{
+			"id": "elevator_left_top",
+			"x": 775,
+			"y": 726,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "elevator_right_top",
+					"name": "동쪽으로 가"
+				},
+				{
+					"id": "elevator_junction",
+					"name": "남쪽으로 가"
+				}
+			]
+		},
+		{
+			"id": "elevator_junction",
+			"x": 805,
+			"y": 1225,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "elevator_left_top",
+					"name": "북쪽으로 가"
+				},
+				{
+					"id": "shattered_exit_way",
+					"name": "서남쪽으로 가"
+				},
+				{
+					"id": "sunflower_alley",
+					"name": "동남쪽으로 가"
+				},
+				{
+					"id": "elevator_door",
+					"name": "동북쪽으로 가"
+				}				
+			]
+		},
+		{
+			"id": "elevator",
+			"x": 892,
+			"y": 1063,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "elevator_door",
+					"name": "나와라"
+				}
+			]
+		},
+		{
+			"id": "elevator_door",
+			"x": 954,
+			"y": 1100,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "elevator_junction",
+					"name": "남서쪽으로 가"
+				},
+				{
+					"id": "elevator_right_bottom",
+					"name": "동쪽으로 가"
+				},
+				{
+					"id": "elevator",
+					"name": "엘리베이터를 타"
+				}
+			]
+		},
+		{
+			"id": "elevator_right_bottom",
+			"x": 1238,
+			"y": 1090,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "elevator_right",
+					"name": "북쪽으로 가"
+				},
+				{
+					"id": "kitchen_corridor_start",
+					"name": "동쪽으로 가"
+				},
+				{
+					"id": "elevator_door",
+					"name": "서쪽으로 가"
+				}
+			]
+		},
+		
+		{
+			"id": "sunflower_alley",
+			"x": 865,
+			"y": 1257,
+			"type": "curve",
+			"link1": "elevator_junction",
+			"link2": "sunflower_alley2"
+		},
+		{
+			"id": "sunflower_alley2",
+			"x": 918,
+			"y": 1396,
+			"type": "people",
+			"obtained": 2,
+			"patients": 0,
+			"links": [
+				{
+					"id": "sunflower_alley",
+					"name": "돌아가"
+				}
+			]
+		},
+		{
+			"id": "sunflower",
+			"x": 886,
+			"y": 1494,		
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "sunflower_bottom",
+					"name": "남쪽으로 가"
+				},
+				{
+					"id": "shattered_exit_junction",
+					"name": "서쪽으로 가"
+				}
+			]
+		},
+		{
+			"id": "sunflower_bottom",
+			"x": 908,
+			"y": 1607,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "sunflower",
+					"name": "북쪽으로 가"
+				}
+			]
+		},
+		
+		{
+			"id": "shattered_exit_way",
+			"x": 690,
+			"y": 1350,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "shattered_exit_junction_way",
+					"name": "서남쪽으로 가"
+				},
+				{
+					"id": "esteregg_crossroad",
+					"name": "서북쪽 문으로 들어가"
+				},
+				{
+					"id": "elevator_junction",
+					"name": "동북쪽으로 가"
+				}
+			]
+		},
+		{
+			"id": "esteregg_crossroad",
+			"x": 623,
+			"y": 1300,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "esteregg_heegyu_way",
+					"name": "서남쪽으로 가"
+				},
+				{
+					"id": "esteregg_sumin_way",
+					"name": "서북쪽 문으로 들어가"
+				},
+				{
+					"id": "shattered_exit_way",
+					"name": "동남쪽으로 가"
+				}
+			]
+		},
+		{
+			"id": "esteregg_heegyu_way",
+			"x": 530,
+			"y": 1365,
+			"type": "curve",
+			"link1": "esteregg_crossroad",
+			"link2": "esteregg_heegyu"
+		},
+		{
+			"id": "esteregg_heegyu",
+			"x": 83,
+			"y": 1365,
+			"type": "people",
+			"obtained": 1,
+			"patients": 0,
+			"links": [
+				{
+					"id": "esteregg_heegyu_way",
+					"name": "돌아가"
+				}
+			]
+		},
+		{
+			"id": "esteregg_sumin_way",
+			"x": 530,
+			"y": 1244,
+			"type": "curve",
+			"link1": "esteregg_crossroad",
+			"link2": "esteregg_top_door"
+		},
+		{
+			"id": "esteregg_sumin",
+			"x": 83,
+			"y": 1244,
+			"type": "people",
+			"obtained": 1,
+			"patients": 0,
+			"links": [
+				{
+					"id": "esteregg_top_door",
+					"name": "돌아가"
+				}
+			]
+		},
+		{
+			"id": "esteregg_top_door",
+			"x": 374,
+			"y": 1244,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "esteregg_sumin",
+					"name": "서쪽으로 가"
+				},
+				{
+					"id": "esteregg_sumin_way",
+					"name": "동쪽으로 가"
+				},
+				{
+					"id": "esteregg_junction",
+					"name": "북쪽 문으로 나가"
+				}
+			]
+		},
+		
+		{
+			"id": "shattered_exit_junction_way",
+			"x": 600,
+			"y": 1427,
+			"type": "curve",
+			"link1": "shattered_exit_junction",
+			"link2": "shattered_exit_way"
+		},
+		{
+			"id": "shattered_exit_junction",
+			"x": 586,
+			"y": 1530,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "shattered_exit",
+					"name": "서쪽 비상구로 가"
+				},
+				{
+					"id": "shattered_exit_junction",
+					"name": "북쪽으로 가"
+				},
+				{
+					"id": "sunflower",
+					"name": "동쪽 문으로 들어가"
+				}
+			]
+		},
+		{
+			"id": "shattered_exit",
+			"x": 126,
+			"y": 1543,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "shattered_exit_junction",
+					"name": "돌아가"
+				}
+			]
+		},
+		
+		{
+			"id": "esteregg_junction",
+			"x": 374,
+			"y": 1138,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "keyroom_front_corner",
+					"name": "북쪽으로 가"
+				},
+				{
+					"id": "keyroom_front_corner",
+					"name": "서쪽 통로로 가"
+				},
+				{
+					"id": "esteregg_top_door",
+					"name": "남쪽 문으로 들어가"
+				}
+			]
+		},
+		{
+			"id": "applepi_junction",
+			"x": 374,
+			"y": 936,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "applepi",
+					"name": "서쪽 문으로 들어가"
+				},
+				{
+					"id": "bluehouse",
+					"name": "동쪽 문으로 들어가"
+				},
+				{
+					"id": "esteregg_junction",
+					"name": "남쪽으로 가"
+				},
+				{
+					"id": "jellypen_junction",
+					"name": "북쪽으로 가"
+				}
+			]
+		},
+		{
+			"id": "jellypen_junction",
+			"x": 374,
+			"y": 687,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "jellypen",
+					"name": "서쪽 문으로 들어가"
+				},
+				{
+					"id": "pyeonyang_left",
+					"name": "북쪽으로 가"
+				},
+				{
+					"id": "applepi_junction",
+					"name": "남쪽으로 가"
+				}
+			]
+		},
+		{
+			"id": "pyeonyang_left",
+			"x": 406,
+			"y": 584,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "jellypen_medkit_right",
+					"name": "북쪽으로 가"
+				},
+				{
+					"id": "jellypen_junction",
+					"name": "남쪽으로 가"
+				},
+				{
+					"id": "infodesk_left",
+					"name": "동쪽으로 가"
+				}
+			]
+		},
+		{
+			"id": "jellypen_medkit_right",
+			"x": 406,
+			"y": 491,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "jellypen_medkit",
+					"name": "서쪽으로 가"
+				},
+				{
+					"id": "pyeonyang_left",
+					"name": "남쪽으로 가"
+				}
+			]
+		},
+		{
+			"id": "jellypen_medkit",
+			"x": 260,
+			"y": 491,
+			"type": "medical_kit",
+			"links": [
+				{
+					"id": "jellypen_medkit_right",
+					"name": "동쪽으로 가"
+				}
+			]
+		},
+		
+		{
+			"id": "infodesk_right",
+			"x": 1210,
+			"y": 560,
+			"type": "curve",
+			"link1": "infodesk",
+			"link2": "burgernuri_interior"
+		},
+		{
+			"id": "infodesk",
+			"x": 970,
+			"y": 560,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "infodesk_left",
+					"name" :"서쪽으로 가"
+				},
+				{
+					"id": "infodesk_right",
+					"name" :"동쪽으로 가"
+				}
+			]
+		},
+		
+		{
+			"id": "infodesk_left",
+			"x": 700,
+			"y": 560,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "pyeongyang_top",
+					"name": "북쪽으로 가"
+				},
+				{
+					"id": "pyeongyang_bottom",
+					"name": "남쪽으로 가"
+				},
+				{
+					"id": "pyeonyang_left",
+					"name": "서쪽으로 가"
+				},
+				{
+					"id": "infodesk",
+					"name": "동쪽으로 가"
+				}
+			]
+		},
+		{
+			"id": "pyeongyang_top",
+			"x": 700,
+			"y": 450,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "infodesk_left",
+					"name": "돌아가"	
+				}
+			]
+		},
+		
+		{
+			"id": "pyeongyang_bottom",
+			"x": 700,
+			"y": 713,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "infodesk_left",
+					"name": "돌아가"	
+				}
+			]
+		},
+		{
+			"id": "bluehouse",
+			"x": 531,
+			"y": 940,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "bluehouse_right",
+					"name": "동쪽 길로 들어가"
+				},
+				{
+					"id": "bluehouse_top",
+					"name": "북쪽 문으로 들어가"
+				}
+			]
+		},
+		{
+			"id": "bluehouse_right",
+			"x": 684,
+			"y": 940,
+			"type": "curve",
+			"link1": "bluehouse",
+			"link2": "bluehouse_right_bottom"
+		},
+		{
+			"id": "bluehouse_right_bottom",
+			"x": 684,
+			"y": 1038,
+			"type": "curve",
+			"link1": "bluehouse_bottom",
+			"link2": "bluehouse_right"
+		},
+		{
+			"id": "bluehouse_bottom",
+			"x": 531,
+			"y": 1038,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "bluehouse_bottom",
+					"name": "돌아가"	
+				}
+			]
+		},
+		{
+			"id": "bluehouse_top",
+			"x": 531,
+			"y": 808,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "bluehouse",
+					"name": "돌아가"	
+				}
+			]
+		},
+		{
+			"id": "applepi",
+			"x": 216,
+			"y": 936,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "applepi_junction",
+					"name": "돌아가"	
+				}
+			]
+		},
+		{
+			"id": "jellypen",
+			"x": 216,
+			"y": 691,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "jellypen_junction",
+					"name": "돌아가"	
+				}
+			]
+		},
+		
+		
+		
+		
+		{
+			"id": "keyroom_front_corner",
+			"x": 90,
+			"y": 1133,
+			"type": "curve",
+			"link1": "esteregg_junction",
+			"link2": "keyroom_front"
+		},
+		{
+			"id": "keyroom_front_corner",
+			"x": 90,
+			"y": 1133,
+			"type": "curve",
+			"link1": "keyroom_front",
+			"link2": "esteregg_junction"
+		},
+		{
+			"id": "keyroom_front",
+			"x": 90,
+			"y": 777,
+			"type": "curve",
+			"link1": "keyroom_front_corner",
+			"link2": "keyroom"
+		},
+		{
+			"id": "keyroom",
+			"x": 80,
+			"y": 300,
+			"type": "key",
+			"links": [
+				{
+					"id": "iweb_staff",
+					"name": "동쪽 출구로 가"
+				},
+				{
+					"id": "keyroom_front",
+					"name": "남쪽으로 가"
+				}
+			]
+		}
+	],
+	
+	"misteries": [
+	
+	]
+}

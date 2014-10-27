@@ -46,6 +46,8 @@ namespace 행방불명
 		public SharpDX.RectangleF RectF { get; private set; }
 		public Media Media { get; private set; }
 
+
+
 		public Program()
 		{
 			mForm = new Form();
@@ -59,11 +61,12 @@ namespace 행방불명
 			engine = new ISoundEngine();
 			control = new VoiceControl();
 			mouse = new Mouse(mForm);
-			config = new Config("res/config.data");
+			config = new Config("res/config.json");
 			RectF = new SharpDX.RectangleF(0, 0, Width, Height);
-			Media = new Media(this, "res/media.data");
+			Media = new Media(this, "res/media.json");
 
-			mCurrStage = new GameStage(this, "res/tutorial.data", null);
+			//mCurrStage = new GameStage(this, "res/tutorial.data", null);
+			mCurrStage = new GameStage(this, "res/B1.json", null);
 			mCurrStage.Start();
 
 			mLastTime = DateTime.Now;

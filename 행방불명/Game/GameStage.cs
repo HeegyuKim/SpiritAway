@@ -36,11 +36,17 @@ namespace 행방불명.Game
 		public ScriptView ScriptView { get { return scriptView; } }
 		public Player Player { get { return player;  } }
 		public MapData Map { get { return map; } }
+		public Program App { get { return app; } }
+		public List<IProcess> Processes { get { return processes; } }
 
 		Container container;
 		ScriptView scriptView;
 		GameView gameView;
 		TimeView timeView;
+		SettingButtons exitBtn;
+		Bitmap playerBitmap;
+		float playerAngle = 0;
+
 
 		public void Start()
 		{
@@ -50,6 +56,8 @@ namespace 행방불명.Game
 			InitUI();
 			LoadMap(mapPath);
 
+			playerBitmap = app.Media.BitmapDic["character"];
+			center = new Vector2(app.Width / 2, app.Height / 2);
 		}
 
 		private void InitUI()
@@ -58,19 +66,14 @@ namespace 행방불명.Game
 			gameView = new GameView(app);
 			scriptView = new ScriptView(app);
 			timeView = new TimeView(app);
-
+			exitBtn = new SettingButtons(app);
 
 			voice = app.VoiceControl;
 			processBuilder = new ProcessBuilder(app, this);
 
-			playerEllipse = new Ellipse(
-				new Vector2(app.Width / 2, app.Height / 2),
-				35,
-				35
-				);
-			brush = new SolidColorBrush(app.Graphics2D.RenderTarget, new Color4(1, 0, 0, 1));
 
 			container.Views.Add(gameView);
+			container.Views.Add(exitBtn);
 			container.Views.Add(scriptView);
 			container.Views.Add(timeView);
 		}
@@ -127,6 +130,10 @@ namespace 행방불명.Game
 
 		public void Update(float delta)
 		{
+			playerAngle += delta * 3.141592f / 4;
+			if (playerAngle > 6.283)
+				playerAngle = 0;
+
 			container.Update(delta);
 			gameView.Center = player.CurrentPosition;
 
@@ -135,6 +142,7 @@ namespace 행방불명.Game
 			{
 				case PlayerState.Arrived:
 					processBuilder.AddProcess(processes, player.MoveTo);
+					currWaypoint.Used = true;
 					player.State = PlayerState.Processing;
 					break;
 
@@ -149,6 +157,7 @@ namespace 행방불명.Game
 						// 다 처리됬으면 없애기
 						if (p.IsEnded())
 						{
+							p.End();
 							processes.RemoveAt(0);
 							if (processes.Count > 0)
 								processes.First().Start();
@@ -159,6 +168,7 @@ namespace 행방불명.Game
 					// 안그러면 현재 웨이포인트에서 무한반복.
 					else
 					{
+						Console.WriteLine("Ended~");
 						ended = true;
 					}
 
@@ -170,8 +180,9 @@ namespace 행방불명.Game
 			}
 		}
 
-		Ellipse playerEllipse;
-		SolidColorBrush brush;
+
+		Matrix3x2 matrix;
+		SharpDX.Vector2 center;
 
 		public void Draw()
 		{
@@ -180,7 +191,15 @@ namespace 행방불명.Game
 			rt.Clear(bg);
 
 			container.Draw();
-			rt.DrawEllipse(playerEllipse, brush);
+
+			float scale = (float)(Math.Sin(playerAngle) / 5 + 1);
+			Matrix3x2.Scaling(scale, scale, ref center, out matrix);
+			matrix *= Matrix3x2.Rotation(playerAngle, center);
+
+			app.Graphics2D.RenderTarget.Transform = matrix;
+			app.Graphics2D.DrawCenter(playerBitmap, app.Width / 2, app.Height / 2);
+			app.Graphics2D.RenderTarget.Transform = Matrix3x2.Identity;
+
 			rt.EndDraw();
 
 			app.Graphics3D.Present();

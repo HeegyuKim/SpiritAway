@@ -14,30 +14,30 @@ namespace 행방불명.Game.Process
 		: IProcess
 	{
 		VoiceControl voice;
+		GameStage stage;
 		ScriptView scriptView;
 		Player player;
 		MapData map;
 		List<Link> links;
-
+		bool ended;
 
 		public SelectProcess(
-			VoiceControl voice, 
-			ScriptView scriptView,
-			Player player, 
-			MapData map,
+			GameStage stage,
 			List<Link> links
 			)
 		{
-			this.voice = voice;
-			this.scriptView = scriptView;
-			this.player = player;
-			this.map = map;
+			this.stage = stage;
+			this.voice = stage.App.VoiceControl;
+			this.scriptView = stage.ScriptView;
+			this.player = stage.Player;
+			this.map = stage.Map;
 			this.links = links;
 		}
 
 
 		public void Start()
 		{
+			ended = false;
 			StringBuilder builder = new StringBuilder();
 			int i = 0;
 
@@ -46,8 +46,10 @@ namespace 행방불명.Game.Process
 				builder.Append(link.Name);
 
 				++i;
-				if (i != links.Count)
-					builder.Append(" 혹은 ");
+				if (i > 0 && i % 2 == 0)
+					builder.Append("\n\t");
+				else if (i != links.Count)
+					builder.Append(",\t\t");
 			}
 
 
@@ -65,7 +67,6 @@ namespace 행방불명.Game.Process
 		}
 
 
-		bool ended = false;
 
 		public void Update(float delta)
 		{
@@ -75,13 +76,49 @@ namespace 행방불명.Game.Process
 				{
 					if (link.Name.Equals(voice.Text))
 					{
-						player.StartTo(map.GetWaypoint(link.Id));
-						ended = true;
+						SelectLink(link);
 					}
 				}
+				if (!ended)
+					voice.Recognize();
 			}
 			else if (!voice.IsRecognizing)
 				voice.Recognize();
+		}
+
+		private void SelectLink(Link link)
+		{
+			if (link.Required != null)
+			{
+				if (link.Required.Equals("key") && !player.HasKey)
+				{
+					Console.WriteLine(link.Name + " 라고 하셨지만 열쇠가 없군요.");
+					var scripts = new List<Script>();
+					scripts.Add(
+						new Script(
+							"이대원",
+							"문이 잠겨있어서 지나갈 수 없습니다.",
+							null
+							)
+						);
+
+					ended = true;
+					var ps = stage.Processes;
+					ps.Add(
+						new DialogProcess(
+							stage.App, 
+							stage.ScriptView, 
+							new Talking(scripts)
+							)
+						);
+					ps.Add(this);
+
+					return;
+				}
+			}
+
+			player.StartTo(map.GetWaypoint(link.Id));
+			ended = true;
 		}
 
 

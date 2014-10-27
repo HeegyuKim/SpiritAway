@@ -45,7 +45,7 @@ namespace 행방불명.Game
 
 		private void InitUI()
 		{
-			btnExit = new ExitButton(app);
+			btnExit = new SettingButtons(app);
 			scriptView = new ScriptView(app);
 			
 			script1 = new Script(
@@ -78,7 +78,7 @@ namespace 행방불명.Game
 		//
 		// GUI ZONE~~~
 		Container container;
-		ExitButton btnExit;
+		SettingButtons btnExit;
 		ScriptView scriptView;
 
 

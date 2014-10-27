@@ -49,6 +49,10 @@ namespace 행방불명.Framework.UI
 					Height
 					);
 
+				var range = new TextRange(0, value.TargetName.Length);
+				targetText.SetFontSize(format.FontSize * 1.3f, range);
+				targetText.SetFontWeight(FontWeight.Bold, range);
+
 				Utilities.Dispose(ref playerText);
 				if (value.PlayerText != null && value.PlayerText.Length != 0)
 				{
@@ -58,6 +62,10 @@ namespace 행방불명.Framework.UI
 						format,
 						Width - 175,
 						100
+						);
+					playerText.SetFontSize(
+						format.FontSize * 0.8f,
+						new TextRange(0, 6)
 						);
 				}
 				script = value;
@@ -107,7 +115,7 @@ namespace 행방불명.Framework.UI
 			var g2d = app.Graphics2D;
 			var rt = app.Graphics2D.RenderTarget;
 
-			float bgY = app.Height - bg.Size.Height;
+			float bgY = app.Height - 230;
 			g2d.Draw(bg, 150, app.Height - bg.Size.Height);
 			g2d.Draw(playerThumbnail, 0, app.Height - playerThumbnail.Size.Height);
 
@@ -120,7 +128,7 @@ namespace 행방불명.Framework.UI
 				rt.DrawTextLayout(pos, targetText, brush);
 
 			pos.X += 100;
-			pos.Y += 100;
+			pos.Y += 90;
 			if (playerText != null)
 				rt.DrawTextLayout(pos, playerText, brush);
 		}

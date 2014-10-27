@@ -34,7 +34,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="test.json" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="irrKlang.NET4, Version=1.0.5235.17346, Culture=neutral, processorArchitecture=x86">
@@ -85,7 +84,7 @@
     <Compile Include="Framework\Stage.cs" />
     <Compile Include="Framework\SceneEventArgs.cs" />
     <Compile Include="Framework\UI\Container.cs" />
-    <Compile Include="Framework\UI\ExitButton.cs" />
+    <Compile Include="Framework\UI\SettingButtons.cs" />
     <Compile Include="Framework\UI\ImageButton.cs" />
     <Compile Include="Framework\UI\ImageView.cs" />
     <Compile Include="Framework\UI\Mouse.cs" />

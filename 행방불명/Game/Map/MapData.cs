@@ -15,6 +15,9 @@ namespace 행방불명.Game.Map
 
 		[JsonProperty(PropertyName = "name")]
 		public string Name;
+
+		[JsonProperty(PropertyName = "required")]
+		public string Required;
 	}
 
 	public class Script
@@ -29,14 +32,23 @@ namespace 행방불명.Game.Map
 		public string PlayerText;
 
 		[JsonProperty(PropertyName = "sfx")]
-		public string sfx;
+		public string Sfx;
 
 		public Script(string targetName, string targetText, string playerText)
 		{
 			TargetName = targetName;
 			TargetText = targetText;
 			PlayerText = playerText;
-			sfx = null;
+			Sfx = null;
+		}
+
+		public Script(string targetName, string targetText, string playerText,
+			string sfx)
+		{
+			TargetName = targetName;
+			TargetText = targetText;
+			PlayerText = playerText;
+			Sfx = sfx;
 		}
 	}
 
@@ -82,6 +94,12 @@ namespace 행방불명.Game.Map
 		[JsonProperty(PropertyName = "patients")]
 		public int NumPatients;
 
+		public bool Used;
+
+		public Waypoint()
+		{
+			Used = false;
+		}
 	}
 
 
