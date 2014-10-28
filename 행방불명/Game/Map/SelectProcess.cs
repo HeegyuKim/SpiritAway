@@ -117,7 +117,10 @@ namespace 행방불명.Game.Process
 					}
 				}
 				if (!ended)
+				{
+					Console.WriteLine(voice.Text + "에 알맞는 연결구를 찾을 수 없네요. ");
 					voice.Recognize();
+				}
 			}
 			else if (!voice.IsRecognizing)
 				voice.Recognize();
@@ -186,14 +189,23 @@ namespace 행방불명.Game.Process
 					Waypoint waypoint = map.GetWaypoint(link.Id);
 
 					var ps = stage.Processes;
-					if (waypoint.Used)
+					if (!waypoint.Used)
 					{
 						var scripts = new List<Script>();
 						scripts.Add(
 							new Script(
 								"이대원",
-								"망치로 문을 부수겠습니다.",
-								null
+								"길이 막혀있어서 지나갈 수 없습니다.",
+								"망치로 부숴",
+								"blocked"
+								)
+							);
+						scripts.Add(
+							new Script(
+								"",
+								"쾅!",
+								null,
+								"crash"
 								)
 							);
 
@@ -205,17 +217,19 @@ namespace 행방불명.Game.Process
 								new Talking(scripts)
 								)
 							);
+						ps.Add(
+							new StartProcess(
+								stage,
+								link.Id
+								)
+							);
+						return;
 					}
-
-					ps.Add (
-						new StartProcess(
-							stage,
-							link.Id
-							)
-						);
+					
 				}
 			}
 
+			Console.WriteLine("select link " + link.Id);
 			player.StartTo(map.GetWaypoint(link.Id));
 			ended = true;
 		}

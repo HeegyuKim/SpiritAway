@@ -1,7 +1,7 @@
 
 {
 	"background": "map_base.png",
-	"player_position": "cloth_store_corridor_end",
+	"player_position": "kiwibrashee_door_locked",
 	"waypoints": [
 	
 	
@@ -82,12 +82,12 @@
 			"links": [
 				{
 					"id": "warehouse_backdoor_people",
-					"name": "문을 열고 들어가.",
+					"name": "문을 열고 들어가",
 					"required": "key"
 				},
 				{
 					"id": "lecture_room_office_door",
-					"name": "돌아가."
+					"name": "돌아가"
 				}
 			]
 		},
@@ -529,6 +529,13 @@
 			"type": "people",
 			"obtained": 1,
 			"patients": 1,
+			"scripts": [
+				{
+					"target_name": "창고직원",
+					"target_text": "감사합니다. 덕분에 살았어요",
+					"sfx": "warehouse_thanks"
+				}
+			],
 			"links": [
 				{
 					"id": "warehouse_backdoor_front",
@@ -1186,7 +1193,7 @@
 			"links": [
 				{
 					"id": "kiwibrashee_interior",
-					"name": "건물 안으로 들어가",
+					"name": "동북쪽 문으로 들어가",
 					"required": "hammer"
 				},
 				{
@@ -2134,6 +2141,7 @@
 	],
 
 	"choices": [
-		"가스벨브를 잠궈"
+		"가스벨브를 잠궈",
+		"망치로 부숴"
 	]
 }

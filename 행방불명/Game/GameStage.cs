@@ -106,7 +106,7 @@ namespace 행방불명.Game
 
 		private void InitUI(GameStageOptions options)
 		{
-			//player.HasHammer = true;
+			player.HasHammer = true;
 			//player.HasKey = true;
 			//player.NumMedicalKits = 5;
 

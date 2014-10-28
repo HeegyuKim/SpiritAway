@@ -46,6 +46,8 @@
     }
     ],
   "sounds" : {
+  	"crash": "res/sounds/sfx/crash.wav",
+    
     "start_stage_bgm": "res/sounds/dayofchaos.mp3",
     "prolog1": "res/sounds/prolog/1. 으으으2.wav",
     "prolog2": "res/sounds/prolog/2. 3소대 이수민입니다.wav",
@@ -78,6 +80,10 @@
 
     "chef_check_gas_please": "res/sounds/survivors/요리사 주변에 가스밸브.ogg",
     "chef_check_gas": "res/sounds/survivors/요리사 가스밸브가 열려잇.ogg",
-    "chef_check_gas_complete": "res/sounds/survivors/요리사 잠겼습니다 어서 빠져.ogg"
+    "chef_check_gas_complete": "res/sounds/survivors/요리사 잠겼습니다 어서 빠져.ogg",
+
+
+    "warehouse_thanks": "res/sounds/survivors/창고_감사합니다 덕분에살았어요.ogg",
+    "warehouse_relief": "res/sounds/survivors/창고_도와주세요 거기 아무도없어요.ogg"
   }
 }

@@ -110,8 +110,6 @@ namespace 행방불명.Game
 
 		~StartStage()
 		{
-			if(bgm != null)
-				bgm.Stop();
 		}
 
 
@@ -158,8 +156,6 @@ namespace 행방불명.Game
 			{
 				Console.WriteLine("시자악~");
 				fadingIn = true;
-				if (bgm != null)
-					bgm.Stop();
 			}
 			else if (!voice.IsRecognizing)
 			{

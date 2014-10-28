@@ -141,7 +141,12 @@ namespace 행방불명.Game
 
 		public Stage getNextStage()
 		{
-			return new GameStage(app, "res/tutorial.data", new StartStage(app));
+			var next = new GameStage(
+					app,
+					"res/B1.json",
+					new StartStage(app)
+				);
+			return new GameStage(app, "res/tutorial.json", next);
 		}
 
 		public bool IsEnded()
