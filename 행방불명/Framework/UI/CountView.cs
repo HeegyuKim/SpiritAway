@@ -19,7 +19,7 @@ namespace 행방불명.Framework.UI
 		Bitmap ui, holder, medipack, key, hammer;
 		Player player;
 		SolidColorBrush brush;
-
+		Color4 white, black;
 
 		public CountView(Program app, Player player)
 		{
@@ -33,6 +33,8 @@ namespace 행방불명.Framework.UI
 			this.medipack = app.Media.BitmapDic["medipack"];
 			this.player = player;
 
+			white = new Color4(1, 1, 1, 1);
+			black = new Color4(0, 0, 0, 1);
 
 			rect = new RectangleF(0, 0, app.Width, app.Height);
 			Draw += DrawView;
@@ -41,10 +43,6 @@ namespace 행방불명.Framework.UI
 
 		private void DrawView()
 		{
-
-			NumberAt(player.NumObtained, 880, 5);
-			NumberAt(player.NumDead, 975, 5);
-			NumberAt(player.NumPatients, 950, 55);
 
 			DrawAtRight(ui, 0, 0);
 
@@ -59,6 +57,16 @@ namespace 행방불명.Framework.UI
 			DrawAtRight(holder, 0, 320);
 			if (player.HasKey)
 				DrawAtRight(key, 20, 337);
+
+			brush.Color = white;
+			NumberAt(player.NumObtained, 880, 5);
+			NumberAt(player.NumDead, 975, 5);
+			NumberAt(player.NumPatients, 950, 55);
+
+
+			brush.Color = black;
+			if (player.NumMedicalKits > 0)
+				NumberAt(player.NumMedicalKits, app.Width - 50, 125);
 		}
 
 		private void DrawAtRight(Bitmap bitmap, float x, float y)

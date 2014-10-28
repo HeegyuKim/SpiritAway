@@ -16,6 +16,20 @@ using Microsoft.Speech.Recognition;
 
 namespace 행방불명.Game
 {
+	public class GameObject
+	{
+		public float x, y;
+		public Bitmap bitmap;
+		public string key;
+
+		public GameObject(float x, float y, string key, Bitmap bitmap)
+		{
+			this.x = x;
+			this.y = y;
+			this.key = key;
+			this.bitmap = bitmap;
+		}
+	}
 
 	public class GameStage : Stage
 	{
@@ -24,6 +38,7 @@ namespace 행방불명.Game
 		Stage next;
 		string mapPath;
 		GameStageOptions options;
+		List<GameObject> objects;
 
 		public GameStage(
 			Program app,
@@ -70,8 +85,8 @@ namespace 행방불명.Game
 		TimeView timeView;
 		CountView countView;
 		SettingButtons exitBtn;
-		Bitmap playerBitmap;
-		float playerAngle = 0;
+		Bitmap playerBitmap, ping;
+		float playerAngle = 0, pingDelta = 0;
 
 
 		public void Start()
@@ -79,6 +94,8 @@ namespace 행방불명.Game
 			Console.WriteLine(mapPath + " Game Stage started.");
 
 			playerBitmap = app.Media.BitmapDic["character"];
+			ping = app.Media.BitmapDic["ping"];
+
 			center = new Vector2(app.Width / 2, app.Height / 2);
 			voice = app.VoiceControl;
 			processBuilder = new ProcessBuilder(app, this);
@@ -89,9 +106,9 @@ namespace 행방불명.Game
 
 		private void InitUI(GameStageOptions options)
 		{
-			player.HasHammer = true;
-			player.HasKey = true;
-			player.NumMedicalKits = 5;
+			//player.HasHammer = true;
+			//player.HasKey = true;
+			//player.NumMedicalKits = 5;
 
 			container = new Container(app);
 			gameView = new GameView(app);
@@ -124,6 +141,24 @@ namespace 행방불명.Game
 
 		MapData map;
 
+		private void CheckGameObject(Waypoint way)
+		{
+			var media = app.Media;
+			switch(way.Type)
+			{
+				case "hammer":
+					break;
+
+				case "medical_kit":
+
+					break;
+
+				case "key":
+					
+					break;
+			}
+		}
+
 		private void LoadMap(string path)
 		{
 			string json = File.ReadAllText(path);
@@ -139,8 +174,11 @@ namespace 행방불명.Game
 			// Choices loading...
 
 			Choices choices = new Choices();
+			objects = new List<GameObject>();
+
 			foreach (var waypoints in map.Waypoints)
 			{
+				CheckGameObject(waypoints);
 				if (waypoints.Scripts != null)
 					foreach (var script in waypoints.Scripts)
 					{
@@ -152,6 +190,9 @@ namespace 행방불명.Game
 					foreach (var link in waypoints.Links)
 						choices.Add(link.Name);
 			}
+
+			if (map.Choices != null)
+				choices.Add(map.Choices.ToArray());
 
 			GrammarBuilder builder = new GrammarBuilder();
 			builder.Append(choices);
@@ -180,6 +221,9 @@ namespace 행방불명.Game
 		public void Update(float delta)
 		{
 			playerAngle += delta * 3.141592f / 4;
+			pingDelta += delta;
+			if (pingDelta > 2)
+				pingDelta = 0;
 			if (playerAngle > 6.283)
 				playerAngle = 0;
 
@@ -190,8 +234,8 @@ namespace 행방불명.Game
 			switch(player.State)
 			{
 				case PlayerState.Arrived:
+					processes.Clear();
 					processBuilder.AddProcess(processes, player.MoveTo);
-					currWaypoint.Used = true;
 					player.State = PlayerState.Processing;
 					break;
 
@@ -206,8 +250,8 @@ namespace 행방불명.Game
 						// 다 처리됬으면 없애기
 						if (p.IsEnded())
 						{
-							p.End();
 							processes.RemoveAt(0);
+							p.End();
 							if (processes.Count > 0)
 								processes.First().Start();
 						}
@@ -247,6 +291,16 @@ namespace 행방불명.Game
 
 			app.Graphics2D.RenderTarget.Transform = matrix;
 			app.Graphics2D.DrawCenter(playerBitmap, app.Width / 2, app.Height / 2);
+
+			if (pingDelta < 1)
+			{
+				scale = pingDelta * 1.5f;
+				Matrix3x2.Scaling(scale, scale, ref center, out matrix);
+
+				app.Graphics2D.RenderTarget.Transform = matrix;
+				app.Graphics2D.DrawCenter(ping, app.Width / 2, app.Height / 2);
+			}
+	
 			app.Graphics2D.RenderTarget.Transform = Matrix3x2.Identity;
 
 			rt.EndDraw();

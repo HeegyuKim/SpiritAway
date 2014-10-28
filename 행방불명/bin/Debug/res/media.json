@@ -15,7 +15,8 @@
     "hammer": "res/images/hammer_icon.png",
     "medipack": "res/images/medipack_icon.png",
     "key": "res/images/key_icon.png",
-    "holder": "res/images/iconholder_ui.png"
+    "holder": "res/images/iconholder_ui.png",
+    "ping": "res/images/ping.png"
   },
   "fonts": [
     {
@@ -57,21 +58,26 @@
     "blocked": "res/sounds/character/5. 길이 막혀있습니다1.wav",
     "corpse": "res/sounds/character/12. 으 시체가1.wav",
     "find_survivors": "res/sounds/character/6-1. 생존자가 있습니다1.wav",
+    "hurt": "res/sounds/character/6-2. 부상당했습니다2.wav",
     "find_hammer": "res/sounds/character/9. 망치를 찾았습니다.wav",
     "find_medical_kit": "res/sounds/character/10. 의료상자가 있습니다.wav",
+    "cure_patients": "res/sounds/character/11. 부상자분들을 치료3.wav",
     "ask": "res/sounds/character/1. 어디로갈까요1.wav",
 
-    "infodesk_thanks": "res/sounds/survivors/안내데스크_여직원_데리고 나가주세요.wma",
+    "infodesk_thanks": "res/sounds/survivors/안내데스크_여직원_데리고 나가주세요.ogg",
 
     "parkour_relief": "res/sounds/survivors/파쿠르_누가저좀도와줘여.mp3",
     "library_relief": "res/sounds/survivors/도서관_여대생_밖에누구없어요.wma",
-    "chef_relief": "res/sounds/survivors/요리사 도와주세요.wma",
+    "chef_relief": "res/sounds/survivors/요리사 도와주세요.ogg",
     
     "cloth_child_thanks": "res/sounds/survivors/손자 할아버지.wav",
 
+    "iweb_relief": "res/sounds/survivors/사무실_여기요사람있어요.wav",
+    "iweb_ask1": "res/sounds/survivors/사무실_제가도울일이있을까요.wav",
+    "iweb_ask2": "res/sounds/survivors/사무실_아관리사무소로이어진어쩌구저쩌규.wav",
 
-    "chef_check_gas_please": "res/sounds/survivors/요리사 주변에 가스밸브.wma",
-    "chef_check_gas": "res/sounds/survivors/요리사 가스밸브가 열려잇.wma",
-    "chef_check_gas_complete": "res/sounds/survivors/요리사 잠겼습니다 어서 빠져.wma"
+    "chef_check_gas_please": "res/sounds/survivors/요리사 주변에 가스밸브.ogg",
+    "chef_check_gas": "res/sounds/survivors/요리사 가스밸브가 열려잇.ogg",
+    "chef_check_gas_complete": "res/sounds/survivors/요리사 잠겼습니다 어서 빠져.ogg"
   }
 }

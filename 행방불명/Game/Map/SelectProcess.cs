@@ -15,6 +15,7 @@ namespace 행방불명.Game.Process
 	{
 		VoiceControl voice;
 		GameStage stage;
+		Script script;
 		ScriptView scriptView;
 		Player player;
 		MapData map;
@@ -32,6 +33,17 @@ namespace 행방불명.Game.Process
 			this.player = stage.Player;
 			this.map = stage.Map;
 			this.links = links;
+			this.script = null;
+		}
+
+		public SelectProcess(
+			GameStage stage,
+			Script script,
+			List<Link> links
+			)
+			:  this(stage, links)
+		{
+			this.script = script;
 		}
 
 
@@ -52,14 +64,26 @@ namespace 행방불명.Game.Process
 					builder.Append(",\t\t");
 			}
 
+			if (script == null)
+			{
 
-			scriptView.Script = new Script(
-				"이대원",
-				"어디로 갈까요",
-				builder.ToString()
-				);
-			stage.App.Play2D("ask");
-			voice.Recognize();
+				scriptView.Script = new Script(
+					"이대원",
+					"어디로 갈까요",
+					builder.ToString()
+					);
+				stage.App.Play2D("ask");
+				voice.Recognize();
+			}
+			else
+			{
+				script.PlayerText = builder.ToString();
+				scriptView.Script = script;
+				stage.App.Play2D(script.Sfx);
+				voice.Recognize();
+			}
+
+			Console.WriteLine("Select {0} on {1}", builder.ToString(), stage.Player.MoveTo.Id);
 		}
 
 		public void End()

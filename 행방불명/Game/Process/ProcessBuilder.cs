@@ -20,6 +20,8 @@ namespace 행방불명.Game.Process
 			this.stage = stage;
 		}
 
+		Script script;
+
 		List<IProcess> processes;
 		Waypoint arrived;
 
@@ -38,6 +40,7 @@ namespace 행방불명.Game.Process
 
 			SavePeople();
 			AddScriptIfExists();
+			ProcessType();
 			ProcessLinks();
 
 			arrived.Used = true;
@@ -48,6 +51,8 @@ namespace 행방불명.Game.Process
 
 		private void ProcessLinks()
 		{
+			if (!arrived.Used && arrived.Type.Equals("gas_valve")) return;
+
 			if (arrived.Links != null)
 			{
 				processes.Add(
@@ -67,11 +72,12 @@ namespace 행방불명.Game.Process
 				else
 					link = arrived.Link1;
 
-				var process = new StartProcess(stage.Player, stage.Map.GetWaypoint(link));
+				var process = new StartProcess(stage, stage.Map.GetWaypoint(link));
 				processes.Add(process);
 			}
 			else if (arrived.Next != null)
 			{
+				Console.WriteLine("NEXT> " + arrived.Next);
 				processes.Add(
 					new StartProcess(
 						stage,
@@ -80,13 +86,116 @@ namespace 행방불명.Game.Process
 					);
 			}
 
-			switch(arrived.Type)
+		}
+
+		private void ProcessType()
+		{
+
+			switch (arrived.Type)
 			{
+				case "gas_valve":
+					if (arrived.Used) break;
+					{
+						var gas = new Script(
+							"요리사",
+							"주변에 가스벨브가 열렸는지 확인해야 합니다.",
+							null,
+							"chef_check_gas_please"
+							);
+
+						var links = new List<Link>(arrived.Links);
+						links.Add(new Link()
+						{
+							Id = "kitchen_gas_dangerous",
+							Name = "가스벨브를 잠궈",
+							Required = null
+						});
+						var select = new SelectProcess(
+							stage,
+							gas,
+							links
+							);
+
+						processes.Add(select);
+					}
+					break;
+				case "key":
+					{
+						if (arrived.Used) break;
+
+						Console.WriteLine("열쇠 겟!");
+						stage.Player.HasKey = true;
+
+						var talking = new Talking(
+							new Script(
+								"경비 아저씨",
+								"나가도 되는겁니까?.",
+								null
+								),
+							new Script(
+								"이대원",
+								"예, 비상구 열쇠가 필요합니다.",
+								null
+								),
+							new Script(
+								"경비 아저씨",
+								"여기 있소, 어서 나갑시다.",
+								null
+								)
+							);
+
+						processes.Add(
+							new DialogProcess(
+									app,
+									stage.ScriptView,
+									talking
+								)
+							);
+
+						break;
+					}
 				case "medical_kit":
 					if (!arrived.Used)
 					{
-						Console.WriteLine("응급상자 겟!");
-						stage.Player.NumMedicalKits++;
+						
+						List<Script> scripts = new List<Script>();
+						scripts.Add(
+							new Script(
+								"이대원",
+								"의료상자가 있습니다! 이걸로 부상자분들을 치료할 수 있겠습니다.",
+								null,
+								"find_medical_kit"
+								)
+							);
+
+						if (stage.Player.NumPatients > 0)
+						{
+							stage.Player.NumPatients--;
+							Console.WriteLine("응급상자 얻었으나 사용, 현재 {0}개", stage.Player.NumMedicalKits);
+
+							scripts.Add(
+								new Script(
+									"이대원",
+									"부상자분들을 치료해드렸습니다.",
+									null,
+									"cure_patients"
+									)
+								);
+						}
+						else
+						{
+							stage.Player.NumMedicalKits++;
+							Console.WriteLine("응급상자 얻음, 현재 {0}개", stage.Player.NumMedicalKits);
+						}
+						var talking = new Talking(scripts);
+
+						processes.Add(
+							new DialogProcess(
+									app,
+									stage.ScriptView,
+									talking
+								)
+							);
 					}
 					break;
 				case "hammer":
@@ -94,18 +203,27 @@ namespace 행방불명.Game.Process
 					{
 						Console.WriteLine("망치 겟!");
 						stage.Player.HasHammer = true;
-					}
-					break;
-				case "key":
-					if (!arrived.Used)
-					{
-						Console.WriteLine("열쇠 겟!");
-						stage.Player.HasKey = true;
+
+						var talking = new Talking(
+							new Script(
+								"이대원",
+								"망치를 찾았습니다.",
+								null,
+								"find_hammer"
+								)
+							);
+
+						processes.Add(
+							new DialogProcess(
+									app,
+									stage.ScriptView,
+									talking
+								)
+							);
 					}
 					break;
 			}
 		}
-
 		private void SavePeople()
 		{
 			if (arrived.Used) return;
@@ -115,14 +233,51 @@ namespace 행방불명.Game.Process
 			player.NumObtained += arrived.NumObtained;
 			player.NumPatients += arrived.NumPatients;
 
+
 			List<Script> scripts = new List<Script>();
+			
 			scripts.Add(
 				new Script(
 					"이대원",
 					"생존자가 있습니다!",
-					null
+					null,
+					"find_survivors"
 					)
 				);
+
+			if(arrived.NumPatients > 0)
+			{
+				scripts.Add(
+					new Script(
+						"이대원",
+						"부상당했습니다",
+						null,
+						"hurt"
+						)
+					);
+			}
+
+			if (player.NumMedicalKits > 0)
+			{
+				int numPatients = player.NumPatients;
+				player.NumPatients -= player.NumMedicalKits;
+				player.NumMedicalKits -= numPatients;
+
+				if (player.NumMedicalKits < 0)
+					player.NumMedicalKits = 0;
+				if (player.NumPatients < 0)
+					player.NumPatients = 0;
+
+				Console.WriteLine("메디팩이 있어서 부상자 치료함, {0}개 남음.", player.NumMedicalKits);
+				scripts.Add(
+					new Script(
+						"이대원",
+						"부상자분들을 치료해드렸습니다.",
+						null,
+						"cure_patients"
+						)
+					);
+			}
 
 			processes.Add(
 				new DialogProcess(
@@ -136,6 +291,8 @@ namespace 행방불명.Game.Process
 		private void AddScriptIfExists()
 		{
 			if (arrived.Scripts == null) return;
+			else if (arrived.Used && arrived.Type.Equals("people")) return;
+			else if (arrived.Used && arrived.Type.Equals("hidden_route")) return;
 
 			processes.Add(
 				new DialogProcess(

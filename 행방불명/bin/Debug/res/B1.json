@@ -1,7 +1,7 @@
 
 {
 	"background": "map_base.png",
-	"player_position": "lecture_room_door",
+	"player_position": "cloth_store_corridor_end",
 	"waypoints": [
 	
 	
@@ -180,6 +180,13 @@
 			"x": 2523,
 			"y": 1650,
 			"type": "people",
+			"scripts": [
+				{
+					"target_name": "아이",
+					"target_text": "할아버지~!",
+					"sfx": "cloth_child_thanks"
+				}
+			],
 			"obtained": 1,
 			"patients": 0,
 			"next": "cloth_store_dressing_room_door"
@@ -308,8 +315,12 @@
 					"name": "북쪽 복도로 가"
 				},
 				{
-					"id": "parkour_room_left",
+					"id": "pcroom_left",
 					"name": "동쪽 문으로 가"
+				},
+				{
+					"id": "cloth_store_corridor_end",
+					"name": "남쪽으로 가"
 				}
 			]
 		},
@@ -569,8 +580,8 @@
 		},
 		{
 			"id": "library_reading_room_front",
-			"x": 2442,
-			"y": 1165,
+			"x": 2484,
+			"y": 1128,
 			"type": "crossroad",
 			"links": [
 				{
@@ -641,8 +652,8 @@
 		},
 		{
 			"id": "library_reading_room_right_bottom",
-			"x": 2609,
-			"y": 1508,
+			"x": 2629,
+			"y": 1530,
 			"type": "crossroad",
 			"links": [
 				{
@@ -680,6 +691,14 @@
 				{
 					"id": "library_books_top",
 					"name": "북쪽으로 가"
+				},
+				{
+					"id": "library_books_bottom",
+					"name": "남쪽으로 가"
+				},
+				{
+					"id": "library_reading_room_front",
+					"name": "돌아가"
 				}
 			]
 		},
@@ -690,8 +709,8 @@
 			"type": "crossroad",
 			"links": [
 				{
-					"id": "library_books_bottom",
-					"name": "남쪽으로 가"
+					"id": "library_center",
+					"name": "돌아가"
 				}
 			]
 		},
@@ -717,10 +736,6 @@
 			"y": 490,
 			"type": "crossroad",
 			"links": [
-				{
-					"id": "pcroom_front",
-					"name": "동쪽으로 가"					
-				},
 				{
 					"id": "aquarium_couple",
 					"name": "남서쪽으로 가"					
@@ -754,6 +769,7 @@
 			"type": "people",
 			"obtained": 1,
 			"patients": 0,
+
 			"links": [
 				{
 					"id": "parkour_room3",
@@ -938,35 +954,9 @@
 			"id": "kitchen_interior",
 			"x": 1355,
 			"y": 1433,
-			"type": "crossroad",
-			"event": {
-				"scripts": [
-					{
-						"target_name": "요리사",
-						"target_text": "주변에 가스벨브가 열려있는지 확인해야 합니다.",
-						"sfx": "chef_check_gas_please"
-					}
-				],
-				"agree_script": [
-					{
-						"target_name": "이대원",
-						"target_text": "알겠습니다."
-					}
-				],
-				"disagree_script": [
-					{
-						"target_name": "이대원",
-						"target_text": "알겠습니다."
-					}
-				],
-
-				"accept_link": "kitchen_gas_dangerous",
-				"target_name": "이대원",
-				"target_text": "어떻게 할까요?",
-
-				"agree": "확인해 봐",
-				"disagree": "안돼 가지마"		
-			},
+			"type": "gas_valve",
+			"obtained": 1,
+			"patients": 0,
 			"links": [
 				{
 					"id": "kitchen_backdoor",
@@ -986,7 +976,7 @@
 			"links": [
 				{
 					"id":"kitchen_door",
-					"name": "동쪽 식당으로 들어가"
+					"name": "동쪽 주방으로 들어가"
 				},
 				{
 					"id": "kitchen_front_top",
@@ -1022,7 +1012,7 @@
 			"id": "kitchen_gas_dangerous",
 			"x": 1358,
 			"y": 1225,
-			"type": "crossroad",
+			"type": "waypoint",
 			"scripts": [
 				{
 					"target_name": "요리사",
@@ -1248,7 +1238,7 @@
 					"name": "북쪽 문으로 들어가"
 				},
 				{
-					"id": "iweb_top_corner",
+					"id": "iweb_front",
 					"name": "서북쪽 문으로 가"
 				}
 			]
@@ -1333,7 +1323,7 @@
 					"name": "동남쪽 문으로 나가"
 				},
 				{
-					"id": "iweb_staff",
+					"id": "iweb_door",
 					"name": "서쪽으로 가"
 				}
 			]
@@ -1342,15 +1332,35 @@
 			"id": "iweb_staff",
 			"x": 318,
 			"y": 280,
-			"type": "crossroad",
+			"type": "hidden_route",
+			"scripts": [
+				{
+					"target_name": "남자직원",
+					"target_text": "제가 도울일이 있을까요?",
+					"sfx": "iweb_ask1"
+				},
+				{
+					"target_name": "이대원",
+					"target_text": "관리사무소로 가서비상구 열쇠를 찾아야 합니다."
+				},
+				{
+					"target_name": "남자직원",
+					"target_text": "아 관리사무소로 이어진 비밀통로가 있습니다!?",
+					"sfx": "iweb_ask2"
+				}
+			],
 			"links": [
 				{
 					"id": "keyroom",
-					"name": "그래"
+					"name": "비밀통로로 가"
 				},
 				{
-					"id": "iweb_front",
+					"id": "iweb_top_corner",
 					"name": "동쪽으로 가"
+				},
+				{
+					"id": "jellypen_medkit",
+					"name": "남쪽으로 가"
 				}
 			]
 		},
@@ -1376,7 +1386,7 @@
 			"x": 973,
 			"y": 282,
 			"link1": "iweb_center",
-			"link2": "iweb_door"
+			"link2": "iweb_front"
 		},
 		{
 			"id": "elevator_right_top",
@@ -1514,6 +1524,10 @@
 				{
 					"id": "shattered_exit_junction",
 					"name": "서쪽으로 가"
+				},
+				{
+					"id": "kitchen_front",
+					"name": "동쪽 통로로 가"
 				}
 			]
 		},
@@ -1562,7 +1576,7 @@
 				},
 				{
 					"id": "esteregg_sumin_way",
-					"name": "서북쪽 문으로 들어가"
+					"name": "서북쪽 통로로 들어가"
 				},
 				{
 					"id": "shattered_exit_way",
@@ -1604,13 +1618,7 @@
 			"y": 1244,
 			"type": "curve",
 			"link1": "esteregg_crossroad",
-			"link2": "esteregg_top_door",
-			"scripts": [
-				{
-					"target_name": "김희규",
-					"target_text": "희규를 살려줘서 고마워 ㅋㅋ"
-				}
-			]
+			"link2": "esteregg_top_door"
 		},
 		{
 			"id": "esteregg_sumin",
@@ -1672,7 +1680,7 @@
 					"name": "서쪽 비상구로 가"
 				},
 				{
-					"id": "shattered_exit_junction",
+					"id": "shattered_exit_junction_way",
 					"name": "북쪽으로 가"
 				},
 				{
@@ -1686,6 +1694,13 @@
 			"x": 126,
 			"y": 1543,
 			"type": "crossroad",
+			"scripts": [
+				{
+					"target_name": "이대원",
+					"target_text": "길이 막혀있습니다",
+					"sfx": "blocked"
+				}
+			],
 			"links": [
 				{
 					"id": "shattered_exit_junction",
@@ -1803,6 +1818,10 @@
 				{
 					"id": "jellypen_medkit_right",
 					"name": "동쪽으로 가"
+				},
+				{
+					"id": "iweb_staff",
+					"name": "북쪽 문으로 가"
 				}
 			]
 		},
@@ -1820,6 +1839,13 @@
 			"x": 970,
 			"y": 560,
 			"type": "crossroad",
+			"scripts": [
+				{
+					"target_name": "안내직원",
+					"target_text": "저좀 꼭 데리고 나가주세요...",
+					"sfx": "infodesk_thanks"
+				}
+			],
 			"links": [
 				{
 					"id": "infodesk_left",
@@ -1997,7 +2023,7 @@
 			"links": [
 				{
 					"id": "iweb_staff",
-					"name": "동쪽 출구로 가"
+					"name": "동쪽 비밀통로로 가"
 				},
 				{
 					"id": "keyroom_front",
@@ -2008,6 +2034,8 @@
 	],
 	
 	"misteries": [
+
+
 	],
 
 	"survivors": [
@@ -2079,7 +2107,8 @@
 			"id": "iweb_staff",
 			"detect": 200,
 			"x": 386,
-			"y": 350
+			"y": 350,
+			"sfx": "iweb_relief"
 		},
 		{
 			"id": "kitchen_interior",
@@ -2102,5 +2131,9 @@
 			"y": 1313,
 			"sfx": "chef_relief"
 		}
+	],
+
+	"choices": [
+		"가스벨브를 잠궈"
 	]
 }

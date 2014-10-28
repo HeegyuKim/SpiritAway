@@ -10,12 +10,14 @@ namespace 행방불명.Game.Process
 	public class StartProcess
 		: IProcess
 	{
+		GameStage stage;
 		Player player;
 		Waypoint moveTo;
 
-		public StartProcess(Player player, Waypoint moveTo)
+		public StartProcess(GameStage stage, Waypoint moveTo)
 		{
-			this.player = player;
+			this.stage = stage;
+			this.player = stage.Player;
 			this.moveTo = moveTo;
 		}
 
@@ -34,7 +36,6 @@ namespace 행방불명.Game.Process
 
 		public void Update(float delta)
 		{
-
 		}
 
 		public void End()

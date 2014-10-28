@@ -15,6 +15,11 @@ namespace 행방불명.Game.Map
 			this.scripts = scripts;
 		}
 
+		public Talking(params Script []scripts)
+		{
+			this.scripts = new List<Script>(scripts);
+		}
+
 		int currIndex = 0;
 
 		public void Next()

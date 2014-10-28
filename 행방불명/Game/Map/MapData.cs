@@ -168,6 +168,25 @@ namespace 행방불명.Game.Map
 
 	};
 
+	public class Event
+	{
+		List<Script> Scripts;
+		
+		List<Script> AgreeScripts;
+
+		string AgreeLink;
+
+		List<Script> DisagreeScripts;
+
+		string TargetName;
+
+		string TargetText;
+
+		string Agree;
+
+		string Disagree;
+	}
+
 	public class MapData
 	{
 		[JsonProperty(PropertyName = "player_position")]
@@ -178,6 +197,8 @@ namespace 행방불명.Game.Map
 		public List<Mistery> Misteries;
 		[JsonProperty(PropertyName = "survivors")]
 		public List<Survivor> Survivors;
+		[JsonProperty(PropertyName = "choices")]
+		public List<string> Choices;
 
 
 		public Waypoint GetWaypoint(string id)
