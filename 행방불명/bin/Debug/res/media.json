@@ -9,7 +9,13 @@
     "exit": "res/images/exit_icon.png",
     "sound_on": "res/images/soundon_icon.png",
     "sound_off": "res/images/soundoff_icon.png",
-    "character": "res/images/character.png"
+    "character": "res/images/character.png",
+    "count_ui": "res/images/count_ui_full.png",
+
+    "hammer": "res/images/hammer_icon.png",
+    "medipack": "res/images/medipack_icon.png",
+    "key": "res/images/key_icon.png",
+    "holder": "res/images/iconholder_ui.png"
   },
   "fonts": [
     {
@@ -39,6 +45,33 @@
     }
     ],
   "sounds" : {
-    "start_stage_bgm": "res/sounds/dayofchaos.mp3"
+    "start_stage_bgm": "res/sounds/dayofchaos.mp3",
+    "prolog1": "res/sounds/prolog/1. 으으으2.wav",
+    "prolog2": "res/sounds/prolog/2. 3소대 이수민입니다.wav",
+    "prolog3": "res/sounds/prolog/3. 알겠습니다.wav",
+    "tutorial1": "res/sounds/tutorial/1. 손전등과 구급 약품들을.wav",
+    "tutorial2": "res/sounds/tutorial/2. 근처에 라노스테크 CEO.wav",
+    "tutorial3": "res/sounds/tutorial/3. 찾았습니다 무사하십니다.wav",
+    "tutorial4": "res/sounds/tutorial/4. 이제 나가서 다른 사람들을.wav",
+
+    "blocked": "res/sounds/character/5. 길이 막혀있습니다1.wav",
+    "corpse": "res/sounds/character/12. 으 시체가1.wav",
+    "find_survivors": "res/sounds/character/6-1. 생존자가 있습니다1.wav",
+    "find_hammer": "res/sounds/character/9. 망치를 찾았습니다.wav",
+    "find_medical_kit": "res/sounds/character/10. 의료상자가 있습니다.wav",
+    "ask": "res/sounds/character/1. 어디로갈까요1.wav",
+
+    "infodesk_thanks": "res/sounds/survivors/안내데스크_여직원_데리고 나가주세요.wma",
+
+    "parkour_relief": "res/sounds/survivors/파쿠르_누가저좀도와줘여.mp3",
+    "library_relief": "res/sounds/survivors/도서관_여대생_밖에누구없어요.wma",
+    "chef_relief": "res/sounds/survivors/요리사 도와주세요.wma",
+    
+    "cloth_child_thanks": "res/sounds/survivors/손자 할아버지.wav",
+
+
+    "chef_check_gas_please": "res/sounds/survivors/요리사 주변에 가스밸브.wma",
+    "chef_check_gas": "res/sounds/survivors/요리사 가스밸브가 열려잇.wma",
+    "chef_check_gas_complete": "res/sounds/survivors/요리사 잠겼습니다 어서 빠져.wma"
   }
 }

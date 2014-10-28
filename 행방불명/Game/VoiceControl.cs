@@ -26,12 +26,22 @@ namespace 행방불명.Game
 
 		public VoiceControl()
 		{
-			engine = new SpeechRecognitionEngine();
+			engine = new SpeechRecognitionEngine(
+				new System.Globalization.CultureInfo("ko-kr")
+				);
 			engine.SetInputToDefaultAudioDevice();
+
+			Console.WriteLine(
+				"Speech Engine " + 
+				engine.RecognizerInfo.Name + 
+				" " + engine.RecognizerInfo.Culture +
+				" " + engine.RecognizerInfo.Id
+				);
 
 			engine.LoadGrammarCompleted += (object sender, LoadGrammarCompletedEventArgs args)=>
 			{
 				numLoading --;
+				Console.WriteLine("입력 문법 로딩 완료, {0}개 남음.", numLoading);
 			};
 			engine.RecognizeCompleted += (object sender, RecognizeCompletedEventArgs args) =>
 			{

@@ -34,6 +34,8 @@ namespace 행방불명.Game.Map
 		[JsonProperty(PropertyName = "sfx")]
 		public string Sfx;
 
+		public Script() { }
+
 		public Script(string targetName, string targetText, string playerText)
 		{
 			TargetName = targetName;
@@ -83,16 +85,18 @@ namespace 행방불명.Game.Map
 		[JsonProperty(PropertyName = "link2")]
 		public string Link2;
 
-		// Property for Portal
-		[JsonProperty(PropertyName = "value")]
-		public string Value;
 
-		//
-		// Property for People
+		// Property for people
 		[JsonProperty(PropertyName = "obtained")]
 		public int NumObtained;
 		[JsonProperty(PropertyName = "patients")]
 		public int NumPatients;
+
+
+		// Property for Portal
+		[JsonProperty(PropertyName = "value")]
+		public string Value;
+
 
 		public bool Used;
 
@@ -140,6 +144,29 @@ namespace 행방불명.Game.Map
 		}
 	}
 
+	public class Survivor
+	{
+		[JsonProperty(PropertyName = "id")]
+		public string Id;
+		[JsonProperty(PropertyName = "obtained")]
+		public int NumObtained;
+		[JsonProperty(PropertyName = "patients")]
+		public int NumPatients;
+		[JsonProperty(PropertyName = "hp")]
+		public int Hp;
+		[JsonProperty(PropertyName = "detect")]
+		public float DetectRadius;
+		[JsonProperty(PropertyName = "relief")]
+		public string Relief;
+		[JsonProperty(PropertyName = "thanks")]
+		public string Thanks;
+
+		[JsonProperty(PropertyName = "x")]
+		public float X;
+		[JsonProperty(PropertyName = "y")]
+		public float Y;
+
+	};
 
 	public class MapData
 	{
@@ -149,6 +176,8 @@ namespace 행방불명.Game.Map
 		public List<Waypoint> Waypoints;
 		[JsonProperty(PropertyName = "misteries")]
 		public List<Mistery> Misteries;
+		[JsonProperty(PropertyName = "survivors")]
+		public List<Survivor> Survivors;
 
 
 		public Waypoint GetWaypoint(string id)

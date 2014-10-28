@@ -23,14 +23,39 @@ namespace 행방불명.Game
 		Color4 bg;
 		Stage next;
 		string mapPath;
+		GameStageOptions options;
 
-		public GameStage(Program app, string map, Stage next)
+		public GameStage(
+			Program app,
+			string map,
+			Stage next
+			)
 		{
 			this.app = app;
 			this.bg = new Color4(0, 0, 0, 1);
 			this.next = next;
-
 			this.mapPath = map;
+			this.options = new GameStageOptions()
+			{
+				HasTimeUI = true,
+				HasMapUI = true,
+				HasCountUI = true,
+				Player = null
+			};
+		}
+
+		public GameStage(
+			Program app,
+			string map,
+			Stage next,
+			GameStageOptions options
+			)
+		{
+			this.app = app;
+			this.bg = new Color4(0, 0, 0, 1);
+			this.next = next;
+			this.mapPath = map;
+			this.options = options;
 		}
 
 		public ScriptView ScriptView { get { return scriptView; } }
@@ -43,6 +68,7 @@ namespace 행방불명.Game
 		ScriptView scriptView;
 		GameView gameView;
 		TimeView timeView;
+		CountView countView;
 		SettingButtons exitBtn;
 		Bitmap playerBitmap;
 		float playerAngle = 0;
@@ -52,30 +78,47 @@ namespace 행방불명.Game
 		{
 			Console.WriteLine(mapPath + " Game Stage started.");
 
-
-			InitUI();
-			LoadMap(mapPath);
-
 			playerBitmap = app.Media.BitmapDic["character"];
 			center = new Vector2(app.Width / 2, app.Height / 2);
-		}
-
-		private void InitUI()
-		{
-			container = new Container(app);
-			gameView = new GameView(app);
-			scriptView = new ScriptView(app);
-			timeView = new TimeView(app);
-			exitBtn = new SettingButtons(app);
-
 			voice = app.VoiceControl;
 			processBuilder = new ProcessBuilder(app, this);
 
+			LoadMap(mapPath);
+			InitUI(options);
+		}
+
+		private void InitUI(GameStageOptions options)
+		{
+			player.HasHammer = true;
+			player.HasKey = true;
+			player.NumMedicalKits = 5;
+
+			container = new Container(app);
+			gameView = new GameView(app);
+			scriptView = new ScriptView(app);
+			exitBtn = new SettingButtons(app);
 
 			container.Views.Add(gameView);
 			container.Views.Add(exitBtn);
 			container.Views.Add(scriptView);
-			container.Views.Add(timeView);
+
+			if (options.HasCountUI)
+			{
+				countView = new CountView(app, player);
+				container.Views.Add(countView);
+			}
+			if (options.HasMapUI)
+			{
+
+			}
+			if (options.HasTimeUI)
+			{
+				timeView = new TimeView(app);
+				container.Views.Add(timeView);
+			}
+
+			
+			
 		}
 
 
@@ -118,7 +161,13 @@ namespace 행방불명.Game
 			//
 			// set starting point
 			currWaypoint = map.GetWaypoint(map.PlayerPosition);
-			player = new Player(currWaypoint);
+			if (options.Player == null)
+				player = new Player(currWaypoint);
+			else
+			{
+				player = options.Player;
+				player.Change(currWaypoint);
+			}
 		}
 
 		bool ended = false;

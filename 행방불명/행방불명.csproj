@@ -73,6 +73,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Framework\UI\CountView.cs" />
     <Compile Include="Framework\UI\GameView.cs" />
     <Compile Include="Framework\Graphics2D.cs" />
     <Compile Include="Framework\Graphics3D.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="Framework\UI\TimeView.cs" />
     <Compile Include="Framework\UI\View.cs" />
     <Compile Include="Game\Config.cs" />
+    <Compile Include="Game\GameStageOptions.cs" />
     <Compile Include="Game\Map\DialogProcess.cs" />
     <Compile Include="Game\Process\IProcess.cs" />
     <Compile Include="Game\Process\ProcessBuilder.cs" />

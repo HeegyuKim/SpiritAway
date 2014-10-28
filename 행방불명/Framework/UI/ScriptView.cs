@@ -49,9 +49,12 @@ namespace 행방불명.Framework.UI
 					Height
 					);
 
-				var range = new TextRange(0, value.TargetName.Length);
-				targetText.SetFontSize(format.FontSize * 1.3f, range);
-				targetText.SetFontWeight(FontWeight.Bold, range);
+				if (value.TargetName != null)
+				{
+					var range = new TextRange(0, value.TargetName.Length);
+					targetText.SetFontSize(format.FontSize * 1.3f, range);
+					targetText.SetFontWeight(FontWeight.Bold, range);
+				}
 
 				Utilities.Dispose(ref playerText);
 				if (value.PlayerText != null && value.PlayerText.Length != 0)

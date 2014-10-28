@@ -45,8 +45,15 @@ namespace 행방불명
 		public Config Config { get { return config; } }
 		public SharpDX.RectangleF RectF { get; private set; }
 		public Media Media { get; private set; }
-
-
+	
+		bool[] keyState = new bool[256];
+		public bool IsKeyDown(int value)
+		{
+			if (value < 256)
+				return keyState[value];
+			else
+				return false;
+		}
 
 		public Program()
 		{
@@ -55,6 +62,16 @@ namespace 행방불명
 			mForm.ClientSize = new Size(1024, 768);
 			mForm.MaximizeBox = false;
 			mForm.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+			mForm.KeyDown += (object sender, KeyEventArgs args) =>
+			{
+				if (args.KeyValue < 256)
+					keyState[args.KeyValue] = true;
+			};
+			mForm.KeyUp += (object sender, KeyEventArgs args) =>
+			{
+				if (args.KeyValue < 256)
+					keyState[args.KeyValue] = false;
+			};
 
 			g3d = new Graphics3D(mForm.Handle, mForm.ClientSize.Width, mForm.ClientSize.Height, false);
 			g2d = new Graphics2D(g3d.SwapChain.GetBackBuffer<Surface>(0));
@@ -65,8 +82,8 @@ namespace 행방불명
 			RectF = new SharpDX.RectangleF(0, 0, Width, Height);
 			Media = new Media(this, "res/media.json");
 
-			//mCurrStage = new GameStage(this, "res/tutorial.data", null);
 			mCurrStage = new GameStage(this, "res/B1.json", null);
+			//mCurrStage = new GameStage(this, "res/B1.json", null);
 			mCurrStage.Start();
 
 			mLastTime = DateTime.Now;
@@ -134,6 +151,21 @@ namespace 행방불명
 
 				config.save();
 			}
+		}
+
+		public ISound Play2D(string alias, bool looped = false)
+		{
+			if (alias == null) return null;
+
+			var sound = Sound.Play2D(alias, looped, true);
+			if (sound == null)
+			{
+				Console.Write("{0} 사운드를 찾을 수 없습니다.", alias);
+				return null;
+			}
+
+			sound.Paused = false;
+			return sound;
 		}
 
 		[STAThread]

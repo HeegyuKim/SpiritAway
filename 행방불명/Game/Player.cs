@@ -34,6 +34,7 @@ namespace 행방불명.Game
 
 		public int NumObtained { get; set; }
 		public int NumPatients { get; set; }
+		public int NumDead { get; set; }
 		public bool HasHammer { get; set; }
 		public bool HasKey { get; set; }
 		public int NumMedicalKits { get; set; }
@@ -67,9 +68,19 @@ namespace 행방불명.Game
 			NumMedicalKits = 0;
 			NumPatients = 0;
 			NumObtained = 0;
+			NumDead = 0;
 			HasHammer = false;
 			HasKey = false;
 
+			State = PlayerState.Arrived;
+			moveTo = at;
+			moveFrom = at;
+			distance = movedDistance = 0;
+			normal = new Vector2(0, 0);
+		}
+
+		public void Change(Waypoint at)
+		{
 			State = PlayerState.Arrived;
 			moveTo = at;
 			moveFrom = at;

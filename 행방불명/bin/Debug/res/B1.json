@@ -673,9 +673,41 @@
 		},
 		{
 			"id": "library_center",
-			"x": 1948,
-			"y": 1195,
-			"type": "crossroad"
+			"x": 1782,
+			"y": 1204,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "library_books_top",
+					"name": "북쪽으로 가"
+				}
+			]
+		},
+		{
+			"id": "library_books_top",
+			"x": 1782,
+			"y": 912,
+			"type": "crossroad",
+			"links": [
+				{
+					"id": "library_books_bottom",
+					"name": "남쪽으로 가"
+				}
+			]
+		},
+		{
+			"id": "library_books_bottom",
+			"x": 1782,
+			"y": 1477,
+			"type": "people",
+			"obtained": 1,
+			"patients": 1,
+			"links": [
+				{
+					"id": "library_center",
+					"name": "돌아가"
+				}
+			]
 		},
 		
 		
@@ -719,7 +751,9 @@
 			"id": "parkour_room2",
 			"x": 2224,
 			"y": 264,
-			"type": "crossroad",
+			"type": "people",
+			"obtained": 1,
+			"patients": 0,
 			"links": [
 				{
 					"id": "parkour_room3",
@@ -905,32 +939,103 @@
 			"x": 1355,
 			"y": 1433,
 			"type": "crossroad",
+			"event": {
+				"scripts": [
+					{
+						"target_name": "요리사",
+						"target_text": "주변에 가스벨브가 열려있는지 확인해야 합니다.",
+						"sfx": "chef_check_gas_please"
+					}
+				],
+				"agree_script": [
+					{
+						"target_name": "이대원",
+						"target_text": "알겠습니다."
+					}
+				],
+				"disagree_script": [
+					{
+						"target_name": "이대원",
+						"target_text": "알겠습니다."
+					}
+				],
+
+				"accept_link": "kitchen_gas_dangerous",
+				"target_name": "이대원",
+				"target_text": "어떻게 할까요?",
+
+				"agree": "확인해 봐",
+				"disagree": "안돼 가지마"		
+			},
 			"links": [
 				{
 					"id": "kitchen_backdoor",
 					"name": "동쪽 뒷문으로 나가"
 				},
 				{
-					"id": "kitchen_gas_dangerous",
-					"name": "가스를 잠궈"
-				},
-				{
-					"id": "sunflower",
-					"name": "서쪽으로 가"
+					"id": "kitchen_door",
+					"name": "서쪽으로 나가"
 				}
 			]
 		},
 		{
-			"id": "kitchen_gas_dangerous",
-			"x": 1255,
-			"y": 1167,
+			"id": "kitchen_front",
+			"x": 1053,
+			"y": 1475,
 			"type": "crossroad",
 			"links": [
 				{
-					"id": "kitchen_interior",
-					"name": "돌아가"
+					"id":"kitchen_door",
+					"name": "동쪽 식당으로 들어가"
+				},
+				{
+					"id": "kitchen_front_top",
+					"name": "북쪽으로 가"
+				},
+				{
+					"id": "sunflower",
+					"name": "서쪽 출구로 나가"
 				}
 			]
+		},
+		{
+			"id": "kitchen_front_top",
+			"x": 1002,
+			"y": 1257,
+			"type": "crossroad",
+			"links": [
+				{
+					"id":"kitchen_front",
+					"name": "돌아가"
+				}
+				]
+		},
+		{
+			"id": "kitchen_door",
+			"x": 1114,
+			"y": 1422,
+			"type": "curve",
+			"link1": "kitchen_front",
+			"link2": "kitchen_interior"
+		},
+		{
+			"id": "kitchen_gas_dangerous",
+			"x": 1358,
+			"y": 1225,
+			"type": "crossroad",
+			"scripts": [
+				{
+					"target_name": "요리사",
+					"target_text": "가스벨브가 열려 있습니다.",
+					"sfx": "chef_check_gas"
+				},
+				{
+					"target_name": "요리사",
+					"target_text": "잠갔습니다. 어서 빠져나가죠.",
+					"sfx": "chef_check_gas_complete"
+				}
+			],
+			"next":"kitchen_interior"
 		},
 		{
 			"id": "kitchen_corridor_start",
@@ -1143,7 +1248,7 @@
 					"name": "북쪽 문으로 들어가"
 				},
 				{
-					"id": "iweb_front",
+					"id": "iweb_top_corner",
 					"name": "서북쪽 문으로 가"
 				}
 			]
@@ -1248,6 +1353,30 @@
 					"name": "동쪽으로 가"
 				}
 			]
+		},
+		{
+			"id": "iweb_top_corner",
+			"type": "curve",
+			"x": 476,
+			"y": 218,
+			"link1": "iweb_staff",
+			"link2": "iweb_center"
+		},
+		{
+			"id": "iweb_center",
+			"type": "curve",
+			"x": 746,
+			"y": 352,
+			"link1": "iweb_top_corner",
+			"link2": "iweb_door"
+		},
+		{
+			"id": "iweb_door",
+			"type": "curve",
+			"x": 973,
+			"y": 282,
+			"link1": "iweb_center",
+			"link2": "iweb_door"
 		},
 		{
 			"id": "elevator_right_top",
@@ -1456,6 +1585,12 @@
 			"type": "people",
 			"obtained": 1,
 			"patients": 0,
+			"scripts": [
+				{
+					"target_name": "김희규",
+					"target_text": "희규를 살려줘서 고마워 ㅋㅋ"
+				}
+			],
 			"links": [
 				{
 					"id": "esteregg_heegyu_way",
@@ -1469,7 +1604,13 @@
 			"y": 1244,
 			"type": "curve",
 			"link1": "esteregg_crossroad",
-			"link2": "esteregg_top_door"
+			"link2": "esteregg_top_door",
+			"scripts": [
+				{
+					"target_name": "김희규",
+					"target_text": "희규를 살려줘서 고마워 ㅋㅋ"
+				}
+			]
 		},
 		{
 			"id": "esteregg_sumin",
@@ -1478,6 +1619,12 @@
 			"type": "people",
 			"obtained": 1,
 			"patients": 0,
+			"scripts": [
+				{
+					"target_name": "현수민",
+					"target_text": "수민이를 살려줘서 고마워 ㅋㅋ"
+				}
+			],
 			"links": [
 				{
 					"id": "esteregg_top_door",
@@ -1861,6 +2008,99 @@
 	],
 	
 	"misteries": [
-	
+	],
+
+	"survivors": [
+		{
+			"id": "cloth_store_dressing_room",
+			"detect": 300,
+			"x": 2660,
+			"y": 1718
+		},
+		{
+			"id": "cloth_store_warehouse_grandpa",
+			"detect": 300,
+			"x": 2942,
+			"y": 1489
+		},
+		{
+			"id": "aquarium_couple",
+			"detect": 350,
+			"x": 2450,
+			"y": 666
+		},
+		{
+			"id": "warehouse_backdoor_front",
+			"detect": 350,
+			"x": 3723,
+			"y": 618
+		},
+		{
+			"id": "parkour_room1",
+			"detect": 250,
+			"x": 2100,
+			"y": 355,
+			"sfx": "parkour_relief"
+		},
+		{
+			"id": "library_books_bottom",
+			"detect": 175,
+			"x": 1900,
+			"y": 1446,
+			"sfx": "library_relief"
+		},
+		{
+			"id": "library_books_bottom",
+			"detect": 175,
+			"x": 1900,
+			"y": 1203,
+			"sfx": "library_relief"
+		},
+		{
+			"id": "library_books_bottom",
+			"detect": 175,
+			"x": 1900,
+			"y": 1020,
+			"sfx": "library_relief"
+		},
+		{
+			"id": "bluehouse_bottom",
+			"detect": 150,
+			"x": 615,
+			"y": 947
+		},
+		{
+			"id": "infodesk",
+			"detect": 300,
+			"x": 970,
+			"y": 550
+		},
+		{
+			"id": "iweb_staff",
+			"detect": 200,
+			"x": 386,
+			"y": 350
+		},
+		{
+			"id": "kitchen_interior",
+			"detect": 200,
+			"x": 1185,
+			"y": 1353,
+			"sfx": "chef_relief"
+		},
+		{
+			"id": "kitchen_interior",
+			"detect": 200,
+			"x": 1550,
+			"y": 1353,
+			"sfx": "chef_relief"
+		},
+		{
+			"id": "sunflower_alley2",
+			"detect": 150,
+			"x": 870,
+			"y": 1313,
+			"sfx": "chef_relief"
+		}
 	]
 }

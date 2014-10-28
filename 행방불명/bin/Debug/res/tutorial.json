@@ -11,30 +11,33 @@
       "links": [
         {
           "id": "tutorial_medical_kit",
-          "name": "\ube44\uc0c1\ub3c4\uad6c\ub97c \ucc59\uaca8\ub77c."
+          "name": "비상도구를 챙겨라."
         }
         ],
       "scripts": [
         {
-          "player_text": "\ub300\uc6d0\ub4e4, \ubb34\uc0ac\ud55c\uac00? \uc751\ub2f5\ud558\ub77c!"
+          "player_text": "대원들, 무사한가? 응답하라!"
         },
         {
-          "target_name": "\uc774\ub300\uc6d0",
-          "target_text": "\uc73c\uc73c\uc73c"
+          "target_name": "이대원",
+          "target_text": "으으으",
+          "sfx": "prolog1"
         },
         {
-          "player_text": "\uc0c1\ud669 \uc124\uba85\ubc14\ub780\ub2e4!"
+          "player_text": "상황 설명바란다!"
         },
         {
-          "target_name": "\uc774\ub300\uc6d0",
-          "target_text": "3\uc18c\ub300 \uc774\uc218\ubbfc\uc785\ub2c8\ub2e4... \ud604\uc7ac \uac15\uc5f0\uc7a5\uc785\ub2c8\ub2e4. \uc73d,,, \ub9ce\uc740 \uc0ac\ub78c\uc774 \uc8fd\uc5c8\uc2b5\ub2c8\ub2e4. \uc0dd\uc874\uc790\ub294 \uc800 \ub9d0\uace0\ub294 \uc5c6\ub294 \uac83 \uac19\uc2b5\ub2c8\ub2e4\u2026"
+          "target_name": "이대원",
+          "target_text": "3소대 이수민입니다... 현재 강연장입니다. 윽,,, 많은 사람이 죽었습니다. 생존자는 저 말고는 없는 것 같습니다…",
+          "sfx": "prolog2"
         },
         {
-          "player_text": "\uc774\ub300\uc6d0, \ub0b4 \uc9c0\uc2dc\ub97c \ub530\ub77c \uc0ac\ub78c\ub4e4\uc744 \uad6c\ucd9c\ud558\uace0 \ub530\ub77c\uac00\ub3c4\ub85d \ud574\ub77c"
+          "player_text": "이대원, 내 지시를 따라 사람들을 구출하고 따라가도록 해라"
         },
         {
-          "target_name": "\uc774\ub300\uc6d0",
-          "target_text": "\uc54c\uaca0\uc2b5\ub2c8\ub2e4"
+          "target_name": "이대원",
+          "target_text": "알겠습니다",
+          "sfx": "prolog3"
         }
         ]
     },
@@ -45,13 +48,15 @@
       "type": "medical_kit",
       "scripts": [
         {
-          "target_name": "\uc774\ub300\uc6d0",
-          "target_text": "\uc190\uc804\ub4f1\uacfc \uad6c\uae09\uc57d\ud488\ub4e4\uc744 \ucc3e\uc558\uc2b5\ub2c8\ub2e4. \ubc29\ud5a5\uacc4\ub3c4 \uc788\uc2b5\ub2c8\ub2e4.",
-          "player_text": "\ubc29\uc704\ub85c \uae38\uc744 \uc54c\ub824\uc8fc\uaca0\ub2e4."
+          "target_name": "이대원",
+          "target_text": "손전등과 구급약품들을 찾았습니다. 방향계도 있습니다.",
+          "player_text": "방위로 길을 알려주겠다.",
+          "sfx": "tutorial1"
         },
         {
-          "target_name": "\uc774\ub300\uc6d0",
-          "target_text": "\uadfc\ucc98\uc5d0 \ub77c\ub178\uc2a4\ud14c\ud06c CEO\ubd84\uc774 \uacc4\uc2e4 \uac81\ub2c8\ub2e4. \ud55c\ubc88 \ud655\uc778\ud574 \ubcf4\uaca0\uc2b5\ub2c8\ub2e4."
+          "target_name": "이대원",
+          "target_text": "근처에 라노스테크 CEO분이 계실 겁니다. 한번 확인해 보겠습니다.",
+          "sfx": "tutorial2"
         }
         ],
       "next": "tutorial_find_ceo1"
@@ -105,17 +110,19 @@
       "type": "waypoint",
       "scripts": [
         {
-          "target_name": "\uc774\ub300\uc6d0",
-          "target_text": "\u2026! \ucc3e\uc558\uc2b5\ub2c8\ub2e4! \ubb34\uc0ac\ud558\uc2ed\ub2c8\ub2e4"
+          "target_name": "이대원",
+          "target_text": "…! 찾았습니다! 무사하십니다",
+          "sfx": "tutorial3"
         },
         {
-          "target_name": "\ub77c\ub178\uc2a4\ud14c\ud06c CEO",
-          "target_text": "\uc624\uc624 \uace0\ub9c8\uc6cc\uc694. \uc8fd\ub294\uc904 \uc54c\uc558\uad6c\ub9cc."
+          "target_name": "라노스테크 CEO",
+          "target_text": "오오 고마워요. 죽는줄 알았구만."
         },
         {
-          "target_name": "\uc774\ub300\uc6d0",
-          "target_text": "\uc774\uc81c \ub098\uac00\uc11c \ub2e4\ub978 \uc0ac\ub78c\ub4e4\uc744 \ucc3e\uc544\ubcf4\uba70 \ud0c8\ucd9c\ud574\uc57c\uaca0\uc2b5\ub2c8\ub2e4.",
-          "player_text": "\uadf8\ub798"
+          "target_name": "이대원",
+          "target_text": "이제 나가서 다른 사람들을 찾아보며 탈출해야겠습니다.",
+          "player_text": "그래",
+          "sfx": "tutorial4"
         }
         ]
     }
