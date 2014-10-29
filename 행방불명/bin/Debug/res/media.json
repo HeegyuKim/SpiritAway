@@ -47,7 +47,8 @@
     ],
   "sounds" : {
   	"crash": "res/sounds/sfx/crash.wav",
-    
+    "bomb": "res/sounds/sfx/bomb.wav",
+
     "start_stage_bgm": "res/sounds/dayofchaos.mp3",
     "prolog1": "res/sounds/prolog/1. 으으으2.wav",
     "prolog2": "res/sounds/prolog/2. 3소대 이수민입니다.wav",
@@ -62,6 +63,7 @@
     "find_survivors": "res/sounds/character/6-1. 생존자가 있습니다1.wav",
     "hurt": "res/sounds/character/6-2. 부상당했습니다2.wav",
     "find_hammer": "res/sounds/character/9. 망치를 찾았습니다.wav",
+    "find_bomb": "res/sounds/character/4. 폭탄이 있습니다1.wav",
     "find_medical_kit": "res/sounds/character/10. 의료상자가 있습니다.wav",
     "cure_patients": "res/sounds/character/11. 부상자분들을 치료3.wav",
     "ask": "res/sounds/character/1. 어디로갈까요1.wav",
@@ -69,7 +71,7 @@
     "infodesk_thanks": "res/sounds/survivors/안내데스크_여직원_데리고 나가주세요.ogg",
 
     "parkour_relief": "res/sounds/survivors/파쿠르_누가저좀도와줘여.mp3",
-    "library_relief": "res/sounds/survivors/도서관_여대생_밖에누구없어요.wma",
+    "library_relief": "res/sounds/survivors/도서관_여대생_밖에누구없어요.wav",
     "chef_relief": "res/sounds/survivors/요리사 도와주세요.ogg",
     
     "cloth_child_thanks": "res/sounds/survivors/손자 할아버지.wav",

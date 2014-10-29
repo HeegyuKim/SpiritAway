@@ -14,14 +14,21 @@ namespace CSharp_IrrKlang
 		static void Main(string[] args)
 		{
 			ISoundEngine engine = new ISoundEngine();
-			var sound = engine.Play2D("sound.mp3", false, true);
+			engine.SetListenerPosition(
+				new Vector3D(0, 0, 0),
+				new Vector3D(1, 0, 0),
+				new Vector3D(0, 0, 0),
+				new Vector3D(0, 1, 0)
+				);
 
-			sound.Paused = false;
+			var source = engine.AddSoundSourceFromFile("sound.mp3");
+			Console.WriteLine("Maximum distance: " + source.DefaultMaxDistance);
+			Console.WriteLine("Minimum distance: " + source.DefaultMinDistance);
+
+			engine.Play3D("sound.mp3", 0, 0, 5);
 
 			Console.WriteLine("아무 키나 누르면 끝납니다.");
 			Console.ReadKey();
-
-			sound.Dispose();
 		}
 	}
 }

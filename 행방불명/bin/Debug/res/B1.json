@@ -1,7 +1,7 @@
 
 {
 	"background": "map_base.png",
-	"player_position": "kiwibrashee_door_locked",
+	"player_position": "library_books_top",
 	"waypoints": [
 	
 	
@@ -773,10 +773,6 @@
 			"id": "parkour_room2",
 			"x": 2224,
 			"y": 264,
-			"type": "people",
-			"obtained": 1,
-			"patients": 0,
-
 			"links": [
 				{
 					"id": "parkour_room3",
@@ -801,6 +797,10 @@
 			"x": 1977,
 			"y": 218,
 			"type": "crossroad",
+			"type": "people",
+			"obtained": 1,
+			"patients": 0,
+
 			"links": [
 				{
 					"id": "parkour_room_1to2_door",
@@ -2041,11 +2041,283 @@
 	],
 	
 	"misteries": [
-
-
+		{
+			"x": 200,
+			"y": 1540,
+			"bomb": true,
+			"detects": [
+				{
+					"x": 200,
+					"y": 1540,
+					"radius": 100
+				}
+			],
+			"damages": [
+				{
+					"x": 200,
+					"y": 1540,
+					"radius": 100
+				},
+				{
+					"x": 400,
+					"y": 1531,
+					"radius": 100
+				},
+				{
+					"x": 540,
+					"y": 1546,
+					"radius": 100
+				}
+			]
+		},
+		{
+			"x": 380,
+			"y": 1181,
+			"bomb": true,
+			"detects": [
+				{
+					"x": 380,
+					"y": 1181,
+					"radius": 100
+				}
+			],
+			"damages": [
+				{
+					"x": 380,
+					"y": 1181,
+					"radius": 100
+				}
+			]
+		},
+		{
+			"id": "jellypen",
+			"x": 224,
+			"y": 992,
+			"bomb": true,
+			"detects": [
+				{
+					"x": 244,
+					"y": 992,
+					"radius": 100
+				}
+			],
+			"damages": [
+				{
+					"x": 244,
+					"y": 992,
+					"radius": 100
+				}
+			]
+		},
+		{
+			"id": "burgernuri",
+			"x": 1432,
+			"y": 734,
+			"bomb": true,
+			"detects": [
+				{
+					"x": 1432,
+					"y": 734,
+					"radius": 150
+				}
+			],
+			"damages": [
+				{
+					"x": 1432,
+					"y": 734,
+					"radius": 150
+				}
+			]
+		},
+		{
+			"id": "parkour_room1",
+			"x": 1997,
+			"y": 332,
+			"bomb": true,
+			"detects": [
+				{
+					"x": 1997,
+					"y": 332,
+					"radius": 150
+				}
+			],
+			"damages": [
+				{
+					"x": 1997,
+					"y": 332,
+					"radius": 150
+				}
+			]
+		},
+		{
+			"id": "aquarium",
+			"x": 2336,
+			"y": 600,
+			"bomb": true,
+			"detects": [
+				{
+					"x": 2336,
+					"y": 600,
+					"radius": 230
+				}
+			],
+			"damages": [
+				{
+					"x": 2336,
+					"y": 600,
+					"radius": 230
+				}
+			]
+		},
+		{
+			"id": "cloth_store_warehouse_grandpa",
+			"x": 3129,
+			"y": 1459,
+			"bomb": true,
+			"detects": [
+				{
+					"x": 3129,
+					"y": 1459,
+					"radius": 50
+				}
+			],
+			"damages": [
+				{
+					"x": 3129,
+					"y": 1459,
+					"radius": 150
+				}
+			]
+		},
+		{
+			"id": "library_reading_room",
+			"x": 2593,
+			"y": 1495,
+			"bomb": true,
+			"detects": [
+				{
+					"x": 2593,
+					"y": 1495,
+					"radius": 40
+				}
+			],
+			"damages": [
+				{
+					"x": 2593,
+					"y": 1495,
+					"radius": 70
+				}
+			]
+		},
+		{
+			"x": 896,
+			"y": 1064,
+			"bomb": true,
+			"detects": [
+				{
+					"x": 930,
+					"y": 1064,
+					"radius": 100
+				}
+			],
+			"damages": [
+				{
+					"x": 930,
+					"y": 1064,
+					"radius": 100
+				}
+			]
+		},
+		{
+			"x": 1074,
+			"y": 1429,
+			"bomb": true,
+			"detects": [
+				{
+					"x": 1074,
+					"y": 1429,
+					"radius": 100
+				}
+			],
+			"damages": [
+				{
+					"x": 1074,
+					"y": 1429,
+					"radius": 100
+				}
+			]
+		}
 	],
 
 	"survivors": [
+		{
+			"id": "warehouse_backdoor_front",
+			"detect": 350,
+			"x": 3723,
+			"y": 618,
+			"relief": "warehouse_relief"
+		},
+		{
+			"id": "parkour_room1",
+			"detect": 250,
+			"x": 2100,
+			"y": 355,
+			"relief": "parkour_relief"
+		},
+		{
+			"id": "library_books_bottom",
+			"detect": 175,
+			"x": 1900,
+			"y": 1446,
+			"relief": "library_relief"
+		},
+		{
+			"id": "library_books_bottom",
+			"detect": 175,
+			"x": 1900,
+			"y": 1203,
+			"relief": "library_relief"
+		},
+		{
+			"id": "library_books_bottom",
+			"detect": 175,
+			"x": 1900,
+			"y": 1020,
+			"relief": "library_relief"
+		},
+		{
+			"id": "iweb_staff",
+			"detect": 200,
+			"x": 386,
+			"y": 350,
+			"relief": "iweb_relief"
+		},
+		{
+			"id": "kitchen_interior",
+			"detect": 200,
+			"x": 1185,
+			"y": 1353,
+			"relief": "chef_relief"
+		},
+		{
+			"id": "kitchen_interior",
+			"detect": 200,
+			"x": 1550,
+			"y": 1353,
+			"relief": "chef_relief"
+		},
+		{
+			"id": "sunflower_alley2",
+			"detect": 150,
+			"x": 870,
+			"y": 1313,
+		},
+		{
+			"id": "aquarium_couple",
+			"detect": 350,
+			"x": 2450,
+			"y": 666
+		},
 		{
 			"id": "cloth_store_dressing_room",
 			"detect": 300,
@@ -2059,46 +2331,6 @@
 			"y": 1489
 		},
 		{
-			"id": "aquarium_couple",
-			"detect": 350,
-			"x": 2450,
-			"y": 666
-		},
-		{
-			"id": "warehouse_backdoor_front",
-			"detect": 350,
-			"x": 3723,
-			"y": 618
-		},
-		{
-			"id": "parkour_room1",
-			"detect": 250,
-			"x": 2100,
-			"y": 355,
-			"sfx": "parkour_relief"
-		},
-		{
-			"id": "library_books_bottom",
-			"detect": 175,
-			"x": 1900,
-			"y": 1446,
-			"sfx": "library_relief"
-		},
-		{
-			"id": "library_books_bottom",
-			"detect": 175,
-			"x": 1900,
-			"y": 1203,
-			"sfx": "library_relief"
-		},
-		{
-			"id": "library_books_bottom",
-			"detect": 175,
-			"x": 1900,
-			"y": 1020,
-			"sfx": "library_relief"
-		},
-		{
 			"id": "bluehouse_bottom",
 			"detect": 150,
 			"x": 615,
@@ -2109,34 +2341,6 @@
 			"detect": 300,
 			"x": 970,
 			"y": 550
-		},
-		{
-			"id": "iweb_staff",
-			"detect": 200,
-			"x": 386,
-			"y": 350,
-			"sfx": "iweb_relief"
-		},
-		{
-			"id": "kitchen_interior",
-			"detect": 200,
-			"x": 1185,
-			"y": 1353,
-			"sfx": "chef_relief"
-		},
-		{
-			"id": "kitchen_interior",
-			"detect": 200,
-			"x": 1550,
-			"y": 1353,
-			"sfx": "chef_relief"
-		},
-		{
-			"id": "sunflower_alley2",
-			"detect": 150,
-			"x": 870,
-			"y": 1313,
-			"sfx": "chef_relief"
 		}
 	],
 

@@ -45,7 +45,8 @@ namespace 행방불명
 		public Config Config { get { return config; } }
 		public SharpDX.RectangleF RectF { get; private set; }
 		public Media Media { get; private set; }
-	
+		public readonly float SoundDistanceRate = 100;
+
 		bool[] keyState = new bool[256];
 		public bool IsKeyDown(int value)
 		{
@@ -82,8 +83,8 @@ namespace 행방불명
 			RectF = new SharpDX.RectangleF(0, 0, Width, Height);
 			Media = new Media(this, "res/media.json");
 
-			mCurrStage = new StartStage(this);
-			//mCurrStage = new GameStage(this, "res/B1.json", null);
+			//mCurrStage = new StartStage(this);
+			mCurrStage = new GameStage(this, "res/B1.json", null);
 			//mCurrStage = new GameStage(this, "res/B1.json", null);
 			mCurrStage.Start();
 
@@ -168,6 +169,21 @@ namespace 행방불명
 			sound.Paused = false;
 			return sound;
 		}
+
+		public void Play3D(string alias, float x, float y, bool looped = false)
+		{
+			if (alias == null) return;
+
+			Sound.Play3D(
+				alias,
+				x / SoundDistanceRate,
+				y / SoundDistanceRate,
+				0,
+				looped
+				);
+
+		}
+
 
 		[STAThread]
 		public static void Main(string []args) 

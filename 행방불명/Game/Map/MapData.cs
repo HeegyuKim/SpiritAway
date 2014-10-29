@@ -106,41 +106,75 @@ namespace 행방불명.Game.Map
 		}
 	}
 
+	public class Area
+	{
+
+		[JsonProperty(PropertyName = "x")]
+		public float X;
+		[JsonProperty(PropertyName = "y")]
+		public float Y;
+		[JsonProperty(PropertyName = "radius")]
+		public float Radius;
+	}
 
 	public class Mistery
 	{
+		[JsonProperty(PropertyName = "id")]
+		public string Id;
 		[JsonProperty(PropertyName = "bomb")]
 		public bool Bomb;
 		[JsonProperty(PropertyName = "x")]
 		public float X;
 		[JsonProperty(PropertyName = "y")]
 		public float Y;
-		[JsonProperty(PropertyName = "detect_radius")]
-		public float DetectRadius;
-		[JsonProperty(PropertyName = "damage_radius")]
-		public float DamageRadius;
+
+		[JsonProperty(PropertyName = "detects")]
+		public List<Area> detects;
+		[JsonProperty(PropertyName = "damages")]
+		public List<Area> damages;
+
 		[JsonProperty(PropertyName = "time")]
 		public float Time;
 
-		public bool Fired;
+		public float Delta;
+		public bool Fired, Checked, Known;
 
 		Mistery()
 		{
+			Delta = 0;
 			Fired = false;
+			Known = false;
+			Checked = false;
 		}
 
 		public bool IsDetected(float x, float y)
 		{
-			float dx = x - X,
-				dy = y - Y;
-			return dx * dx + dy * dy < DetectRadius * DetectRadius;
+			
+			foreach (var det in detects)
+			{
+				float dx = x - det.X,
+						dy = y - det.Y;
+				float len2 = dx * dx + dy * dy;
+
+				if (len2 < det.Radius * det.Radius)
+					return true;
+			}
+			return false;
 		}
 
 		public bool IsDamaged(float x, float y)
 		{
-			float dx = x - X,
-				dy = y - Y;
-			return dx * dx + dy * dy < DamageRadius * DamageRadius;
+
+			foreach (var det in damages)
+			{
+				float dx = x - det.X,
+						dy = y - det.Y;
+				float len2 = dx * dx + dy * dy;
+
+				if (len2 < det.Radius * det.Radius)
+					return true;
+			}
+			return false;
 		}
 	}
 
@@ -166,6 +200,12 @@ namespace 행방불명.Game.Map
 		[JsonProperty(PropertyName = "y")]
 		public float Y;
 
+
+		public float SX = 0, 
+					SY = 0,
+					LoopDelta = 0,
+					LoopCycle = 0;
+		public bool IsPlaying = false;
 	};
 
 	public class Event

@@ -27,6 +27,13 @@ namespace 행방불명.Game
 					);
 			}
 		}
+		public Vector2 Normal
+		{
+			get
+			{
+				return normal;
+			}
+		}
 
 		public Waypoint MoveFrom { get { return moveFrom; } }
 		public Waypoint MoveTo { get { return moveTo; } }
