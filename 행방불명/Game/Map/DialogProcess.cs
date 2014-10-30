@@ -39,7 +39,6 @@ namespace 행방불명.Game.Map
 
 		public void Start()
 		{
-			Console.WriteLine("DialogProcess started.");
 			scriptView.Script = talking.Current;
 			currSound =  app.Play2D(talking.Current.Sfx);
 		}

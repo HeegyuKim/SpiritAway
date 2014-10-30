@@ -31,12 +31,6 @@ namespace 행방불명.Game.Process
 			this.processes = processes;
 			this.arrived = arrived;
 
-			Console.WriteLine("Arrived to {0}: {1} ({2}, {3})",
-				arrived.Id,
-				arrived.Type,
-				arrived.X,
-				arrived.Y
-				);
 
 			SavePeople();
 			AddScriptIfExists();
@@ -77,7 +71,6 @@ namespace 행방불명.Game.Process
 			}
 			else if (arrived.Next != null)
 			{
-				Console.WriteLine("NEXT> " + arrived.Next);
 				processes.Add(
 					new StartProcess(
 						stage,
@@ -123,7 +116,6 @@ namespace 행방불명.Game.Process
 					{
 						if (arrived.Used) break;
 
-						Console.WriteLine("열쇠 겟!");
 						stage.Player.HasKey = true;
 
 						var talking = new Talking(
@@ -155,7 +147,7 @@ namespace 행방불명.Game.Process
 						break;
 					}
 				case "medical_kit":
-					if (!arrived.Used)
+					if (!arrived.Used && !stage.Map.IsTutorial() )
 					{
 						
 						List<Script> scripts = new List<Script>();
@@ -201,7 +193,6 @@ namespace 행방불명.Game.Process
 				case "hammer":
 					if (!arrived.Used)
 					{
-						Console.WriteLine("망치 겟!");
 						stage.Player.HasHammer = true;
 
 						var talking = new Talking(
@@ -268,7 +259,7 @@ namespace 행방불명.Game.Process
 				if (player.NumPatients < 0)
 					player.NumPatients = 0;
 
-				Console.WriteLine("메디팩이 있어서 부상자 치료함, {0}개 남음.", player.NumMedicalKits);
+
 				scripts.Add(
 					new Script(
 						"이대원",

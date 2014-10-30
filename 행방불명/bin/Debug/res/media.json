@@ -16,7 +16,9 @@
     "medipack": "res/images/medipack_icon.png",
     "key": "res/images/key_icon.png",
     "holder": "res/images/iconholder_ui.png",
-    "ping": "res/images/ping.png"
+    "ping": "res/images/ping.png",
+    "locked": "res/images/lockeddoor_icon.png",
+    "blocked": "res/images/breakable_icon.png"
   },
   "fonts": [
     {
@@ -58,20 +60,25 @@
     "tutorial3": "res/sounds/tutorial/3. 찾았습니다 무사하십니다.wav",
     "tutorial4": "res/sounds/tutorial/4. 이제 나가서 다른 사람들을.wav",
 
+    "runaway": "res/sounds/character/7. 으아아 도망쳐1.wav",
     "blocked": "res/sounds/character/5. 길이 막혀있습니다1.wav",
+    "locked": "res/sounds/character/문이 잠겨있습니다 1.mp3",
     "corpse": "res/sounds/character/12. 으 시체가1.wav",
     "find_survivors": "res/sounds/character/6-1. 생존자가 있습니다1.wav",
     "hurt": "res/sounds/character/6-2. 부상당했습니다2.wav",
     "find_hammer": "res/sounds/character/9. 망치를 찾았습니다.wav",
     "find_bomb": "res/sounds/character/4. 폭탄이 있습니다1.wav",
+    "find_mistery": "res/sounds/character/3. 수상한 물건이 있습니다.wav",
     "find_medical_kit": "res/sounds/character/10. 의료상자가 있습니다.wav",
     "cure_patients": "res/sounds/character/11. 부상자분들을 치료3.wav",
     "ask": "res/sounds/character/1. 어디로갈까요1.wav",
 
     "infodesk_thanks": "res/sounds/survivors/안내데스크_여직원_데리고 나가주세요.ogg",
+    "infodesk_relief": "res/sounds/survivors/안내데스크_울음2.wav",
 
     "parkour_relief": "res/sounds/survivors/파쿠르_누가저좀도와줘여.mp3",
     "library_relief": "res/sounds/survivors/도서관_여대생_밖에누구없어요.wav",
+    "couple_relief": "res/sounds/survivors/커플_울지마우린살수잇어.wav",
     "chef_relief": "res/sounds/survivors/요리사 도와주세요.ogg",
     
     "cloth_child_thanks": "res/sounds/survivors/손자 할아버지.wav",

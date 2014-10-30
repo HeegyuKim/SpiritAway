@@ -44,7 +44,7 @@ namespace 행방불명.Framework.UI
 			foreach (View view in _viewList)
 			{
 				view.OnDraw();
-				DrawOutline(view);
+				//DrawOutline(view);
 			}
 		}
 

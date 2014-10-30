@@ -40,7 +40,6 @@ namespace 행방불명.Game.Process
 
 		public void End()
 		{
-			Console.WriteLine("StartProcess started. to " + moveTo.Id);
 			player.StartTo(moveTo);
 		}
 

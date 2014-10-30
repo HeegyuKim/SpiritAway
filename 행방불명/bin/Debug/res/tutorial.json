@@ -2,6 +2,7 @@
   "background": "map_base.png",
 
   "player_position": "tutorial_start",
+  "stage": "tutorial",
   "waypoints" : [
     {
       "id": "tutorial_start",

@@ -229,6 +229,8 @@ namespace 행방불명.Game.Map
 
 	public class MapData
 	{
+		[JsonProperty(PropertyName = "stage")]
+		public string Stage;
 		[JsonProperty(PropertyName = "player_position")]
 		public string PlayerPosition;
 		[JsonProperty(PropertyName = "waypoints")]
@@ -280,6 +282,14 @@ namespace 행방불명.Game.Map
 			byte[] bResult = System.Text.Encoding.Convert(srcEnc, destEnc, bData);
 			return destEnc.GetString(bResult);
 		}
-
+		
+		public bool IsTutorial()
+		{
+			return Stage != null && Stage.Equals("tutorial");
+		}
+		public bool IsB1()
+		{
+			return Stage != null && Stage.Equals("B1");
+		}
 	}
 }

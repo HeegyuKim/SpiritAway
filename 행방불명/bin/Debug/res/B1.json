@@ -1,7 +1,8 @@
 
 {
 	"background": "map_base.png",
-	"player_position": "library_books_top",
+	"player_position": "lecture_room_door",
+	"stage": "B1",
 	"waypoints": [
 	
 	
@@ -2045,6 +2046,7 @@
 			"x": 200,
 			"y": 1540,
 			"bomb": true,
+			"time": 120,
 			"detects": [
 				{
 					"x": 200,
@@ -2074,6 +2076,7 @@
 			"x": 380,
 			"y": 1181,
 			"bomb": true,
+			"time": 100,
 			"detects": [
 				{
 					"x": 380,
@@ -2093,6 +2096,7 @@
 			"id": "jellypen",
 			"x": 224,
 			"y": 992,
+			"time": 220,
 			"bomb": true,
 			"detects": [
 				{
@@ -2114,6 +2118,7 @@
 			"x": 1432,
 			"y": 734,
 			"bomb": true,
+			"time": 350,
 			"detects": [
 				{
 					"x": 1432,
@@ -2134,6 +2139,7 @@
 			"x": 1997,
 			"y": 332,
 			"bomb": true,
+			"time": 45,
 			"detects": [
 				{
 					"x": 1997,
@@ -2153,6 +2159,7 @@
 			"id": "aquarium",
 			"x": 2336,
 			"y": 600,
+			"time": 577,
 			"bomb": true,
 			"detects": [
 				{
@@ -2173,6 +2180,7 @@
 			"id": "cloth_store_warehouse_grandpa",
 			"x": 3129,
 			"y": 1459,
+			"time": 651,
 			"bomb": true,
 			"detects": [
 				{
@@ -2193,6 +2201,7 @@
 			"id": "library_reading_room",
 			"x": 2593,
 			"y": 1495,
+			"time": 71,
 			"bomb": true,
 			"detects": [
 				{
@@ -2213,6 +2222,7 @@
 			"x": 896,
 			"y": 1064,
 			"bomb": true,
+			"time": 80,
 			"detects": [
 				{
 					"x": 930,
@@ -2232,6 +2242,7 @@
 			"x": 1074,
 			"y": 1429,
 			"bomb": true,
+			"time": 500,
 			"detects": [
 				{
 					"x": 1074,
@@ -2311,12 +2322,14 @@
 			"detect": 150,
 			"x": 870,
 			"y": 1313,
+			"relief": "couple_relief"
 		},
 		{
 			"id": "aquarium_couple",
 			"detect": 350,
 			"x": 2450,
-			"y": 666
+			"y": 666,
+			"relief": "couple_relief"
 		},
 		{
 			"id": "cloth_store_dressing_room",
@@ -2340,12 +2353,16 @@
 			"id": "infodesk",
 			"detect": 300,
 			"x": 970,
-			"y": 550
+			"y": 550,
+			"relief": "infodesk_relief"
 		}
 	],
 
 	"choices": [
 		"가스벨브를 잠궈",
-		"망치로 부숴"
+		"망치로 부숴",
+		"살펴봐",
+		"무시해",
+		"확인했습니다"
 	]
 }

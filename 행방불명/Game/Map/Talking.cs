@@ -32,7 +32,10 @@ namespace 행방불명.Game.Map
 		{
 			get
 			{
-				return scripts[currIndex];
+				if(scripts.Count > 0)
+					return scripts[currIndex];
+				else
+					return null;
 			}
 		}
 

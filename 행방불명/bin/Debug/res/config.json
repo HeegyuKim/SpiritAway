@@ -1,23 +1,4 @@
 {
   "sound_enabled": true,
-  "ranking": [
-    {
-      "level": "S",
-      "score": 100,
-      "time": 4.5,
-      "people": 12
-    },
-    {
-      "level": "B",
-      "score": 85,
-      "time": 6.5,
-      "people": 4
-    },
-    {
-      "level": "F",
-      "score": 55,
-      "time": 9.5,
-      "people": 6
-    }
-  ]
+  "ranking": []
 }

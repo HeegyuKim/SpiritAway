@@ -9,6 +9,7 @@ using 행방불명.Game.Map;
 using 행방불명.Game.Process;
 using SharpDX;
 using SharpDX.Direct2D1;
+using SharpDX.DirectWrite;
 using System.Windows.Forms;
 using System.IO;
 using Newtonsoft.Json;
@@ -37,19 +38,16 @@ namespace 행방불명.Game
 	{
 		Program app;
 		Color4 bg;
-		Stage next;
 		string mapPath;
 		GameStageOptions options;
 
 		public GameStage(
 			Program app,
-			string map,
-			Stage next
+			string map
 			)
 		{
 			this.app = app;
 			this.bg = new Color4(0, 0, 0, 1);
-			this.next = next;
 			this.mapPath = map;
 			this.options = new GameStageOptions()
 			{
@@ -63,13 +61,11 @@ namespace 행방불명.Game
 		public GameStage(
 			Program app,
 			string map,
-			Stage next,
 			GameStageOptions options
 			)
 		{
 			this.app = app;
 			this.bg = new Color4(0, 0, 0, 1);
-			this.next = next;
 			this.mapPath = map;
 			this.options = options;
 		}
@@ -95,6 +91,7 @@ namespace 행방불명.Game
 		{
 			Console.WriteLine(mapPath + " Game Stage started.");
 
+			
 			playerBitmap = app.Media.BitmapDic["character"];
 			ping = app.Media.BitmapDic["ping"];
 			gameObjects = new List<GameObject>();
@@ -109,9 +106,24 @@ namespace 행방불명.Game
 
 		private void InitUI(GameStageOptions options)
 		{
-			player.HasHammer = true;
-			//player.HasKey = true;
+			//player.HasHammer = true;
+			
+			
+			//player.HasKey = true; 
+			player.ElapsedTime = 0;
 			//player.NumMedicalKits = 5;
+			redBrush = new SolidColorBrush(
+							app.Graphics2D.RenderTarget,
+							new Color4(1, 0, 0, 1)
+							);
+
+			fadeoutBrush = new SolidColorBrush(
+							app.Graphics2D.RenderTarget,
+							new Color4(0, 0, 0, 0)
+							);
+
+			bombCountFormat = app.Media.FormatDic["default32"];
+			bombCountDrawRect = new RectangleF(0, 0, app.Width, app.Height);
 
 			container = new Container(app);
 			gameView = new GameView(app);
@@ -155,10 +167,6 @@ namespace 행방불명.Game
 				Console.WriteLine("알 수 없는 생존자의 연결 ID입니다. " + surv.Id);
 			}
 
-			Console.WriteLine(
-				"{0} ({1}, {2}): {3}",
-				surv.Id, surv.X, surv.Y, surv.Relief
-				);
 			if (surv.Relief == null)
 			{
 				return;
@@ -170,6 +178,15 @@ namespace 행방불명.Game
 			{
 				Console.WriteLine(surv.Relief + " 생존자의 말을 찾을 수 없어요.");
 				return;
+			}
+			else
+			{
+				Console.WriteLine(
+					"{0} / {1}, {2}",
+					source.DefaultMinDistance,
+					source.DefaultMaxDistance,
+					source.DefaultVolume
+					);
 			}
 			surv.SX = surv.X / SoundDistanceRate;
 			surv.SY = surv.Y / SoundDistanceRate;
@@ -240,6 +257,10 @@ namespace 행방불명.Game
 		ProcessBuilder processBuilder;
 		Vector2 currPlayerPos, playerNormal;
 		Vector2 listenerPos = new Vector2();
+
+		IProcess checkingProcess;
+		Mistery currentChecking;
+
 		float checkingDelta = 0;
 
 		private void Process(float delta)
@@ -259,9 +280,22 @@ namespace 행방불명.Game
 			}
 		}
 
+		bool fadeout = false;
+		float fadeoutRate = 0;
+		SolidColorBrush fadeoutBrush;
+
 		public void Update(float delta)
 		{
+			if (fadeout)
+			{
+				fadeoutRate += delta;
+				if (fadeoutRate > 1)
+					ended = true;
+				return;
+			}
+
 			playerAngle += delta * 3.141592f / 4;
+			player.ElapsedTime += delta;
 			pingDelta += delta;
 			if (pingDelta > 2)
 				pingDelta = 0;
@@ -269,7 +303,7 @@ namespace 행방불명.Game
 				playerAngle = 0;
 
 			UpdateReliefSound(delta);
-
+			CheckAround(delta);
 
 
 			container.Update(delta);
@@ -297,7 +331,7 @@ namespace 행방불명.Game
 					else
 					{
 						Console.WriteLine("Ended~");
-						ended = true;
+						Terminate();
 					}
 
 					break;
@@ -306,65 +340,25 @@ namespace 행방불명.Game
 					player.Move(delta * 150);
 					break;
 
-				case PlayerState.CheckingBomb:
+				case PlayerState.Checking:
 					// 처리할단계가 남아있으면 처리하고
 					if (processes.Count > 0)
 					{
+						Console.WriteLine("Process");
 						Process(delta);
 					}
-					
 					checkingDelta += delta;
-					if (checkingDelta > 1)
+					if (checkingDelta > 1 && !currentChecking.Checked)
 					{
-						player.State = PlayerState.Moving;
-						var script = new Script (
-										"이대원",
-										"폭탄이 있습니다.",
-										null,
-										"find_bomb"
-									);
+						checkingDelta = 0;
 
-						processes.Add (
-							new DialogProcess (
-								app,
-								scriptView,
-								new Talking (
-									)
-								)
-							);
-						break;
-					}
-					
-					break;
+						checkingProcess.Update(delta);
 
-				case PlayerState.CheckingMistery:
-					// 처리할단계가 남아있으면 처리하고
-					if (processes.Count > 0)
-					{
-						Process(delta);
-					}
-
-					checkingDelta += delta;
-					if (checkingDelta > 1)
-					{
-						player.State = PlayerState.Moving;
-						var script = new Script(
-										"이대원",
-										"폭탄이 있습니다.",
-										null,
-										"find_bomb"
-									);
-
-						processes.Add(
-							new DialogProcess(
-								app,
-								scriptView,
-								new Talking(
-									)
-								)
-							);
-						break;
-						break;
+						if (checkingProcess.IsEnded())
+						{
+							Console.WriteLine("CHECKED!");
+							currentChecking.Checked = true;
+						}
 					}
 					break;
 			}
@@ -428,7 +422,6 @@ namespace 행방불명.Game
 						surv.SY
 						);
 					app.Sound.Play3D(surv.Relief, surv.SX, surv.SY, 0);
-					
 
 					//app.Sound.Play2D(surv.Relief);
 					/*
@@ -447,26 +440,54 @@ namespace 행방불명.Game
 			}
 		}
 
+		private void CheckDead(Mistery mis)
+		{
+
+		}
+
 		private void CheckAround(float delta)
 		{
+			CheckGameObjects();
 			Vector2 curr = player.CurrentPosition;
 
 
 			foreach (var mis in map.Misteries)
 			{
+				if (mis.Fired) continue;
+
 				if (mis.Bomb)
 				{
 					mis.Delta += delta;
 
-					if (mis.Delta > mis.Time)
+					if (mis.Delta > mis.Time && !mis.Fired)
 					{
 						mis.Fired = true;
 						// TODO: BOOM!!!!!!!
 
-						app.Play3D("bomb", mis.X, mis.Y);
+						float sx = mis.X / SoundDistanceRate,
+							sy = mis.Y / SoundDistanceRate;
+
+						var dx = listenerPos.X - sx;
+						var dy = listenerPos.Y - sy;
+						var len2 = dx * dx + dy * dy;
+
+						if(len2 < 9)
+						{
+							app.Play2D("bomb");
+						}
+
+						Console.WriteLine(
+							"펑! {0} LISTEN({1}, {2}) SOURCE({3}, {4})",
+							mis.Id,
+							listenerPos.X,
+							listenerPos.Y,
+							sx,
+							sy
+							);
 
 						if (mis.IsDamaged(curr.X, curr.Y))
 						{
+							player.Dead = true;
 							Terminate();
 						}
 
@@ -476,25 +497,91 @@ namespace 행방불명.Game
 
 				// Known 은 인식, 즉 범위에 들어갔다가 나온 경우에는
 				// 다시 Known은 fasle가 됨.
-				if (!mis.Known && mis.IsDetected(curr.X, curr.Y))
+				if (player.State == PlayerState.Moving
+					&& mis.IsDetected(curr.X, curr.Y) && !mis.Known)
 				{
 					mis.Known = true;
-					// TODO: GO CHECK!
+					currentChecking = mis;
 
-					if(mis.Bomb)
-						player.State = PlayerState.CheckingBomb;
-					else
-						player.State = PlayerState.CheckingMistery;
-				}
-				else
-				{
-					mis.Known = false;
+					Console.WriteLine("GO CHECK!");
+
+					player.State = PlayerState.Processing;
+
+					
+
+					var dynamic = 
+						new DynamicSelectionProcess(
+							this,
+							(string value) => 
+							{
+								if(value.Equals("살펴봐"))
+								{
+									Script script = null;
+									if (mis.Bomb)
+									{
+										mis.Checked = true;
+										
+										if (mis.Time - mis.Delta < 15)
+										{
+											app.Play2D("runaway");
+											return new MoveProcess(this);
+										}
+										else
+											script = new Script(
+												"이대원",
+												"폭탄이 있습니다!",
+												null,
+												"find_bomb"
+												);
+									}
+									else
+										script = new Script(
+											"이대원",
+											"별 거 아닙니다.",
+											null
+											);
+
+									var p = new DialogProcess (
+										app, 
+										scriptView,
+										new Talking(
+											script
+											)
+										);
+									processes.Add(p);
+								}
+								
+								return new MoveProcess(this);
+							},
+							new Script(
+									"이대원",
+									"수상한 물건이 있습니다.",
+									null,
+									"find_mistery"
+								),
+							new string[]{ "살펴봐", "무시해" }
+							);
+
+					processes.Add(dynamic);
+					dynamic.Start();
 				}
 			}
 		}
 
+		private void CheckGameObjects()
+		{
+
+			//foreach (var obj in gameObjects)
+			//{
+			//}
+
+
+		}
+
 		private void Terminate()
 		{
+			Console.WriteLine("사망");
+			fadeout = true;
 		}
 
 		Matrix3x2 matrix;
@@ -525,18 +612,74 @@ namespace 행방불명.Game
 			}
 	
 			app.Graphics2D.RenderTarget.Transform = Matrix3x2.Identity;
+			
+			DrawGameObjects();
 
+			if (fadeout)
+			{
+				fadeoutBrush.Color = new Color4(0, 0, 0, fadeoutRate);
+				rt.FillRectangle(app.RectF, fadeoutBrush);
+			}
 			rt.EndDraw();
 
 			app.Graphics3D.Present();
 		}
 
 
+		TextFormat bombCountFormat;
+		SolidColorBrush redBrush;
+		RectangleF bombCountDrawRect;
 
+		private void DrawGameObjects()
+		{
+			float rx = 0, ry = 0;
+			var curr = player.CurrentPosition;
+			var vp = gameView.Viewport;
+
+			foreach (var obj in gameObjects)
+			{
+				rx = obj.x - vp.X;
+				ry = obj.y - vp.Y;
+
+				if (rx > 0 && rx < app.Width
+					&& ry > 0 && ry < app.Height)
+				{
+					app.Graphics2D.Draw(obj.bitmap, obj.x, obj.y);
+				}
+			}
+
+			foreach (var bomb in map.Misteries)
+			{
+				bool drawable = //bomb.Known ||
+								bomb.Checked;
+				if (bomb.Fired) continue;
+				if (!drawable) continue;
+
+				rx = bomb.X - vp.X;
+				ry = bomb.Y - vp.Y;
+
+				if (rx > 0 && rx < app.Width
+					&& ry > 0 && ry < app.Height)
+				{
+					bombCountDrawRect.X = rx;
+					bombCountDrawRect.Y = ry;
+
+					app.Graphics2D.RenderTarget.DrawText(
+						((int)(bomb.Time - bomb.Delta)).ToString(),
+						bombCountFormat,
+						bombCountDrawRect,
+						redBrush
+						);
+				}
+			}
+		}
 
 		public Stage getNextStage()
 		{
-			return next;
+			if (map.IsTutorial())
+				return new GameStage(app, "res/B1.json");
+			else
+				return new ResultStage(app, player);
 		}
 
 

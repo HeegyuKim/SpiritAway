@@ -83,8 +83,8 @@ namespace 행방불명
 			RectF = new SharpDX.RectangleF(0, 0, Width, Height);
 			Media = new Media(this, "res/media.json");
 
-			//mCurrStage = new StartStage(this);
-			mCurrStage = new GameStage(this, "res/B1.json", null);
+			mCurrStage = new StartStage(this);
+			//mCurrStage = new GameStage(this, "res/B1.json");
 			//mCurrStage = new GameStage(this, "res/B1.json", null);
 			mCurrStage.Start();
 
@@ -95,6 +95,11 @@ namespace 행방불명
 			mTimer.Tick += OnUpdate;
 			mTimer.Start();
 
+
+			mForm.HandleDestroyed += delegate(object sender, EventArgs args)
+			{
+				config.save();
+			};
 
 			if (!config.SoundEnabled)
 				Sound.SoundVolume = 0;

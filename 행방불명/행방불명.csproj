@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{9AA13F3A-A02A-4E3F-B9F2-906F17CA656C}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>행방불명</RootNamespace>
     <AssemblyName>행방불명</AssemblyName>
@@ -30,6 +30,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -96,9 +99,11 @@
     <Compile Include="Game\Config.cs" />
     <Compile Include="Game\GameStageOptions.cs" />
     <Compile Include="Game\Map\DialogProcess.cs" />
+    <Compile Include="Game\Process\DynamicSelectionProcess.cs" />
     <Compile Include="Game\Process\IProcess.cs" />
+    <Compile Include="Game\Process\MoveProcess.cs" />
     <Compile Include="Game\Process\ProcessBuilder.cs" />
-    <Compile Include="Game\Map\SelectProcess.cs" />
+    <Compile Include="Game\Process\SelectProcess.cs" />
     <Compile Include="Game\Process\StartProcess.cs" />
     <Compile Include="Game\Map\Talking.cs" />
     <Compile Include="Game\Map\GameMap.cs" />
@@ -106,6 +111,7 @@
     <Compile Include="Game\Player.cs" />
     <Compile Include="Game\PlayerState.cs" />
     <Compile Include="Game\PrologStage.cs" />
+    <Compile Include="Game\ResultStage.cs" />
     <Compile Include="Game\StartStage.cs" />
     <Compile Include="Game\GameStage.cs" />
     <Compile Include="Game\VoiceControl.cs" />

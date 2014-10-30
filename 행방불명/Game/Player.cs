@@ -45,6 +45,8 @@ namespace 행방불명.Game
 		public bool HasHammer { get; set; }
 		public bool HasKey { get; set; }
 		public int NumMedicalKits { get; set; }
+		public float ElapsedTime { get; set; }
+		public bool Dead { get; set; }
 
 
 		public bool IsArrived
@@ -76,8 +78,10 @@ namespace 행방불명.Game
 			NumPatients = 0;
 			NumObtained = 0;
 			NumDead = 0;
+			ElapsedTime = 0;
 			HasHammer = false;
 			HasKey = false;
+			Dead = false;
 
 			State = PlayerState.Arrived;
 			moveTo = at;

@@ -63,10 +63,12 @@ namespace 행방불명.Game
 			/////////////////////////////////
 			/////////////////////////////////
 			int rankingCount = app.Config.RankList.Count;
+			if (rankingCount > 3)
+				rankingCount = 3;
 
 			var grayBrush = new SolidColorBrush(
 				_app.Graphics2D.RenderTarget, 
-				new Color4(0.9f, 0.9f, 0.9f, 1)
+				new Color4(0.95f, 0.95f, 0.95f, 1)
 				);
 
 			var rankView = new TextView(_app.Graphics2D, mFontSmall, grayBrush);
@@ -74,26 +76,44 @@ namespace 행방불명.Game
 			var peopleView = new TextView(_app.Graphics2D, mFontSmall, grayBrush);
 			var levelView = new TextView(_app.Graphics2D, mFontSmall, grayBrush);
 
-			float x = cx / 2.0f;
-			float y = cy * 0.8f;
-			float dx = cx / 4.0f;
+			float x = cx / 4f;
+			float y = cy * 1.15f;
+			float dx = cx / 3.0f;
 			float dy = cy;
 			float w = dx;
 			float hx = _app.Width / 2;
 
-			rankView.Rect = new RectangleF(hx - 250, y, w, dy); 
-			timeView.Rect = new RectangleF(hx - 140, y, w, dy);
-			peopleView.Rect = new RectangleF(hx - 30, y, w, dy);
-			levelView.Rect = new RectangleF(hx + 80, y, w, dy);
-						
-			for (int i = 0; i < rankingCount; ++i)
+			rankView.Rect = new RectangleF(hx - 290, y, w, dy); 
+			timeView.Rect = new RectangleF(hx - 150, y, w, dy);
+			peopleView.Rect = new RectangleF(hx - 5, y, w, dy);
+			levelView.Rect = new RectangleF(hx + 140, y, w, dy);
+
+			var ranks = from item in app.Config.RankList
+						orderby item.Score descending
+						select item;
+
+			int i = 0;
+			rankView.Text = "";
+			timeView.Text = "";
+			peopleView.Text = "";
+			levelView.Text = "";
+
+			foreach (var rank in ranks)
 			{
-				var rank = app.Config.RankList[i];
 				rankView.Text += "\n\n" + (i + 1) + "위";
 				timeView.Text += "\n\n" + rank.Time.ToString("###.0") + "분";
 				peopleView.Text += "\n\n" + rank.NumObtainedPeople + "명";
 				levelView.Text += "\n\n" + rank.Level;
+
+				i++;
+				if (i >= 3)
+				{
+					break;
+				}
 			}
+
+			app.Config.RankList.Clear();
+			app.Config.RankList.AddRange(ranks.ToArray());
 
 			rankView.TextAlignment = TextAlignment.Center;
 			timeView.TextAlignment = TextAlignment.Center;
