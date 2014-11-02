@@ -3,22 +3,16 @@
   "fullscreen": false,
   "ranking": [
     {
-      "level": "S",
-      "score": 22,
-      "time": 355.0,
-      "people": 8
-    },
-    {
-      "level": "A",
-      "score": 20,
-      "time": 355.0,
-      "people": 5
-    },
-    {
       "level": "F",
-      "score": 0,
-      "time": 600.0,
-      "people": 3
+      "score": 15,
+      "time": 115.007881,
+      "people": 2
+    },
+    {
+      "level": "C",
+      "score": 13,
+      "time": 340.282379,
+      "people": 4
     }
   ]
 }

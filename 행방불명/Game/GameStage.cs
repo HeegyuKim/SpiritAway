@@ -76,6 +76,8 @@ namespace 행방불명.Game
 		public Program App { get { return app; } }
 		public List<IProcess> Processes { get { return processes; } }
 		public List<GameObject> GameObjects { get { return gameObjects; } }
+		public GameView GameView { get { return gameView; } }
+
 
 		Container container;
 		ScriptView scriptView;
@@ -83,7 +85,9 @@ namespace 행방불명.Game
 		TimeView timeView;
 		CountView countView;
 		SettingButtons exitBtn;
-		Bitmap playerBitmap, ping;
+		MapView mapView;
+
+		Bitmap playerBitmap, ping, danger;
 		float playerAngle = 0, pingDelta = 0;
 		readonly float SoundDistanceRate = 100.0f;
 
@@ -91,9 +95,10 @@ namespace 행방불명.Game
 		{
 			Console.WriteLine(mapPath + " Game Stage started.");
 
-			
+
 			playerBitmap = app.Media.BitmapDic["character"];
 			ping = app.Media.BitmapDic["ping"];
+			danger = app.Media.BitmapDic["danger_icon"];
 			gameObjects = new List<GameObject>();
 
 			center = new Vector2(app.Width / 2, app.Height / 2);
@@ -101,13 +106,12 @@ namespace 행방불명.Game
 			processBuilder = new ProcessBuilder(app, this);
 
 			LoadMap(mapPath);
-			InitUI(options);
+			InitUI();
 		}
 
-		private void InitUI(GameStageOptions options)
+		private void InitUI()
 		{
 			//player.HasHammer = true;
-			
 			
 			//player.HasKey = true; 
 			player.ElapsedTime = 0;
@@ -129,8 +133,10 @@ namespace 행방불명.Game
 			gameView = new GameView(app);
 			scriptView = new ScriptView(app);
 			exitBtn = new SettingButtons(app);
+			mapView = new MapView(this);
 
-			container.Views.Add(gameView);
+
+			//container.Views.Add(gameView);
 			container.Views.Add(exitBtn);
 			container.Views.Add(scriptView);
 
@@ -141,7 +147,7 @@ namespace 행방불명.Game
 			}
 			if (options.HasMapUI)
 			{
-
+				container.Views.Add(mapView);
 			}
 			if (options.HasTimeUI)
 			{
@@ -296,7 +302,7 @@ namespace 행방불명.Game
 			UpdateReliefSound(delta);
 			CheckAround(delta);
 
-
+			gameView.OnUpdate(delta);
 			container.Update(delta);
 			gameView.Center = player.CurrentPosition;
 
@@ -462,7 +468,7 @@ namespace 행방불명.Game
 						var dy = listenerPos.Y - sy;
 						var len2 = dx * dx + dy * dy;
 
-						if(len2 < 9)
+						if(len2 < 18)
 						{
 							app.Play2D("bomb");
 						}
@@ -488,8 +494,8 @@ namespace 행방불명.Game
 
 				// Known 은 인식, 즉 범위에 들어갔다가 나온 경우에는
 				// 다시 Known은 fasle가 됨.
-				if (player.State == PlayerState.Moving
-					&& mis.IsDetected(curr.X, curr.Y) && !mis.Known)
+				if (mis.IsDetected(curr.X, curr.Y) && player.State == PlayerState.Moving
+					&& !mis.Known)
 				{
 					mis.Known = true;
 					currentChecking = mis;
@@ -498,20 +504,20 @@ namespace 행방불명.Game
 
 					player.State = PlayerState.Processing;
 
-					
 
-					var dynamic = 
+
+					var dynamic =
 						new DynamicSelectionProcess(
 							this,
-							(string value) => 
+							(string value) =>
 							{
-								if(value.Equals("살펴봐"))
+								if (value.Equals("살펴봐"))
 								{
 									Script script = null;
 									if (mis.Bomb)
 									{
 										mis.Checked = true;
-										
+
 										if (mis.Time - mis.Delta < 15)
 										{
 											app.Play2D("runaway");
@@ -532,8 +538,8 @@ namespace 행방불명.Game
 											null
 											);
 
-									var p = new DialogProcess (
-										app, 
+									var p = new DialogProcess(
+										app,
 										scriptView,
 										new Talking(
 											script
@@ -541,7 +547,11 @@ namespace 행방불명.Game
 										);
 									processes.Add(p);
 								}
-								
+								else if (value.Equals("무시해"))
+								{
+									mis.Ignored = true;
+								}
+
 								return new MoveProcess(this);
 							},
 							new Script(
@@ -550,7 +560,7 @@ namespace 행방불명.Game
 									null,
 									"find_mistery"
 								),
-							new string[]{ "살펴봐", "무시해" }
+							new string[] { "살펴봐", "무시해" }
 							);
 
 					processes.Add(dynamic);
@@ -584,6 +594,8 @@ namespace 행방불명.Game
 			rt.BeginDraw();
 			rt.Clear(bg);
 
+			gameView.OnDraw();
+
 			float scale = (float)(Math.Sin(playerAngle) / 5 + 1);
 			Matrix3x2.Scaling(scale, scale, ref center, out matrix);
 			matrix *= Matrix3x2.Rotation(playerAngle, center);
@@ -597,12 +609,15 @@ namespace 행방불명.Game
 				Matrix3x2.Scaling(scale, scale, ref center, out matrix);
 
 				app.Graphics2D.RenderTarget.Transform = matrix;
-				app.Graphics2D.DrawCenter(ping, app.Width / 2, app.Height / 2);
+
+				float opacity = pingDelta / 2.0f;
+				app.Graphics2D.DrawCenter(ping, app.Width / 2, app.Height / 2, 1 - pingDelta * pingDelta);
 			}
 	
 			app.Graphics2D.RenderTarget.Transform = Matrix3x2.Identity;
-			
+
 			DrawGameObjects();
+			container.Draw();
 
 			if (fadeout)
 			{
@@ -610,7 +625,6 @@ namespace 행방불명.Game
 				rt.FillRectangle(app.RectF, fadeoutBrush);
 			}
 
-			container.Draw();
 
 			rt.EndDraw();
 
@@ -643,25 +657,37 @@ namespace 행방불명.Game
 			foreach (var bomb in map.Misteries)
 			{
 				bool drawable = //bomb.Known ||
-								bomb.Checked;
+								bomb.Checked || bomb.Ignored;
 				if (bomb.Fired) continue;
 				if (!drawable) continue;
 
 				rx = bomb.X - vp.X;
 				ry = bomb.Y - vp.Y;
 
+				
 				if (rx > 0 && rx < app.Width
 					&& ry > 0 && ry < app.Height)
 				{
-					bombCountDrawRect.X = rx;
-					bombCountDrawRect.Y = ry;
+					if (bomb.Ignored)
+					{
+						app.Graphics2D.Draw(
+							danger,
+							rx,
+							ry
+							);
+					}
+					else
+					{
+						bombCountDrawRect.X = rx;
+						bombCountDrawRect.Y = ry;
 
-					app.Graphics2D.RenderTarget.DrawText(
-						((int)(bomb.Time - bomb.Delta)).ToString(),
-						bombCountFormat,
-						bombCountDrawRect,
-						redBrush
-						);
+						app.Graphics2D.RenderTarget.DrawText(
+							((int)(bomb.Time - bomb.Delta)).ToString(),
+							bombCountFormat,
+							bombCountDrawRect,
+							redBrush
+							);
+					}
 				}
 			}
 		}

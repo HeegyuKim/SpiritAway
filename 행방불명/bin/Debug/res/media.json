@@ -18,7 +18,21 @@
     "holder": "res/images/iconholder_ui.png",
     "ping": "res/images/ping.png",
     "locked": "res/images/lockeddoor_icon.png",
-    "blocked": "res/images/breakable_icon.png"
+    "blocked": "res/images/breakable_icon.png",
+    "danger_icon": "res/images/danger_icon.png",
+
+    "ending_success": "res/images/ending_ui_success.png",
+    "ending_failure": "res/images/ending_ui_failure.png",
+
+    "rank_s" : "res/images/s_rank.png",
+    "rank_a" : "res/images/a_rank.png",
+    "rank_b" : "res/images/b_rank.png",
+    "rank_c" : "res/images/c_rank.png",
+    "rank_f" : "res/images/f_rank.png",
+
+    "map": "res/images/map.png",
+    "map_icon": "res/images/map_icon.png",
+    "ping_danger" : "res/images/ping_danger.png"
   },
   "fonts": [
     {

@@ -48,6 +48,10 @@ namespace 행방불명.Framework.UI
 		}
 
 
+		public float MapWidth { get; private set; }
+		public float MapHeight{ get; private set; }
+
+
 		public GameView(Program app)
 		{
 			this.app = app;
@@ -57,6 +61,10 @@ namespace 행방불명.Framework.UI
 			src = new RectangleF();
 
 			bg = app.Media.BitmapDic["game_map"];
+			MapWidth = bg.PixelSize.Width;
+			MapHeight = bg.PixelSize.Height;
+
+			Console.WriteLine("MAP SIZE: {0} {1}", MapWidth, MapHeight);
 
 			Draw += DrawGame;
 		}

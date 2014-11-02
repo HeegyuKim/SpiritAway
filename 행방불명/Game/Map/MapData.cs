@@ -137,7 +137,7 @@ namespace 행방불명.Game.Map
 		public float Time;
 
 		public float Delta;
-		public bool Fired, Checked, Known;
+		public bool Fired, Checked, Known, Ignored;
 
 		Mistery()
 		{
@@ -145,6 +145,7 @@ namespace 행방불명.Game.Map
 			Fired = false;
 			Known = false;
 			Checked = false;
+			Ignored = false;
 		}
 
 		public bool IsDetected(float x, float y)

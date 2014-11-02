@@ -73,22 +73,27 @@ namespace 행방불명.Framework.UI
 			if (questioned || queryDelta < 0.5f)
 				return;
 
-			questioned = true;
-			// EXIT 버튼 눌림
-			var result = MessageBox.Show(
-				app.Form,
-				"정말로 종료하실건가요?",
-				"종료",
-				MessageBoxButtons.YesNo
-				);
-			if (result == DialogResult.Yes)
-			{
+			if (app.Config.Fullscreen)
 				app.Form.Close();
-			}
+			else
+			{
+				questioned = true;
+				// EXIT 버튼 눌림
+				var result = MessageBox.Show(
+					app.Form,
+					"정말로 종료하실건가요?",
+					"종료",
+					MessageBoxButtons.YesNo
+					);
+				if (result == DialogResult.Yes)
+				{
+					app.Form.Close();
+				}
 
-			app.KeyF1 = false;
-			queryDelta = 0;
-			questioned = false;
+				app.KeyF1 = false;
+				queryDelta = 0;
+				questioned = false;
+			}
 		}
 
 		private void OnOffSound()

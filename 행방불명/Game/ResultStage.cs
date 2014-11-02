@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 using 행방불명.Framework;
 using SharpDX.DirectWrite;
 using SharpDX.Direct2D1;
-
+using SharpDX;
+using 행방불명.Framework.UI;
 
 namespace 행방불명.Game
 {
@@ -15,12 +16,18 @@ namespace 행방불명.Game
 	{
 		Program app;
 		Player player;
-		int score;
-		char rank;
-		TextLayout layout;
-		TextFormat format;
-		SolidColorBrush brush;
 		bool ended = false;
+
+		string rank;
+		int score;
+		bool success;
+
+		Container container;
+		SolidColorBrush brush;
+		TextFormat format;
+		Bitmap background, rankBitmap;
+		string timeText;
+
 
 		public ResultStage(Program app, Player player)
 		{
@@ -30,7 +37,6 @@ namespace 행방불명.Game
 
 		private string InitTime()
 		{
-
 			int time = (int)(player.ElapsedTime);
 			int minutes = time / 60;
 			int seconds = time % 60;
@@ -51,57 +57,91 @@ namespace 행방불명.Game
 		}
 
 
-		public void Start()
+		private void ComputeRankAndScore()
 		{
+			score = player.NumObtained - player.NumPatients / 2;
+			score -= player.NumDead;
+			score += (int)((900 - player.ElapsedTime) / 60.0f);
 
-			float timeScore = (900 - player.ElapsedTime) / 60.0f;
-			if (timeScore < 0)
-				timeScore = 0;
-			score = (int)(timeScore + player.NumObtained * 2 - player.NumDead);
-			brush = new SolidColorBrush(
-					app.Graphics2D.RenderTarget,
-					new SharpDX.Color4(1, 1, 1, 1)
-				);
+			if (!success)
+				rank = "F";
+			else if (score >= 20)
+				rank = "S";
+			else if (score >= 17)
+				rank = "A";
+			else if (score >= 14)
+				rank = "B";
+			else if (score >= 10)
+				rank = "C";
+			else
+				rank = "F";
+		}
 
 
-			if (score > 18)
-				rank = 'S';
-			else if (score > 14)
-				rank = 'A';
-			else if (score > 10)
-				rank = 'B';
-			else if (score > 8)
-				rank = 'C';
+		private void InitUI()
+		{
+			if (success)
+				background = app.Media.BitmapDic["ending_success"];
+			else
+				background = app.Media.BitmapDic["ending_failure"];
 
-			timeScore = ((int)(timeScore * 100)) / 6000.0f;
-
-			StringBuilder text =new StringBuilder();
-			text.Append(player.Dead ? "사망" : "성공").Append('\n')
-				.Append("구조자: " + player.NumObtained).Append('\n')
-				.Append("부상자: " + player.NumPatients).Append('\n')
-				.Append("사망자: " + player.NumDead).Append('\n')
-				.Append("소요시간: " + InitTime()).Append('\n')
-				.Append("등급: " + rank).Append('\n')
-				.Append("확인했습니다 - 라고 말하세요")
-				;
+			if (success)
+				rankBitmap = app.Media.BitmapDic["rank_" + rank.ToLower()];
+			else
+				rankBitmap = null;
 
 			format = app.Media.FormatDic["default32"];
-			layout = new TextLayout (
-				app.Graphics2D.DWriteFactory,
-				text.ToString(),
-				format,
-				app.Width,
-				app.Height
-				);
-			layout.ParagraphAlignment = ParagraphAlignment.Center;
-			layout.TextAlignment = TextAlignment.Center;
+			brush = new SolidColorBrush(app.Graphics2D.RenderTarget, new SharpDX.Color4(1, 1, 1, 1));
+			container = new Container(app);
 
-			var range = new TextRange(0, 2);
-			layout.SetFontSize(72, range);
-			layout.SetFontWeight(FontWeight.Bold, range);
 
-			app.VoiceControl.Recognize();
+			timeText = InitTime();
+			Console.WriteLine("TIME: " + timeText);
+			var timeUI = MakeText();
+			var rescuer = MakeText();
+			var patients = MakeText();
+			var dead = MakeText();
 
+
+			timeUI.Rect = new RectangleF(457, 572, 1024, 768);
+			rescuer.Rect = new RectangleF(193, 343, app.Width, app.Height);
+			patients.Rect = new RectangleF(539, 343, app.Width, app.Height);
+			dead.Rect = new RectangleF(873, 343, app.Width, app.Height);
+
+
+			timeUI.Text = timeText;
+			rescuer.Text = player.NumObtained.ToString();
+			patients.Text = player.NumPatients.ToString();
+			dead.Text = player.NumDead.ToString();
+
+			timeUI.Layout.SetFontSize(64, new TextRange(0, timeUI.Text.Length));
+			rescuer.Layout.SetFontSize(64, new TextRange(0, rescuer.Text.Length));
+			patients.Layout.SetFontSize(64, new TextRange(0, patients.Text.Length));
+			dead.Layout.SetFontSize(64, new TextRange(0, dead.Text.Length));
+
+
+			container.Views.Add(timeUI);
+			container.Views.Add(rescuer);
+			container.Views.Add(patients);
+			container.Views.Add(dead);
+		}
+
+		private TextView MakeText()
+		{
+			var textView = new TextView(app.Graphics2D, format, brush);
+			return textView;
+		}
+		
+		
+		public void Start()
+		{
+			success = !player.Dead;
+
+			// UI 초기화
+			ComputeRankAndScore();
+			InitUI();
+
+			// 랭킹 추가
 			app.Config.RankList.Add(new Rank()
 			{
 				Level = "" + rank,
@@ -110,10 +150,15 @@ namespace 행방불명.Game
 				Time = player.ElapsedTime
 			});
 			app.Config.sort();
+
+			app.VoiceControl.Recognize();
 		}
+
 
 		public void Update(float delta)
 		{
+			container.Update(delta);
+
 			var voice = app.VoiceControl;
 
 			if (voice.isSuccess)
@@ -131,7 +176,13 @@ namespace 행방불명.Game
 		{
 			var rt = app.Graphics2D.RenderTarget;
 			rt.BeginDraw();
-			rt.DrawTextLayout(new SharpDX.Vector2(0, 0), layout, brush);
+
+			app.Graphics2D.Draw(background, 0, 0);
+			container.Draw();
+			
+			if(rankBitmap != null)
+				app.Graphics2D.DrawCenter(rankBitmap, 820, 192);
+
 			rt.EndDraw();
 			app.Graphics3D.Present();
 		}

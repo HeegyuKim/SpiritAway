@@ -39,8 +39,6 @@ namespace 행방불명
 		public ISoundEngine Sound { get { return engine; } }
 		public Container Container { get; set; }
 		public Mouse Mouse { get { return mouse; } }
-		public int Width { get { return mForm.Width; } }
-		public int Height { get { return mForm.Height; } }
 		public VoiceControl VoiceControl { get { return control; } }
 		public Config Config { get { return config; } }
 		public SharpDX.RectangleF RectF { get; private set; }
@@ -48,10 +46,17 @@ namespace 행방불명
 		public readonly float SoundDistanceRate = 100;
 
 
+		public int Width { get { return 1024; } }
+		public int Height { get { return 768; } }
+
+
 		public bool KeyF1 { get; set; }
 		public bool KeyF2 { get; set; }
 		public bool KeySpace { get; set; }
-		
+		public bool KeyAlt { get; set; }
+		public bool KeyEnter { get; set; }
+		private bool fullscreenChanged = false;
+
 		public Program()
 		{
 			mForm = new Form();
@@ -66,17 +71,35 @@ namespace 행방불명
 				{
 					case Keys.F1:
 						KeyF1 = true;
-						Console.WriteLine("KeyF1: " + KeyF1);
 						break;
 					case Keys.F2:
 						KeyF2 = true;
-						Console.WriteLine("KeyF2: " + KeyF2);
 						break;
 					case Keys.Space:
 						KeySpace = true;
-						Console.WriteLine("KeySpace: " + KeySpace);
+						break;
+					case Keys.Alt:
+						KeyAlt = true;
+						Console.WriteLine("KEY_ALT_DOWN");
+						break;
+					case Keys.Enter:
+						KeyEnter = true;
+						Console.WriteLine("KEY_ENTER_DOWN");
 						break;
 				};
+
+				if (!fullscreenChanged && KeyEnter && KeyAlt)
+				{
+					Console.WriteLine("FULLSCREEN!!!!!!!!!");
+
+					fullscreenChanged = true;
+					Output output;
+					SharpDX.Bool fullscreen;
+
+					g3d.SwapChain.GetFullscreenState(out fullscreen, out output);
+					g3d.SwapChain.SetFullscreenState(!fullscreen, output);
+					config.Fullscreen = !fullscreen;
+				}
 			};
 			mForm.KeyUp += (object sender, KeyEventArgs args) =>
 			{
@@ -84,18 +107,33 @@ namespace 행방불명
 				{
 					case Keys.F1:
 						KeyF1 = false;
-						Console.WriteLine("KeyF1: " + KeyF1);
 						break;
 					case Keys.F2:
 						KeyF2 = false;
-						Console.WriteLine("KeyF2: " + KeyF2);
 						break;
 					case Keys.Space:
 						KeySpace = false;
-						Console.WriteLine("KeySpace: " + KeySpace);
+						break;
+					case Keys.Alt:
+						KeyAlt = false;
+						fullscreenChanged = false;
+						break;
+					case Keys.Enter:
+						KeyEnter = false;
+						fullscreenChanged = false;
 						break;
 				};
 			};
+			mForm.FormClosed += delegate(object sender, FormClosedEventArgs args)
+			{
+				Dispose();
+			};
+			mForm.Shown += (object sender, EventArgs args) =>
+			{
+				mForm.Activate();
+			};
+
+
 
 
 			g3d = new Graphics3D(mForm.Handle, mForm.ClientSize.Width, mForm.ClientSize.Height, false);
@@ -112,6 +150,19 @@ namespace 행방불명
 			//mCurrStage = new GameStage(this, "res/B1.json", null);
 			mCurrStage.Start();
 
+
+
+			using (var factory = g3d.SwapChain.GetParent<SharpDX.DXGI.Factory>())
+				factory.MakeWindowAssociation(mForm.Handle, WindowAssociationFlags.IgnoreAltEnter);
+
+			g3d.SwapChain.SetFullscreenState(config.Fullscreen, null);
+
+
+
+			if (!config.SoundEnabled)
+				Sound.SoundVolume = 0;
+
+
 			mLastTime = DateTime.Now;
 
 			mTimer = new Timer();
@@ -119,22 +170,6 @@ namespace 행방불명
 			mTimer.Tick += OnUpdate;
 			mTimer.Start();
 
-			using (var factory = g3d.SwapChain.GetParent<SharpDX.DXGI.Factory>())
-				factory.MakeWindowAssociation(mForm.Handle, WindowAssociationFlags.IgnoreAltEnter);
-
-			// g3d.SwapChain.SetFullscreenState(config.Fullscreen, null);
-
-			mForm.FormClosed += delegate(object sender, FormClosedEventArgs	 args)
-			{
-				Dispose();
-			};
-			mForm.Shown += (object sender, EventArgs args) =>
-			{
-				mForm.Activate();
-			};
-
-			if (!config.SoundEnabled)
-				Sound.SoundVolume = 0;
 		}
 		
 		private Stage mCurrStage;

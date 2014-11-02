@@ -91,6 +91,7 @@
     <Compile Include="Framework\Stage.cs" />
     <Compile Include="Framework\SceneEventArgs.cs" />
     <Compile Include="Framework\UI\Container.cs" />
+    <Compile Include="Framework\UI\MapView.cs" />
     <Compile Include="Framework\UI\SettingButtons.cs" />
     <Compile Include="Framework\UI\ImageButton.cs" />
     <Compile Include="Framework\UI\ImageView.cs" />

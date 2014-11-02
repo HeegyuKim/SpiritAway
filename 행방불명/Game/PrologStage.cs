@@ -141,7 +141,13 @@ namespace 행방불명.Game
 
 		public Stage getNextStage()
 		{
-			return new GameStage(app, "res/tutorial.json");
+			return new GameStage(app, "res/tutorial.json", new GameStageOptions()
+				{
+					HasCountUI = false,
+					HasMapUI = false,
+					HasTimeUI = false,
+					Player = null,
+				});
 		}
 
 		public bool IsEnded()
