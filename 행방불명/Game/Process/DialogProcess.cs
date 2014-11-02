@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using 행방불명.Game.Process;
+using 행방불명.Game.Map;
 using 행방불명.Framework;
 using 행방불명.Framework.UI;
 using IrrKlang;
 
 
-namespace 행방불명.Game.Map
+namespace 행방불명.Game.Process
 {
 	public class DialogProcess
 		: IProcess
@@ -20,6 +20,7 @@ namespace 행방불명.Game.Map
 		VoiceControl voice;
 		Mouse mouse;
 		ISound currSound;
+		float nextScriptDelta = 0;
 
 
 		public DialogProcess(
@@ -45,6 +46,28 @@ namespace 행방불명.Game.Map
 
 		public void Update(float delta)
 		{
+			nextScriptDelta += delta;
+
+
+			if (app.KeySpace && nextScriptDelta > 0.3f)
+			{
+				nextScriptDelta = 0;
+
+				// 음성인식아니면 걍 넘어가고
+				if (!talking.HasVoice)
+				{
+					NextScript();
+				}
+				// 맞으면 취소하고 다음스크립트로
+				else
+				{
+					voice.Cancle();
+					NextScript();
+				}
+				return;
+			}
+
+
 			if (mouse[0] && !pressed)
 			{
 				pressed = true;
@@ -64,6 +87,7 @@ namespace 행방불명.Game.Map
 					voice.Cancle();
 					NextScript();
 				}
+				return;
 			}
 
 			// 음성인식 사용해야 하는 부분일 경우에..

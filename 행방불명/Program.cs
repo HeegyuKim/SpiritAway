@@ -47,15 +47,11 @@ namespace 행방불명
 		public Media Media { get; private set; }
 		public readonly float SoundDistanceRate = 100;
 
-		bool[] keyState = new bool[256];
-		public bool IsKeyDown(int value)
-		{
-			if (value < 256)
-				return keyState[value];
-			else
-				return false;
-		}
 
+		public bool KeyF1 { get; set; }
+		public bool KeyF2 { get; set; }
+		public bool KeySpace { get; set; }
+		
 		public Program()
 		{
 			mForm = new Form();
@@ -63,16 +59,44 @@ namespace 행방불명
 			mForm.ClientSize = new Size(1024, 768);
 			mForm.MaximizeBox = false;
 			mForm.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+			mForm.Icon = new Icon("res/icon.ico");
 			mForm.KeyDown += (object sender, KeyEventArgs args) =>
 			{
-				if (args.KeyValue < 256)
-					keyState[args.KeyValue] = true;
+				switch (args.KeyCode)
+				{
+					case Keys.F1:
+						KeyF1 = true;
+						Console.WriteLine("KeyF1: " + KeyF1);
+						break;
+					case Keys.F2:
+						KeyF2 = true;
+						Console.WriteLine("KeyF2: " + KeyF2);
+						break;
+					case Keys.Space:
+						KeySpace = true;
+						Console.WriteLine("KeySpace: " + KeySpace);
+						break;
+				};
 			};
 			mForm.KeyUp += (object sender, KeyEventArgs args) =>
 			{
-				if (args.KeyValue < 256)
-					keyState[args.KeyValue] = false;
+				switch (args.KeyCode)
+				{
+					case Keys.F1:
+						KeyF1 = false;
+						Console.WriteLine("KeyF1: " + KeyF1);
+						break;
+					case Keys.F2:
+						KeyF2 = false;
+						Console.WriteLine("KeyF2: " + KeyF2);
+						break;
+					case Keys.Space:
+						KeySpace = false;
+						Console.WriteLine("KeySpace: " + KeySpace);
+						break;
+				};
 			};
+
 
 			g3d = new Graphics3D(mForm.Handle, mForm.ClientSize.Width, mForm.ClientSize.Height, false);
 			g2d = new Graphics2D(g3d.SwapChain.GetBackBuffer<Surface>(0));
@@ -95,10 +119,18 @@ namespace 행방불명
 			mTimer.Tick += OnUpdate;
 			mTimer.Start();
 
+			using (var factory = g3d.SwapChain.GetParent<SharpDX.DXGI.Factory>())
+				factory.MakeWindowAssociation(mForm.Handle, WindowAssociationFlags.IgnoreAltEnter);
 
-			mForm.HandleDestroyed += delegate(object sender, EventArgs args)
+			// g3d.SwapChain.SetFullscreenState(config.Fullscreen, null);
+
+			mForm.FormClosed += delegate(object sender, FormClosedEventArgs	 args)
 			{
-				config.save();
+				Dispose();
+			};
+			mForm.Shown += (object sender, EventArgs args) =>
+			{
+				mForm.Activate();
 			};
 
 			if (!config.SoundEnabled)
@@ -152,7 +184,6 @@ namespace 행방불명
 		{
 			if (managed)
 			{
-				mForm.Close();
 				if (mTimer.Enabled)
 					mTimer.Dispose();
 

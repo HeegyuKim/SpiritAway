@@ -109,6 +109,7 @@ namespace 행방불명.Game
 				Score = score,
 				Time = player.ElapsedTime
 			});
+			app.Config.sort();
 		}
 
 		public void Update(float delta)

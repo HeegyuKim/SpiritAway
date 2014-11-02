@@ -160,7 +160,19 @@ namespace 행방불명.Game.Process
 							stage.App.Media.BitmapDic["locked"]
 							)
 						);
+					Console.WriteLine("잠긴 문이 게임오브젝트에 추가됨!");
 					return;
+				}
+				else
+				{
+					var removed = from obj in stage.GameObjects
+								  where obj.key.Equals(player.MoveTo.Id)
+								  select obj;
+					if (removed.Count() > 0)
+					{
+						stage.GameObjects.Remove(removed.First());
+						Console.WriteLine("잠긴 문이 게임오브젝트에서 제거됨");
+					}
 				}
 				if (link.Required.Equals("hammer") && !player.HasHammer)
 				{
@@ -195,6 +207,8 @@ namespace 행방불명.Game.Process
 							stage.App.Media.BitmapDic["blocked"]
 							)
 						);
+
+					Console.WriteLine("막힌 길이 게임오브젝트에 추가됨!");
 					return;
 				}
 				else if (link.Required.Equals("hammer") && player.HasHammer)
@@ -236,6 +250,17 @@ namespace 행방불명.Game.Process
 								link.Id
 								)
 							);
+
+
+						var removed = from obj in stage.GameObjects
+									  where obj.key.Equals(player.MoveTo.Id)
+									  select obj;
+						if (removed.Count() > 0)
+						{
+							stage.GameObjects.Remove(removed.First());
+							Console.WriteLine("막힌 길이 게임오브젝트에서 제거됨");
+						}
+
 						return;
 					}
 					

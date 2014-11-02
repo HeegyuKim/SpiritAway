@@ -17,7 +17,8 @@ namespace 행방불명.Framework.UI
 		Program app;
 		Mouse mouse;
 		Config config;
-		
+
+		float margin = 30, lastChangedDelta = 0, queryDelta = 0;
 		RectangleF exitRect, soundRect;
 		Bitmap exit, soundOn, soundOff;
 
@@ -39,12 +40,12 @@ namespace 행방불명.Framework.UI
 				exit.Size.Width, exit.Size.Height
 				);
 			soundRect = new SharpDX.RectangleF(
-				exit.Size.Width, 0,
+				exit.Size.Width + margin, 0,
 				soundOff.Size.Width, soundOff.Size.Height
 				);
 			Rect = new RectangleF(
 				0, 0,
-				exit.Size.Width + soundOff.Size.Width, exit.Size.Height
+				margin + exit.Size.Width + soundOff.Size.Width, exit.Size.Height
 				);
 
 			Draw += DrawButtons;
@@ -67,43 +68,75 @@ namespace 행방불명.Framework.UI
 
 		bool pressed = false, questioned = false;
 
+		private void QueryQuit()
+		{
+			if (questioned || queryDelta < 0.5f)
+				return;
+
+			questioned = true;
+			// EXIT 버튼 눌림
+			var result = MessageBox.Show(
+				app.Form,
+				"정말로 종료하실건가요?",
+				"종료",
+				MessageBoxButtons.YesNo
+				);
+			if (result == DialogResult.Yes)
+			{
+				app.Form.Close();
+			}
+
+			app.KeyF1 = false;
+			queryDelta = 0;
+			questioned = false;
+		}
+
+		private void OnOffSound()
+		{
+			lastChangedDelta = 0;
+			config.SoundEnabled = !config.SoundEnabled;
+			if (config.SoundEnabled)
+				app.Sound.SoundVolume = 1;
+			else
+				app.Sound.SoundVolume = 0;
+		}
+
 		private void CheckMouseInput(float delta)
 		{
+			lastChangedDelta += delta;
+			queryDelta += delta;
+
+			if (app.KeyF1)
+			{
+				QueryQuit();
+			}
+			if (app.KeyF2 && lastChangedDelta > 0.15f)
+			{
+				OnOffSound();
+			}
+
+
+			bool clicked = pressed && !mouse[0];
+			if (mouse[0])
+			{
+				pressed = true;
+			}
+			else
+				pressed = false;
+
+
 			if (!Rect.Contains(mouse.X, mouse.Y))
 				return;
 
-			if (pressed && !mouse[0])
+			
+			if (clicked && exitRect.Contains(mouse.X, mouse.Y))
 			{
-				if (exitRect.Contains(mouse.X, mouse.Y) && !questioned)
-				{
-					questioned = true;
-					// EXIT 버튼 눌림
-					var result = MessageBox.Show(
-						app.Form,
-						"정말로 종료하실건가요?",
-						"종료",
-						MessageBoxButtons.YesNo
-						);
-					if (result == DialogResult.Yes)
-					{
-						app.Dispose();
-					}
-					questioned = false;
-				}
-				else
-				{
-					config.SoundEnabled = !config.SoundEnabled;
-					if (config.SoundEnabled)
-						app.Sound.SoundVolume = 1;
-					else
-						app.Sound.SoundVolume = 0;
-				}
-				pressed = false;
-
+				QueryQuit();
 			}
-			else if(mouse[0])
+			
+			if(clicked && soundRect.Contains(mouse.X, mouse.Y))
 			{
-				pressed = true;
+				OnOffSound();
 			}
 		}
 	}

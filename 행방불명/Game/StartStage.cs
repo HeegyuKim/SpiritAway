@@ -88,9 +88,6 @@ namespace 행방불명.Game
 			peopleView.Rect = new RectangleF(hx - 5, y, w, dy);
 			levelView.Rect = new RectangleF(hx + 140, y, w, dy);
 
-			var ranks = from item in app.Config.RankList
-						orderby item.Score descending
-						select item;
 
 			int i = 0;
 			rankView.Text = "";
@@ -98,10 +95,10 @@ namespace 행방불명.Game
 			peopleView.Text = "";
 			levelView.Text = "";
 
-			foreach (var rank in ranks)
+			foreach (var rank in app.Config.RankList)
 			{
 				rankView.Text += "\n\n" + (i + 1) + "위";
-				timeView.Text += "\n\n" + rank.Time.ToString("###.0") + "분";
+				timeView.Text += "\n\n" + rank.Time.ToString("###.0") + "초";
 				peopleView.Text += "\n\n" + rank.NumObtainedPeople + "명";
 				levelView.Text += "\n\n" + rank.Level;
 
@@ -111,9 +108,6 @@ namespace 행방불명.Game
 					break;
 				}
 			}
-
-			app.Config.RankList.Clear();
-			app.Config.RankList.AddRange(ranks.ToArray());
 
 			rankView.TextAlignment = TextAlignment.Center;
 			timeView.TextAlignment = TextAlignment.Center;
@@ -125,6 +119,7 @@ namespace 행방불명.Game
 			container.Views.Add(timeView);
 			container.Views.Add(peopleView);
 			container.Views.Add(levelView);
+			container.Views.Add(new SettingButtons(app));
 		}
 
 

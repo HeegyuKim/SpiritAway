@@ -5,3 +5,10 @@ D:\Project\행방불명\CSharp IrrKlang\bin\Release\irrKlang.NET4.dll
 D:\Project\행방불명\CSharp IrrKlang\obj\Release\CSharp IrrKlang.csprojResolveAssemblyReference.cache
 D:\Project\행방불명\CSharp IrrKlang\obj\Release\CSharp IrrKlang.exe
 D:\Project\행방불명\CSharp IrrKlang\obj\Release\CSharp IrrKlang.pdb
+C:\Users\희규\Documents\Project\행방불명\CSharp IrrKlang\bin\Release\CSharp IrrKlang.exe.config
+C:\Users\희규\Documents\Project\행방불명\CSharp IrrKlang\bin\Release\CSharp IrrKlang.exe
+C:\Users\희규\Documents\Project\행방불명\CSharp IrrKlang\bin\Release\CSharp IrrKlang.pdb
+C:\Users\희규\Documents\Project\행방불명\CSharp IrrKlang\bin\Release\irrKlang.NET4.dll
+C:\Users\희규\Documents\Project\행방불명\CSharp IrrKlang\obj\Release\CSharp IrrKlang.csprojResolveAssemblyReference.cache
+C:\Users\희규\Documents\Project\행방불명\CSharp IrrKlang\obj\Release\CSharp IrrKlang.exe
+C:\Users\희규\Documents\Project\행방불명\CSharp IrrKlang\obj\Release\CSharp IrrKlang.pdb

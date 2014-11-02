@@ -179,15 +179,6 @@ namespace 행방불명.Game
 				Console.WriteLine(surv.Relief + " 생존자의 말을 찾을 수 없어요.");
 				return;
 			}
-			else
-			{
-				Console.WriteLine(
-					"{0} / {1}, {2}",
-					source.DefaultMinDistance,
-					source.DefaultMaxDistance,
-					source.DefaultVolume
-					);
-			}
 			surv.SX = surv.X / SoundDistanceRate;
 			surv.SY = surv.Y / SoundDistanceRate;
 			surv.LoopCycle = source.PlayLength / 1000.0f + 10;
@@ -593,8 +584,6 @@ namespace 행방불명.Game
 			rt.BeginDraw();
 			rt.Clear(bg);
 
-			container.Draw();
-
 			float scale = (float)(Math.Sin(playerAngle) / 5 + 1);
 			Matrix3x2.Scaling(scale, scale, ref center, out matrix);
 			matrix *= Matrix3x2.Rotation(playerAngle, center);
@@ -620,6 +609,9 @@ namespace 행방불명.Game
 				fadeoutBrush.Color = new Color4(0, 0, 0, fadeoutRate);
 				rt.FillRectangle(app.RectF, fadeoutBrush);
 			}
+
+			container.Draw();
+
 			rt.EndDraw();
 
 			app.Graphics3D.Present();
@@ -644,7 +636,7 @@ namespace 행방불명.Game
 				if (rx > 0 && rx < app.Width
 					&& ry > 0 && ry < app.Height)
 				{
-					app.Graphics2D.Draw(obj.bitmap, obj.x, obj.y);
+					app.Graphics2D.DrawCenter(obj.bitmap, rx, ry);
 				}
 			}
 

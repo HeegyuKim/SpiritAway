@@ -774,6 +774,7 @@
 			"id": "parkour_room2",
 			"x": 2224,
 			"y": 264,
+			"type": "crossroad",
 			"links": [
 				{
 					"id": "parkour_room3",
@@ -1169,7 +1170,7 @@
 			"type": "crossroad",
 			"links": [
 				{
-					"id": "kiwibrashee_door_locked",
+					"id": "burgernuri_right",
 					"name": "동북쪽으로 가"
 				},
 				{
@@ -1187,13 +1188,13 @@
 			]
 		},
 		{
-			"id": "kiwibrashee_door_locked",
-			"x": 1590,
-			"y": 543,
+			"id": "burgernuri_right",
+			"x": 1580,
+			"y": 544,
 			"type": "crossroad",
 			"links": [
 				{
-					"id": "kiwibrashee_interior",
+					"id": "kiwibrashee_door_locked",
 					"name": "동북쪽 문으로 들어가",
 					"required": "hammer"
 				},
@@ -1202,6 +1203,14 @@
 					"name": "서남쪽으로 가"
 				}
 			]
+		},
+		{
+			"id": "kiwibrashee_door_locked",
+			"x": 1610,
+			"y": 509,
+			"type": "curve",
+			"link1": "burgernuri_right",
+			"link2": "kiwibrashee_interior"
 		},
 		{
 			"id": "kiwibrashee_interior",
@@ -2139,7 +2148,7 @@
 			"x": 1997,
 			"y": 332,
 			"bomb": true,
-			"time": 45,
+			"time": 145,
 			"detects": [
 				{
 					"x": 1997,
@@ -2159,7 +2168,7 @@
 			"id": "aquarium",
 			"x": 2336,
 			"y": 600,
-			"time": 577,
+			"time": 115,
 			"bomb": true,
 			"detects": [
 				{
@@ -2180,13 +2189,13 @@
 			"id": "cloth_store_warehouse_grandpa",
 			"x": 3129,
 			"y": 1459,
-			"time": 651,
+			"time": 90,
 			"bomb": true,
 			"detects": [
 				{
 					"x": 3129,
 					"y": 1459,
-					"radius": 50
+					"radius": 100
 				}
 			],
 			"damages": [
@@ -2201,7 +2210,7 @@
 			"id": "library_reading_room",
 			"x": 2593,
 			"y": 1495,
-			"time": 71,
+			"time": 171,
 			"bomb": true,
 			"detects": [
 				{
@@ -2219,6 +2228,7 @@
 			]
 		},
 		{
+			"id": "elevator",
 			"x": 896,
 			"y": 1064,
 			"bomb": true,
@@ -2239,10 +2249,11 @@
 			]
 		},
 		{
+			"id": "kitchen_door",
 			"x": 1074,
 			"y": 1429,
 			"bomb": true,
-			"time": 500,
+			"time": 260,
 			"detects": [
 				{
 					"x": 1074,

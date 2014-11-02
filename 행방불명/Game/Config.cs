@@ -25,6 +25,7 @@ namespace 행방불명.Game
 		bool soundEnabled;
 
 
+		public bool Fullscreen { get; set; }
 
 		public List<Rank> RankList { get { return rankList; } }
 		public bool SoundEnabled 
@@ -50,6 +51,7 @@ namespace 행방불명.Game
 				JObject obj = JObject.Parse(File.ReadAllText(filename));
 
 				soundEnabled = obj["sound_enabled"].Value<bool>();
+				Fullscreen = obj["fullscreen"].Value<bool>();
 				var ranks = obj["ranking"].Value<JArray>();
 
 				foreach (JObject rank in ranks.Values<JObject>())
@@ -76,16 +78,22 @@ namespace 행방불명.Game
 			rankList.Add(rank);
 		}
 
+		private int compareRank(Rank a, Rank b)
+		{
+			return b.Score - a.Score;
+		}
 
+		public void sort()
+		{
+			rankList.Sort(compareRank);
+		}
 
 		public void save()
 		{
 			var obj = new JObject();
 
 			JArray ranking = new JArray();
-			var rankedList = from rank in rankList
-							 orderby rank.Score descending
-							 select rank;
+			sort();
 			int i = 0;
 			foreach (Rank rank in rankList)
 			{
@@ -101,9 +109,13 @@ namespace 행방불명.Game
 			}
 
 			obj.Add("sound_enabled", soundEnabled);
+			obj.Add("fullscreen", Fullscreen);
 			obj.Add("ranking", ranking);
 
-			File.WriteAllText(filename, obj.ToString());
+			string text = obj.ToString();
+			Console.WriteLine("설정 저장됨...");
+
+			File.WriteAllText(filename, text);
 		}
 	}
 }

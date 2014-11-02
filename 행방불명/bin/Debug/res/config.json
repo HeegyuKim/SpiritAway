@@ -1,4 +1,24 @@
 {
   "sound_enabled": true,
-  "ranking": []
+  "fullscreen": false,
+  "ranking": [
+    {
+      "level": "S",
+      "score": 22,
+      "time": 355.0,
+      "people": 8
+    },
+    {
+      "level": "A",
+      "score": 20,
+      "time": 355.0,
+      "people": 5
+    },
+    {
+      "level": "F",
+      "score": 0,
+      "time": 600.0,
+      "people": 3
+    }
+  ]
 }
