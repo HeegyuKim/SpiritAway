@@ -120,13 +120,8 @@ namespace 행방불명.Framework.UI
 			app.Graphics2D.RenderTarget.Transform = Matrix3x2.Identity;
 
 
+
 			/*
-
-			app.Graphics2D.RenderTarget.DrawEllipse(
-				playerPos,
-				brush
-				);
-
 			app.Graphics2D.RenderTarget.DrawText(
 				String.Format(
 					"{0}, {1}\n"+
@@ -139,7 +134,8 @@ namespace 행방불명.Framework.UI
 				format,
 				app.RectF,
 				brush
-				);*/
+				);
+			 */
 		}
 	}
 }

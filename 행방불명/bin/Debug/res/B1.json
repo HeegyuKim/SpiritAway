@@ -83,12 +83,12 @@
 			"links": [
 				{
 					"id": "warehouse_backdoor_people",
-					"name": "문을 열고 들어가",
+					"name": "북쪽 문으로 들어가",
 					"required": "key"
 				},
 				{
 					"id": "lecture_room_office_door",
-					"name": "돌아가"
+					"name": "남쪽으로 가"
 				}
 			]
 		},
@@ -482,8 +482,8 @@
 					"name": "북쪽으로 가"
 				},
 				{
-					"id": "pcroom_right",
-					"name": "서쪽으로 가"
+					"id": "warehouse_backdoor_front",
+					"name": "동쪽으로 가"
 				}
 			]
 		},
@@ -751,6 +751,10 @@
 				{
 					"id": "parkour_room3",
 					"name": "북쪽 문으로 들어가"					
+				},
+				{
+					"id": "pcroom_front",
+					"name": "동쪽으로 가"					
 				}
 			]
 		},
@@ -1937,6 +1941,10 @@
 				{
 					"id": "bluehouse_top",
 					"name": "북쪽 문으로 들어가"
+				},
+				{
+					"id": "applepi_junction",
+					"name": "서쪽으로 나가"
 				}
 			]
 		},
@@ -1963,7 +1971,7 @@
 			"type": "crossroad",
 			"links": [
 				{
-					"id": "bluehouse_bottom",
+					"id": "bluehouse_right_bottom",
 					"name": "돌아가"	
 				}
 			]

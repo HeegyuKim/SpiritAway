@@ -1,7 +1,13 @@
 {
   "sound_enabled": true,
-  "fullscreen": false,
+  "fullscreen": true,
   "ranking": [
+    {
+      "level": "B",
+      "score": 16,
+      "time": 515.4674,
+      "people": 10
+    },
     {
       "level": "F",
       "score": 15,

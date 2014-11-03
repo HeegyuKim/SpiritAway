@@ -140,11 +140,11 @@ namespace 행방불명
 			g2d = new Graphics2D(g3d.SwapChain.GetBackBuffer<Surface>(0));
 			engine = new ISoundEngine();
 			control = new VoiceControl();
-			mouse = new Mouse(mForm);
 			config = new Config("res/config.json");
 			RectF = new SharpDX.RectangleF(0, 0, Width, Height);
 			Media = new Media(this, "res/media.json");
 
+			mouse = new Mouse(this);
 			mCurrStage = new StartStage(this);
 			//mCurrStage = new GameStage(this, "res/B1.json");
 			//mCurrStage = new GameStage(this, "res/B1.json", null);

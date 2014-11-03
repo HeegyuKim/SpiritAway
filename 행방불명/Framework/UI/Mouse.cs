@@ -12,8 +12,22 @@ namespace 행방불명.Framework.UI
 	public class Mouse
 	{
 
-		public Mouse(Form form)
+		public Mouse(Program app)
 		{
+			this.app = app;
+			var form = app.Form;
+
+			if (app.Config.Fullscreen)
+			{
+				Screen screen = Screen.FromControl(form);
+				adjX = (float)app.Width / screen.WorkingArea.Width;
+				adjY = (float)app.Height / screen.WorkingArea.Height;
+			}
+			else
+			{
+				adjX = adjY = 1;
+			}
+
 			form.MouseDown += (object sender, MouseEventArgs args) =>
 			{
 				int buttons = ButtonToInt(args.Button);
@@ -23,6 +37,7 @@ namespace 행방불명.Framework.UI
 				_x = args.X;
 				_y = args.Y;
 				_pressed[buttons] = true;
+				Adjust();
 			};
 
 			form.MouseUp += (object sender, MouseEventArgs args) =>
@@ -34,11 +49,13 @@ namespace 행방불명.Framework.UI
 				_x = args.X;
 				_y = args.Y;
 				_pressed[buttons] = false;
+				Adjust();
 			};
 			form.MouseMove  += (object sender, MouseEventArgs args) =>
 			{
 				_x = args.X;
 				_y = args.Y;
+				Adjust();
 			};
 			form.MouseEnter += (object sender, EventArgs args) =>
 			{
@@ -66,11 +83,17 @@ namespace 행방불명.Framework.UI
 			}
 		}
 
+		Program app;
 		bool []_pressed = new bool[3];
 		bool _mouseIn = false;
 		float _x, _y;
+		float adjX, adjY;
 
-
+		private void Adjust()
+		{
+			_x *= adjX;
+			_y *= adjY;
+		}
 
 		public bool this[int button]
 		{

@@ -19,12 +19,15 @@ namespace 행방불명.Framework.UI
 		Bitmap ui, holder, medipack, key, hammer;
 		Player player;
 		SolidColorBrush brush;
-		Color4 white, black;
+		Color4 white, red;
 
 		public CountView(Program app, Player player)
 		{
 			this.app = app;
-			this.brush = new SolidColorBrush(app.Graphics2D.RenderTarget, new Color4(1, 1, 1, 1));
+			this.brush = new SolidColorBrush(
+				app.Graphics2D.RenderTarget, 
+				new Color4(1, 0.15f, 0.15f, 1)
+				);
 			this.format = app.Media.FormatDic["default32"];
 			this.ui = app.Media.BitmapDic["count_ui"];
 			this.holder = app.Media.BitmapDic["holder"];
@@ -34,7 +37,7 @@ namespace 행방불명.Framework.UI
 			this.player = player;
 
 			white = new Color4(1, 1, 1, 1);
-			black = new Color4(0, 0, 0, 1);
+			red = new Color4(0.88f, 0.1f, 0.1f, 1);
 
 			rect = new RectangleF(0, 0, app.Width, app.Height);
 			Draw += DrawView;
@@ -64,14 +67,14 @@ namespace 행방불명.Framework.UI
 			NumberAt(player.NumPatients, 950, 55);
 
 
-			brush.Color = black;
+			brush.Color = red;
 			if (player.NumMedicalKits > 0)
-				NumberAt(player.NumMedicalKits, app.Width - 50, 125);
+				NumberAt(player.NumMedicalKits, app.Width - 25, 130);
 		}
 
 		private void DrawAtRight(Bitmap bitmap, float x, float y)
 		{
-			var nx = app.Width - x - bitmap.Size.Width - 15;
+			var nx = app.Width - x - bitmap.Size.Width;
 
 			app.Graphics2D.Draw(bitmap, nx, y);
 		}
