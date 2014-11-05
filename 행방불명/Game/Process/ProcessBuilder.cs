@@ -121,8 +121,9 @@ namespace 행방불명.Game.Process
 						var talking = new Talking(
 							new Script(
 								"경비 아저씨",
-								"나가도 되는겁니까?.",
-								null
+								"나가도 되겠습니까?.",
+								null,
+								"keyman_script1"
 								),
 							new Script(
 								"이대원",
@@ -132,7 +133,8 @@ namespace 행방불명.Game.Process
 							new Script(
 								"경비 아저씨",
 								"여기 있소, 어서 나갑시다.",
-								null
+								null,
+								"keyman_script2"
 								)
 							);
 

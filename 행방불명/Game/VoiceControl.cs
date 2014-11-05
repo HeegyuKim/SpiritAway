@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Speech.Recognition;
+using System.Windows.Forms;
+
 
 namespace 행방불명.Game
 {
@@ -26,40 +28,58 @@ namespace 행방불명.Game
 
 		public VoiceControl()
 		{
-			engine = new SpeechRecognitionEngine(
-				new System.Globalization.CultureInfo("ko-kr")
-				);
-			engine.SetInputToDefaultAudioDevice();
-
-			Console.WriteLine(
-				"Speech Engine " + 
-				engine.RecognizerInfo.Name + 
-				" " + engine.RecognizerInfo.Culture +
-				" " + engine.RecognizerInfo.Id
-				);
-
-			engine.LoadGrammarCompleted += (object sender, LoadGrammarCompletedEventArgs args)=>
+			try
 			{
-				numLoading --;
-				Console.WriteLine("입력 문법 로딩 완료, {0}개 남음.", numLoading);
-			};
-			engine.RecognizeCompleted += (object sender, RecognizeCompletedEventArgs args) =>
-			{
-				if(args.Result != null)
+
+				engine = new SpeechRecognitionEngine(
+					new System.Globalization.CultureInfo("ko-kr")
+					);
+				engine.SetInputToDefaultAudioDevice();
+
+				Console.WriteLine(
+					"Speech Engine " +
+					engine.RecognizerInfo.Name +
+					" " + engine.RecognizerInfo.Culture +
+					" " + engine.RecognizerInfo.Id
+					);
+
+				engine.LoadGrammarCompleted += (object sender, LoadGrammarCompletedEventArgs args) =>
 				{
-					resultText = args.Result.Text;
-					success = true;
+					numLoading--;
+					Console.WriteLine("입력 문법 로딩 완료, {0}개 남음.", numLoading);
+				};
+				engine.RecognizeCompleted += (object sender, RecognizeCompletedEventArgs args) =>
+				{
+					if (args.Result != null)
+					{
+						resultText = args.Result.Text;
+						success = true;
 
-					Console.WriteLine("Voice: " + resultText);
+						Console.WriteLine("Voice: " + resultText);
+					}
+					else
+					{
+						Console.WriteLine("Voice(failed)");
+						success = false;
+					}
+					result = args.Result;
+					recoging = false;
+				};
+			}
+			catch (Exception e)
+			{
+				MessageBox.Show("마이크가 연결되어 있지 않습니다.", "에러");
+				if (System.Windows.Forms.Application.MessageLoop)
+				{
+					// WinForms app
+					System.Windows.Forms.Application.Exit();
 				}
 				else
 				{
-					Console.WriteLine("Voice(failed)");
-					success = false;
+					// Console app
+					System.Environment.Exit(1);
 				}
-				result = args.Result;
-				recoging = false;
-			};
+			}
 		}
 
 		~VoiceControl()

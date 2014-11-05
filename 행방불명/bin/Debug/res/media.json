@@ -87,6 +87,11 @@
     "cure_patients": "res/sounds/character/11. 부상자분들을 치료3.wav",
     "ask": "res/sounds/character/1. 어디로갈까요1.wav",
 
+
+
+
+
+
     "infodesk_thanks": "res/sounds/survivors/안내데스크_여직원_데리고 나가주세요.ogg",
     "infodesk_relief": "res/sounds/survivors/안내데스크_울음2.wav",
 
@@ -96,6 +101,7 @@
     "chef_relief": "res/sounds/survivors/요리사 도와주세요.ogg",
     
     "cloth_child_thanks": "res/sounds/survivors/손자 할아버지.wav",
+    "cloth_child_relief": "res/sounds/survivors/손자_울음소리.wav",
 
     "iweb_relief": "res/sounds/survivors/사무실_여기요사람있어요.wav",
     "iweb_ask1": "res/sounds/survivors/사무실_제가도울일이있을까요.wav",
@@ -107,6 +113,10 @@
 
 
     "warehouse_thanks": "res/sounds/survivors/창고_감사합니다 덕분에살았어요.ogg",
-    "warehouse_relief": "res/sounds/survivors/창고_도와주세요 거기 아무도없어요.ogg"
+    "warehouse_relief": "res/sounds/survivors/창고_도와주세요 거기 아무도없어요.ogg",
+
+    "keyman_script1": "res/sounds/survivors/관리사무소_나가도되겟.wav",
+    "keyman_script2": "res/sounds/survivors/관리사무소_어서나갑시다.wav",
+    "grandpa_relief": "res/sounds/survivors/할아버지_우리손주어딧니.wav"
   }
 }

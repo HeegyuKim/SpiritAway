@@ -1,6 +1,6 @@
 {
   "sound_enabled": true,
-  "fullscreen": true,
+  "fullscreen": false,
   "ranking": [
     {
       "level": "B",

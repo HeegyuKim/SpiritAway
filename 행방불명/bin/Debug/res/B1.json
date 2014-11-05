@@ -2354,13 +2354,15 @@
 			"id": "cloth_store_dressing_room",
 			"detect": 300,
 			"x": 2660,
-			"y": 1718
+			"y": 1718,
+			"relief": "cloth_child_relief"
 		},
 		{
 			"id": "cloth_store_warehouse_grandpa",
 			"detect": 300,
 			"x": 2942,
-			"y": 1489
+			"y": 1489,
+			"relief": "grandpa_relief"
 		},
 		{
 			"id": "bluehouse_bottom",
