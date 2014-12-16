@@ -1,7 +1,8 @@
 
 {
 	"background": "map_base.png",
-	"player_position": "lecture_room_door",
+	"esc_to_skip": false,
+	"player_position": "iweb_staff",
 	"stage": "B1",
 	"waypoints": [
 	
@@ -205,7 +206,12 @@
 			"x": 3062,
 			"y": 1483,
 			"type": "people",
-			"next": "cloth_store_warehouse_front",
+			"links": [
+				{
+					"id": "cloth_store_warehouse_front",
+					"name": "돌아가"
+				}
+			],
 			"obtained": 1,
 			"patients": 1
 		},
@@ -765,7 +771,7 @@
 			"type": "crossroad",
 			"links": [
 				{
-					"id": "pcroom_front",
+					"id": "parkour_room_front",
 					"name": "남쪽으로 나가"					
 				},
 				{
@@ -1407,7 +1413,8 @@
 			"x": 973,
 			"y": 282,
 			"link1": "iweb_center",
-			"link2": "iweb_front"
+			"link2": "iweb_front",
+			"sfx":"corpse#1"
 		},
 		{
 			"id": "elevator_right_top",
@@ -1737,7 +1744,7 @@
 			"type": "crossroad",
 			"links": [
 				{
-					"id": "keyroom_front_corner",
+					"id": "applepi_junction",
 					"name": "북쪽으로 가"
 				},
 				{
@@ -2048,7 +2055,8 @@
 			"links": [
 				{
 					"id": "iweb_staff",
-					"name": "동쪽 비밀통로로 가"
+					"name": "동쪽 비밀통로로 가",
+					"required": "hidden_route"
 				},
 				{
 					"id": "keyroom_front",

@@ -41,11 +41,13 @@ namespace 행방불명.Game
 
 		public int NumObtained { get; set; }
 		public int NumPatients { get; set; }
+		public List<float> PatientsLife { get; set; }
 		public int NumDead { get; set; }
 		public bool HasHammer { get; set; }
 		public bool HasKey { get; set; }
 		public int NumMedicalKits { get; set; }
 		public float ElapsedTime { get; set; }
+		public bool RunningAway { get; set; }
 		public bool Dead { get; set; }
 
 
@@ -74,6 +76,7 @@ namespace 행방불명.Game
 
 		public Player(Waypoint at)
 		{
+			PatientsLife = new List<float>();
 			NumMedicalKits = 0;
 			NumPatients = 0;
 			NumObtained = 0;
@@ -82,6 +85,8 @@ namespace 행방불명.Game
 			HasHammer = false;
 			HasKey = false;
 			Dead = false;
+			RunningAway = false;
+
 
 			State = PlayerState.Arrived;
 			moveTo = at;
@@ -98,7 +103,80 @@ namespace 행방불명.Game
 			distance = movedDistance = 0;
 			normal = new Vector2(0, 0);
 		}
-		
+
+		public void Update(float delta)
+		{
+			for (int i = PatientsLife.Count - 1; i >= 0; --i )
+			{
+				float life = PatientsLife[i] - delta;
+				PatientsLife[i] = life;
+			}
+		}
+
+		public int RemoveDeadPatients()
+		{
+			int numDead = 0;
+			for (int i = PatientsLife.Count - 1; i >= 0; --i)
+			{
+				float life = PatientsLife[i];
+
+				if (life < 0)
+				{
+					PatientsLife.RemoveAt(i);
+					++ numDead;
+				}
+			}
+
+			return numDead;
+		}
+
+		public void SavePeople(int obtained, int patients)
+		{
+			NumObtained += obtained;
+			NumPatients += patients;
+
+			for (int i = 0; i < patients; ++i)
+				PatientsLife.Add(90);
+		}
+
+		// n명 치료해줌
+		public void Cure(int numPeople)
+		{
+			for (int loop = 0; loop < numPeople; ++loop)
+			{
+				if (NumPatients <= 0
+					|| NumMedicalKits <= 0
+					|| PatientsLife.Count <= 0					)
+					break;
+
+				--NumPatients;
+				--NumMedicalKits;
+				PatientsLife.RemoveAt(0);
+			}
+		}
+
+		private void CureMostDangerous()
+		{
+			int index = -1;
+			float minLife = float.MaxValue;
+
+			for (int i = 0; i < PatientsLife.Count; )
+			{
+				float life = PatientsLife[i];
+				if (life < minLife)
+				{
+					minLife = life;
+					index = i;
+				}
+			}
+
+			if (index != -1)
+			{
+				PatientsLife.RemoveAt(index);
+				Console.WriteLine("체력이 {0}인 사람 치료.", minLife);
+			}
+		}
+
 		public void StartTo(Waypoint moveTo)
 		{
 			StartTo(this.moveTo, moveTo);
@@ -141,6 +219,7 @@ namespace 행방불명.Game
 			{
 				movedDistance = distance;
 				State = PlayerState.Arrived;
+				RunningAway = false;
 			}
 		}
 	}

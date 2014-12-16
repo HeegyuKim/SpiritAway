@@ -14,6 +14,7 @@ using IrrKlang;
 
 namespace 행방불명
 {
+	
 	/*
 	 * Program 클래스는 Main 정적 메서드가 구현되어 있고
 	 * 그래픽 객체들을 갖고 있고
@@ -53,9 +54,12 @@ namespace 행방불명
 		public bool KeyF1 { get; set; }
 		public bool KeyF2 { get; set; }
 		public bool KeySpace { get; set; }
+		public bool KeyESC { get; set; }
 		public bool KeyAlt { get; set; }
 		public bool KeyEnter { get; set; }
 		private bool fullscreenChanged = false;
+		public Random Random = new Random();
+
 
 		public Program()
 		{
@@ -77,6 +81,9 @@ namespace 행방불명
 						break;
 					case Keys.Space:
 						KeySpace = true;
+						break;
+					case Keys.Escape:
+						KeyESC = true;
 						break;
 					case Keys.Alt:
 						KeyAlt = true;
@@ -113,6 +120,9 @@ namespace 행방불명
 						break;
 					case Keys.Space:
 						KeySpace = false;
+						break;
+					case Keys.Escape:
+						KeyESC = false;
 						break;
 					case Keys.Alt:
 						KeyAlt = false;
@@ -226,11 +236,18 @@ namespace 행방불명
 			}
 		}
 
+		public bool isPlaying(string alias)
+		{
+			return Sound.IsCurrentlyPlaying(alias);
+		}
+
+
 		public ISound Play2D(string alias, bool looped = false)
 		{
 			if (alias == null) return null;
 
 			var sound = Sound.Play2D(alias, looped, true);
+
 			if (sound == null)
 			{
 				Console.Write("{0} 사운드를 찾을 수 없습니다.", alias);
@@ -241,6 +258,22 @@ namespace 행방불명
 			return sound;
 		}
 
+		public ISound PlayRandom2D(string alias, int numCases)
+		{
+			if (alias == null) return null;
+
+			alias += "#" + (Random.Next(numCases) + 1);
+
+			var sound = Sound.Play2D(alias, false, true);
+			if (sound == null)
+			{
+				Console.Write("{0} 사운드를 찾을 수 없습니다.", alias);
+				return null;
+			}
+
+			sound.Paused = false;
+			return sound;
+		}
 		public void Play3D(string alias, float x, float y, bool looped = false)
 		{
 			if (alias == null) return;

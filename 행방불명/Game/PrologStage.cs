@@ -112,6 +112,11 @@ namespace 행방불명.Game
 		{
 			container.Update(delta);
 
+			if (app.KeyESC)
+			{
+				yep = true;
+				return;
+			}
 			var mouse = app.Mouse;
 			var voice = app.VoiceControl;
 

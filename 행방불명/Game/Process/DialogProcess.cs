@@ -42,6 +42,10 @@ namespace 행방불명.Game.Process
 		{
 			scriptView.Script = talking.Current;
 			currSound =  app.Play2D(talking.Current.Sfx);
+
+			Console.WriteLine("<Script> " + talking.Current.Sfx);
+			Console.WriteLine(talking.Current.TargetText);
+
 		}
 
 		public void Update(float delta)

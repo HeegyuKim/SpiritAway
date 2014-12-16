@@ -74,6 +74,8 @@ namespace 행방불명.Game.Map
 		// Property for Waypoint-Tutorial
 		[JsonProperty(PropertyName = "next")]
 		public string Next;
+		[JsonProperty(PropertyName = "sfx")]
+		public string Sfx;
 
 		// Property for Crossroad
 		[JsonProperty(PropertyName = "links")]
@@ -234,6 +236,8 @@ namespace 행방불명.Game.Map
 		public string Stage;
 		[JsonProperty(PropertyName = "player_position")]
 		public string PlayerPosition;
+		[JsonProperty(PropertyName = "esc_to_skip")]
+		public bool escToSkip;
 		[JsonProperty(PropertyName = "waypoints")]
 		public List<Waypoint> Waypoints;
 		[JsonProperty(PropertyName = "misteries")]
@@ -291,6 +295,10 @@ namespace 행방불명.Game.Map
 		public bool IsB1()
 		{
 			return Stage != null && Stage.Equals("B1");
+		}
+		public bool IsSkippableOnESC()
+		{
+			return escToSkip;
 		}
 	}
 }

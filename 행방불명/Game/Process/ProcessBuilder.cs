@@ -20,20 +20,27 @@ namespace 행방불명.Game.Process
 			this.stage = stage;
 		}
 
-		Script script;
 
 		List<IProcess> processes;
 		Waypoint arrived;
+		bool arriveOnEnd = true;
+
+		public bool ArriveOnEnd { get { return arriveOnEnd; } }
 
 
-		public void AddProcess(List<IProcess> processes, Waypoint arrived)
+		public void AddProcess(
+			List<IProcess> processes, 
+			Waypoint arrived, 
+			bool arriveOnEnd = true)
 		{
+			this.arriveOnEnd = arriveOnEnd;
 			this.processes = processes;
 			this.arrived = arrived;
 
 
 			SavePeople();
-			AddScriptIfExists();
+			if(arriveOnEnd)
+				AddScriptIfExists();
 			ProcessType();
 			ProcessLinks();
 
@@ -162,9 +169,10 @@ namespace 행방불명.Game.Process
 								)
 							);
 
+						stage.Player.NumMedicalKits++;
 						if (stage.Player.NumPatients > 0)
 						{
-							stage.Player.NumPatients--;
+							stage.Player.Cure(1);
 							Console.WriteLine("응급상자 얻었으나 사용, 현재 {0}개", stage.Player.NumMedicalKits);
 
 							scripts.Add(
@@ -172,13 +180,12 @@ namespace 행방불명.Game.Process
 									"이대원",
 									"부상자분들을 치료해드렸습니다.",
 									null,
-									"cure_patients"
+									"cure_patients#" + app.Random.Next(1, 4)
 									)
 								);
 						}
 						else
 						{
-							stage.Player.NumMedicalKits++;
 							Console.WriteLine("응급상자 얻음, 현재 {0}개", stage.Player.NumMedicalKits);
 						}
 						var talking = new Talking(scripts);
@@ -223,8 +230,7 @@ namespace 행방불명.Game.Process
 			if (arrived.NumObtained == 0) return;
 
 			var player = stage.Player;
-			player.NumObtained += arrived.NumObtained;
-			player.NumPatients += arrived.NumPatients;
+			player.SavePeople(arrived.NumObtained, arrived.NumPatients);
 
 
 			List<Script> scripts = new List<Script>();
@@ -253,13 +259,7 @@ namespace 행방불명.Game.Process
 			if (player.NumMedicalKits > 0)
 			{
 				int numPatients = player.NumPatients;
-				player.NumPatients -= player.NumMedicalKits;
-				player.NumMedicalKits -= numPatients;
-
-				if (player.NumMedicalKits < 0)
-					player.NumMedicalKits = 0;
-				if (player.NumPatients < 0)
-					player.NumPatients = 0;
+				player.Cure(Math.Min(numPatients, player.NumMedicalKits));
 
 
 				scripts.Add(

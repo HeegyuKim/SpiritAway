@@ -31,7 +31,7 @@ namespace 행방불명.Game
 
 		public void Start()
 		{
-
+			_app.Sound.StopAllSounds();
 			mFont = _app.Media.FormatDic["default32"];
 			mFontSmall = _app.Media.FormatDic["default"];
 			mBrush = new SolidColorBrush(_app.Graphics2D.RenderTarget, new Color4(1, 1, 1, 1));

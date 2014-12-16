@@ -1,6 +1,6 @@
 {
   "background": "map_base.png",
-
+  "esc_to_skip": true,
   "player_position": "tutorial_start",
   "stage": "tutorial",
   "waypoints" : [

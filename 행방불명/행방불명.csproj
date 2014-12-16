@@ -134,8 +134,11 @@
     <Compile Include="Framework\UI\View.cs" />
     <Compile Include="Game\Config.cs" />
     <Compile Include="Game\GameStageOptions.cs" />
+    <Compile Include="Game\Process\CheckMiteryProcess.cs" />
+    <Compile Include="Game\Process\DelayProcess.cs" />
     <Compile Include="Game\Process\DialogProcess.cs" />
     <Compile Include="Game\Process\DynamicSelectionProcess.cs" />
+    <Compile Include="Game\Process\EmptyProcess.cs" />
     <Compile Include="Game\Process\IProcess.cs" />
     <Compile Include="Game\Process\MoveProcess.cs" />
     <Compile Include="Game\Process\ProcessBuilder.cs" />

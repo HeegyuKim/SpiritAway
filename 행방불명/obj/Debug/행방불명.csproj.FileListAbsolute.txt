@@ -68,3 +68,7 @@ D:\Project\행방불명\행방불명\bin\Debug\행방불명.exe.manifest
 D:\Project\행방불명\행방불명\bin\Debug\행방불명.application
 D:\Project\행방불명\행방불명\obj\Debug\행방불명.exe.manifest
 D:\Project\행방불명\행방불명\obj\Debug\행방불명.application
+C:\Users\희규\Documents\Project\행방불명\행방불명\bin\Debug\행방불명.exe.manifest
+C:\Users\희규\Documents\Project\행방불명\행방불명\bin\Debug\행방불명.application
+C:\Users\희규\Documents\Project\행방불명\행방불명\obj\Debug\행방불명.exe.manifest
+C:\Users\희규\Documents\Project\행방불명\행방불명\obj\Debug\행방불명.application

@@ -15,7 +15,7 @@ using System.IO;
 using Newtonsoft.Json;
 using Microsoft.Speech.Recognition;
 using IrrKlang;
-
+using System.Diagnostics;
 
 namespace 행방불명.Game
 {
@@ -163,7 +163,8 @@ namespace 행방불명.Game
 
 		MapData map;
 		List<GameObject> gameObjects;
-
+		IProcess checkingProcess = null,
+			notificatingProcess = null;
 
 		private void SetupSurvivor(Survivor surv)
 		{
@@ -255,7 +256,6 @@ namespace 행방불명.Game
 		Vector2 currPlayerPos, playerNormal;
 		Vector2 listenerPos = new Vector2();
 
-		IProcess checkingProcess;
 		Mistery currentChecking;
 
 		float checkingDelta = 0;
@@ -274,6 +274,7 @@ namespace 행방불명.Game
 				p.End();
 				if (processes.Count > 0)
 					processes.First().Start();
+
 			}
 		}
 
@@ -291,6 +292,12 @@ namespace 행방불명.Game
 				return;
 			}
 
+			if (map.escToSkip && app.KeyESC)
+			{
+				ended = true;
+				return;
+			}
+
 			playerAngle += delta * 3.141592f / 4;
 			player.ElapsedTime += delta;
 			pingDelta += delta;
@@ -299,6 +306,8 @@ namespace 행방불명.Game
 			if (playerAngle > 6.283)
 				playerAngle = 0;
 
+
+
 			UpdateReliefSound(delta);
 			CheckAround(delta);
 
@@ -306,6 +315,7 @@ namespace 행방불명.Game
 			container.Update(delta);
 			gameView.Center = player.CurrentPosition;
 
+			player.Update(delta);
 			// 플레이어 상태에 따른 처리
 			switch(player.State)
 			{
@@ -313,6 +323,10 @@ namespace 행방불명.Game
 					processes.Clear();
 					processBuilder.AddProcess(processes, player.MoveTo);
 					player.State = PlayerState.Processing;
+
+					string sfx = player.MoveTo.Sfx;
+					if (sfx != null)
+						app.Play2D(sfx);
 					break;
 
 				case PlayerState.Processing:
@@ -335,13 +349,13 @@ namespace 행방불명.Game
 
 				case PlayerState.Moving:
 					player.Move(delta * 150);
+					CheckPatientsStatus();
 					break;
 
 				case PlayerState.Checking:
 					// 처리할단계가 남아있으면 처리하고
 					if (processes.Count > 0)
 					{
-						Console.WriteLine("Process");
 						Process(delta);
 					}
 					checkingDelta += delta;
@@ -358,8 +372,48 @@ namespace 행방불명.Game
 						}
 					}
 					break;
+				case PlayerState.Notificating:
+
+					notificatingProcess.Update(delta);
+					if (notificatingProcess.IsEnded())
+					{
+						notificatingProcess.End();
+						player.State = PlayerState.Moving;
+					}
+					break;
 			}
 		}
+
+		private void CheckPatientsStatus()
+		{
+			int numDead = player.RemoveDeadPatients();
+
+			string dieAlias = "survivor_die";
+			if (numDead > 0)
+			{
+				Console.WriteLine("부상당한 생존자 {0}명 사망.", numDead);
+				//app.Play2D(dieAlias);
+
+				Script script = new Script(
+					"이대원",
+					"생존자께서 돌아가셨습니다.",
+					"",
+					dieAlias
+					);
+
+				notificatingProcess = new DialogProcess(
+					app,
+					scriptView,
+					new Talking(
+						new Script[]{ script }
+						)
+					);
+
+				player.State = PlayerState.Notificating;
+				notificatingProcess.Start();
+			}
+		}
+
 
 		// 구조 사운드가 들리는 범위 내로 들어가면 
 		// 구조음이 들리게 하는 업데이트 코드들
@@ -437,11 +491,9 @@ namespace 행방불명.Game
 			}
 		}
 
-		private void CheckDead(Mistery mis)
-		{
-
-		}
-
+	
+		
+		Mistery currCheckingAroundMistery;
 		private void CheckAround(float delta)
 		{
 			CheckGameObjects();
@@ -451,6 +503,7 @@ namespace 행방불명.Game
 			foreach (var mis in map.Misteries)
 			{
 				if (mis.Fired) continue;
+				currCheckingAroundMistery = mis;
 
 				if (mis.Bomb)
 				{
@@ -509,51 +562,7 @@ namespace 행방불명.Game
 					var dynamic =
 						new DynamicSelectionProcess(
 							this,
-							(string value) =>
-							{
-								if (value.Equals("살펴봐"))
-								{
-									Script script = null;
-									if (mis.Bomb)
-									{
-										mis.Checked = true;
-
-										if (mis.Time - mis.Delta < 15)
-										{
-											app.Play2D("runaway");
-											return new MoveProcess(this);
-										}
-										else
-											script = new Script(
-												"이대원",
-												"폭탄이 있습니다!",
-												null,
-												"find_bomb"
-												);
-									}
-									else
-										script = new Script(
-											"이대원",
-											"별 거 아닙니다.",
-											null
-											);
-
-									var p = new DialogProcess(
-										app,
-										scriptView,
-										new Talking(
-											script
-											)
-										);
-									processes.Add(p);
-								}
-								else if (value.Equals("무시해"))
-								{
-									mis.Ignored = true;
-								}
-
-								return new MoveProcess(this);
-							},
+							new DynamicSelectionHandler(this, mis).Handle,
 							new Script(
 									"이대원",
 									"수상한 물건이 있습니다.",
@@ -567,8 +576,77 @@ namespace 행방불명.Game
 					dynamic.Start();
 				}
 			}
+			currCheckingAroundMistery = null;
 		}
 
+
+		class DynamicSelectionHandler
+		{
+			Mistery mis;
+			GameStage stage;
+
+			public DynamicSelectionHandler(GameStage stage, Mistery mis)
+			{
+				this.mis = mis;
+				this.stage = stage;
+			}
+
+			public IProcess Handle(string value)
+			{
+
+				Program app = stage.App;
+				ScriptView scriptView = stage.ScriptView;
+				List<IProcess> processes = stage.Processes;
+				Player player = stage.Player;
+
+				if (value.Equals("살펴봐"))
+				{
+					Script script = null;
+
+
+					if (mis.Bomb)
+					{
+						if (mis.Time - mis.Delta < 15)
+						{
+							player.RunningAway = true;
+							app.Play2D("runaway");
+						}
+						else
+							script = new Script(
+								"이대원",
+								"폭탄이 있습니다!",
+								null,
+								"find_bomb"
+								);
+					}
+					else
+						script = new Script(
+							"이대원",
+							"별 거 아닙니다.",
+							null
+							);
+
+					var p = new DialogProcess(
+						app,
+						scriptView,
+						new Talking(
+							script
+							)
+						);
+					processes.Add(new DelayProcess(3));
+					processes.Add(p);
+					
+					if (mis.Bomb)
+						processes.Add(new CheckMiteryProcess(mis));
+				}
+				else if (value.Equals("무시해"))
+				{
+					mis.Ignored = true;
+				}
+
+				return new MoveProcess(stage);
+			}
+		}
 		private void CheckGameObjects()
 		{
 
@@ -706,6 +784,9 @@ namespace 행방불명.Game
 			return ended;
 		}
 
-
+		[Conditional("DEBUG")]
+		private void PrintLog()
+		{
+		}
 	}
 }

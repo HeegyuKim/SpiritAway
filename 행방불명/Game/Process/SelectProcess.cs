@@ -55,6 +55,9 @@ namespace 행방불명.Game.Process
 
 			foreach (var link in links)
 			{
+				if (!validateLink(link))
+					continue;
+					
 				builder.Append(link.Name);
 
 				++i;
@@ -72,7 +75,7 @@ namespace 행방불명.Game.Process
 					"어디로 갈까요",
 					builder.ToString()
 					);
-				stage.App.Play2D("ask");
+				stage.App.PlayRandom2D("ask", 3);
 				voice.Recognize();
 			}
 			else
@@ -89,7 +92,20 @@ namespace 행방불명.Game.Process
 			scriptView.Script = null;
 		}
 
+		private bool validateLink(Link link)
+		{
+			String required = link.Required;
+			if (required == null)
+				return true;
 
+			if (required.Equals("hidden_route"))
+			{
+				Waypoint waypoint = map.GetWaypoint("iweb_staff");
+				if (waypoint != null && !waypoint.Used)
+					return false;
+			}
+			return true;
+		}
 		private void SelectLinkAt(int index)
 		{
 			if (index >= links.Count) return;
@@ -108,7 +124,7 @@ namespace 행방불명.Game.Process
 			{
 				foreach (var link in links)
 				{
-					if (link.Name.Equals(voice.Text))
+					if (link.Name.Equals(voice.Text) && validateLink(link))
 					{
 						SelectLink(link);
 						break;

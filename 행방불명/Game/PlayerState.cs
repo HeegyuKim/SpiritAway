@@ -11,7 +11,8 @@ namespace 행방불명.Game
 		Moving,
 		Arrived,
 		Processing,
-		Checking
+		Checking,
+		Notificating,
 	}
 
 }
