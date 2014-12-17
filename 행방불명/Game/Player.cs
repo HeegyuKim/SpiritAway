@@ -124,6 +124,8 @@ namespace 행방불명.Game
 				{
 					PatientsLife.RemoveAt(i);
 					++ numDead;
+                    ++ NumDead;
+                    --NumPatients;
 				}
 			}
 

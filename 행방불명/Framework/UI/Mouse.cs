@@ -15,6 +15,7 @@ namespace 행방불명.Framework.UI
 		public Mouse(Program app)
 		{
 			this.app = app;
+            IsUsed = false;
 			var form = app.Form;
 
 			if (app.Config.Fullscreen)
@@ -37,6 +38,7 @@ namespace 행방불명.Framework.UI
 				_x = args.X;
 				_y = args.Y;
 				_pressed[buttons] = true;
+                IsUsed = false;
 				Adjust();
 			};
 
@@ -47,7 +49,8 @@ namespace 행방불명.Framework.UI
 					return;
 
 				_x = args.X;
-				_y = args.Y;
+                _y = args.Y;
+                IsUsed = false;
 				_pressed[buttons] = false;
 				Adjust();
 			};
@@ -107,6 +110,7 @@ namespace 행방불명.Framework.UI
 			}
 		}
 
+        public bool IsUsed { get; set; }
 		public bool IsInside
 		{
 			get

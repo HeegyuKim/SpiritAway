@@ -70,6 +70,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="행방불명_TemporaryKey.pfx" />
   </ItemGroup>
@@ -142,6 +143,7 @@
     <Compile Include="Game\Process\IProcess.cs" />
     <Compile Include="Game\Process\MoveProcess.cs" />
     <Compile Include="Game\Process\ProcessBuilder.cs" />
+    <Compile Include="Game\Process\RemoveSurvivorIconProcess.cs" />
     <Compile Include="Game\Process\SelectProcess.cs" />
     <Compile Include="Game\Process\StartProcess.cs" />
     <Compile Include="Game\Map\Talking.cs" />

@@ -8,3 +8,9 @@ C:\Users\희규\Documents\Project\행방불명\Module Test\bin\Debug\Newtonsoft.
 C:\Users\희규\Documents\Project\행방불명\Module Test\bin\Debug\Newtonsoft.Json.xml
 C:\Users\희규\Documents\Project\행방불명\Module Test\obj\Debug\Module Test.exe
 C:\Users\희규\Documents\Project\행방불명\Module Test\obj\Debug\Module Test.pdb
+D:\Project\행방불명\Module Test\bin\Debug\Module Test.exe
+D:\Project\행방불명\Module Test\bin\Debug\Module Test.pdb
+D:\Project\행방불명\Module Test\bin\Debug\Newtonsoft.Json.dll
+D:\Project\행방불명\Module Test\bin\Debug\Newtonsoft.Json.xml
+D:\Project\행방불명\Module Test\obj\Debug\Module Test.exe
+D:\Project\행방불명\Module Test\obj\Debug\Module Test.pdb

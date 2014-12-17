@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using IrrKlang;
+
 
 
 namespace 행방불명.Game.Map
@@ -99,6 +101,7 @@ namespace 행방불명.Game.Map
 		[JsonProperty(PropertyName = "value")]
 		public string Value;
 
+        public ISound Thanks;
 
 		public bool Used;
 
@@ -206,9 +209,13 @@ namespace 행방불명.Game.Map
 
 		public float SX = 0, 
 					SY = 0,
+                    WX = 0,
+                    WY = 0,
 					LoopDelta = 0,
 					LoopCycle = 0;
-		public bool IsPlaying = false;
+		public bool IsPlaying = false,
+                    IsFound = false
+            ;
 	};
 
 	public class Event

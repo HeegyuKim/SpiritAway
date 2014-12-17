@@ -64,8 +64,8 @@ namespace 행방불명.Game
 				new string[]{"옙"}
 			});
 
-			container.Views.Add(btnExit);
-			container.Views.Add(scriptView);
+            container.Views.Add(scriptView);
+            container.Views.Add(btnExit);
 		}
 
 
@@ -120,7 +120,7 @@ namespace 행방불명.Game
 			var mouse = app.Mouse;
 			var voice = app.VoiceControl;
 
-			if (mouse[0])
+            if (mouse[0] && scriptView.Rect.Contains(mouse.X, mouse.Y))
 			{
 				pressed = true;
 				scriptView.Script = script2;

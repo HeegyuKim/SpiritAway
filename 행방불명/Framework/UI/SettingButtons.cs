@@ -120,18 +120,19 @@ namespace 행방불명.Framework.UI
 				OnOffSound();
 			}
 
+            if (!Rect.Contains(mouse.X, mouse.Y))
+                return;
+            if (mouse.IsUsed) return;
 
 			bool clicked = pressed && !mouse[0];
 			if (mouse[0])
 			{
-				pressed = true;
+                pressed = true;
+                mouse.IsUsed = true;
 			}
 			else
 				pressed = false;
 
-
-			if (!Rect.Contains(mouse.X, mouse.Y))
-				return;
 
 			
 			if (clicked && exitRect.Contains(mouse.X, mouse.Y))
@@ -143,6 +144,7 @@ namespace 행방불명.Framework.UI
 			{
 				OnOffSound();
 			}
+
 		}
 	}
 }

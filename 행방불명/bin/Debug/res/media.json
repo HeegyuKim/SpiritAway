@@ -20,6 +20,7 @@
     "locked": "res/images/lockeddoor_icon.png",
     "blocked": "res/images/breakable_icon.png",
     "danger_icon": "res/images/danger_icon.png",
+    "survivor_icon": "res/images/survivor.png",
 
     "ending_success": "res/images/ending_ui_success.png",
     "ending_failure": "res/images/ending_ui_failure.png",
@@ -79,6 +80,11 @@
     "locked": "res/sounds/character/문이 잠겨있습니다 1.mp3",
     "corpse#1": "res/sounds/character/12. 으 시체가1.wav",
     "corpse#2": "res/sounds/character/12. 으 시체가2.wav",
+    "need_key": "res/sounds/character/1.비상구.ogg",
+    "patient_dangerous": "res/sounds/character/2.환자.ogg",
+    "nothing": "res/sounds/character/3.별거.ogg",
+    "must_go": "res/sounds/character/4.관리.ogg",
+
     "find_survivors": "res/sounds/character/6-1. 생존자가 있습니다1.wav",
     "hurt": "res/sounds/character/6-2. 부상당했습니다2.wav",
     "survivor_die": "res/sounds/character/8. 생존자께서 돌아가셨습니다.wav",
@@ -123,6 +129,9 @@
 
     "keyman_script1": "res/sounds/survivors/관리사무소_나가도되겟.wav",
     "keyman_script2": "res/sounds/survivors/관리사무소_어서나갑시다.wav",
-    "grandpa_relief": "res/sounds/survivors/할아버지_우리손주어딧니.wav"
+    "grandpa_relief": "res/sounds/survivors/할아버지_우리손주어딧니.wav",
+
+    "bluehouse_relief": "res/sounds/survivors/냉면_거기누구없어요.ogg",
+    "bluehouse_thanks": "res/sounds/survivors/냉면_살려주세요.ogg"
   }
 }

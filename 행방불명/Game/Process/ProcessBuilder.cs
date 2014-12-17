@@ -54,6 +54,13 @@ namespace 행방불명.Game.Process
 		{
 			if (!arrived.Used && arrived.Type.Equals("gas_valve")) return;
 
+            if(arrived.Thanks != null && 
+                (!arrived.Thanks.Paused && !arrived.Thanks.Finished))
+            {
+                arrived.Thanks.Stop();
+                arrived.Thanks = null;
+            }
+
 			if (arrived.Links != null)
 			{
 				processes.Add(
@@ -135,7 +142,8 @@ namespace 행방불명.Game.Process
 							new Script(
 								"이대원",
 								"예, 비상구 열쇠가 필요합니다.",
-								null
+								null,
+                                "need_key"
 								),
 							new Script(
 								"경비 아저씨",
@@ -279,6 +287,13 @@ namespace 행방불명.Game.Process
 					new Talking(scripts)
 					)
 				);
+
+            processes.Add(
+                new RemoveSurvivorIconProcess (
+                    stage,
+                    arrived.Id
+                    )
+                );
 		}
 
 		private void AddScriptIfExists()

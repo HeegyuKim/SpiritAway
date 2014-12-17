@@ -61,11 +61,18 @@ namespace 행방불명.Framework.UI
 				pressed = true;
 			if (pressed && !mouse[0])
 			{
-				pressed = false;
-				if(showMap)
-					showMap = !showMap;
-				else if (Rect.Contains(mouse.X, mouse.Y))
-					showMap = !showMap;
+                pressed = false;
+                if (showMap)
+                {
+                    showMap = !showMap; 
+                    mouse.IsUsed = true;
+                }
+                else if (!mouse.IsUsed 
+                    && Rect.Contains(mouse.X, mouse.Y))
+                {
+                    showMap = !showMap;
+                    mouse.IsUsed = true;
+                }
 			}
 		}
 

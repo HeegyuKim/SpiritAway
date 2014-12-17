@@ -2,7 +2,7 @@
 {
 	"background": "map_base.png",
 	"esc_to_skip": false,
-	"player_position": "iweb_staff",
+	"player_position": "jellypen_medkit",
 	"stage": "B1",
 	"waypoints": [
 	
@@ -1360,6 +1360,8 @@
 			"x": 318,
 			"y": 280,
 			"type": "hidden_route",
+			"obtained": 1,
+			"patients": 0,
 			"scripts": [
 				{
 					"target_name": "남자직원",
@@ -1368,7 +1370,8 @@
 				},
 				{
 					"target_name": "이대원",
-					"target_text": "관리사무소로 가서비상구 열쇠를 찾아야 합니다."
+					"target_text": "관리사무소로 가서비상구 열쇠를 찾아야 합니다.",
+					"sfx": "must_go"
 				},
 				{
 					"target_name": "남자직원",
@@ -1976,6 +1979,15 @@
 			"x": 531,
 			"y": 1038,
 			"type": "crossroad",
+			"obtained": 1,
+			"patients": 0,
+			"scripts": [
+				{
+					"target_name": "여종업원",
+					"target_text": "감사합니다.",
+					"sfx": "bluehouse_thanks"
+				}
+			],
 			"links": [
 				{
 					"id": "bluehouse_right_bottom",
@@ -2205,7 +2217,7 @@
 			"id": "cloth_store_warehouse_grandpa",
 			"x": 3129,
 			"y": 1459,
-			"time": 90,
+			"time": 20,
 			"bomb": true,
 			"detects": [
 				{
@@ -2284,12 +2296,51 @@
 					"radius": 100
 				}
 			]
+		},
+		{
+			"id": "library_books_top",
+			"x": 1934,
+			"y": 993,
+			"bomb": false,
+			"detects": [
+				{
+					"x": 1933,
+					"y": 993,
+					"radius": 100
+				}
+			]
+		},
+		{
+			"id": "pcroom_bottom",
+			"x": 2979,
+			"y": 570,
+			"bomb": false,
+			"detects": [
+				{
+					"x": 2979,
+					"y": 570,
+					"radius": 100
+				}
+			]
+		},
+		{
+			"id": "sunflower_bottom",
+			"x": 926,
+			"y": 1652,
+			"bomb": false,
+			"detects": [
+				{
+					"x": 926,
+					"y": 1652,
+					"radius": 50
+				}
+			]
 		}
 	],
 
 	"survivors": [
 		{
-			"id": "warehouse_backdoor_front",
+			"id": "warehouse_backdoor_people",
 			"detect": 350,
 			"x": 3723,
 			"y": 618,
@@ -2376,7 +2427,8 @@
 			"id": "bluehouse_bottom",
 			"detect": 150,
 			"x": 615,
-			"y": 947
+			"y": 947,
+			"relief": "bluehouse_relief"
 		},
 		{
 			"id": "infodesk",

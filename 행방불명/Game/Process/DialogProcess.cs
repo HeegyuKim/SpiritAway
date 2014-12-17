@@ -72,27 +72,31 @@ namespace 행방불명.Game.Process
 			}
 
 
-			if (mouse[0] && !pressed)
-			{
-				pressed = true;
-			}
-			else if(!mouse[0] && pressed)
-			{
-				pressed = false;
+            if (!mouse.IsUsed && scriptView.Rect.Contains(mouse.X, mouse.Y))
+            {
+                if (mouse[0] && !pressed)
+                {
+                    pressed = true;
+                }
+                else if (!mouse[0] && pressed)
+                {
+                    pressed = false;
 
-				// 음성인식아니면 걍 넘어가고
-				if (!talking.HasVoice)
-				{
-					NextScript();
-				}
-				// 맞으면 취소하고 다음스크립트로
-				else
-				{
-					voice.Cancle();
-					NextScript();
-				}
-				return;
-			}
+                    // 음성인식아니면 걍 넘어가고
+                    if (!talking.HasVoice)
+                    {
+                        NextScript();
+                    }
+                    // 맞으면 취소하고 다음스크립트로
+                    else
+                    {
+                        voice.Cancle();
+                        NextScript();
+                    }
+                    return;
+                }
+            }
+
 
 			// 음성인식 사용해야 하는 부분일 경우에..
 			if (voice.isSuccess && voice.Text.Equals(talking.Current.PlayerText))

@@ -71,6 +71,16 @@ namespace 행방불명.Framework.UI
 						new TextRange(0, 6)
 						);
 				}
+                else
+                {
+                    playerText = new TextLayout(
+                        app.Graphics2D.DWriteFactory,
+                        "클릭 혹은 스페이스바를 누르세요",
+                        format,
+                        Width - 175,
+                        100
+                        );
+                }
 				script = value;
 			}
 		}

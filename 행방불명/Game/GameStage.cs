@@ -173,7 +173,7 @@ namespace 행방불명.Game
 			{
 				Console.WriteLine("알 수 없는 생존자의 연결 ID입니다. " + surv.Id);
 			}
-
+            
 			if (surv.Relief == null)
 			{
 				return;
@@ -188,6 +188,8 @@ namespace 행방불명.Game
 			}
 			surv.SX = surv.X / SoundDistanceRate;
 			surv.SY = surv.Y / SoundDistanceRate;
+            surv.WX = way.X;
+            surv.WY = way.Y;
 			surv.LoopCycle = source.PlayLength / 1000.0f + 10;
 		}
 
@@ -286,7 +288,7 @@ namespace 행방불명.Game
 		{
 			if (fadeout)
 			{
-				fadeoutRate += delta;
+				fadeoutRate += delta / 3;
 				if (fadeoutRate > 1)
 					ended = true;
 				return;
@@ -349,7 +351,7 @@ namespace 행방불명.Game
 
 				case PlayerState.Moving:
 					player.Move(delta * 150);
-					CheckPatientsStatus();
+					CheckPatientsStatus(delta);
 					break;
 
 				case PlayerState.Checking:
@@ -384,34 +386,67 @@ namespace 행방불명.Game
 			}
 		}
 
-		private void CheckPatientsStatus()
+        float patientWarningDelta = 30;
+
+		private void CheckPatientsStatus(float delta)
 		{
+            patientWarningDelta += delta;
 			int numDead = player.RemoveDeadPatients();
 
 			string dieAlias = "survivor_die";
-			if (numDead > 0)
-			{
-				Console.WriteLine("부상당한 생존자 {0}명 사망.", numDead);
-				//app.Play2D(dieAlias);
+            if (numDead > 0)
+            {
+                Console.WriteLine("부상당한 생존자 {0}명 사망.", numDead);
+                //app.Play2D(dieAlias);
 
-				Script script = new Script(
-					"이대원",
-					"생존자께서 돌아가셨습니다.",
-					"",
-					dieAlias
-					);
+                Script script = new Script(
+                    "이대원",
+                    "생존자께서 돌아가셨습니다.",
+                    "",
+                    dieAlias
+                    );
 
-				notificatingProcess = new DialogProcess(
-					app,
-					scriptView,
-					new Talking(
-						new Script[]{ script }
-						)
-					);
+                notificatingProcess = new DialogProcess(
+                    app,
+                    scriptView,
+                    new Talking(
+                        new Script[] { script }
+                        )
+                    );
 
-				player.State = PlayerState.Notificating;
-				notificatingProcess.Start();
-			}
+                player.State = PlayerState.Notificating;
+                notificatingProcess.Start();
+                return;
+
+            }
+            if (patientWarningDelta <= 30) return;
+
+            foreach(float life in player.PatientsLife)
+            {
+                if (life > 30) continue;
+
+                patientWarningDelta = 0;
+                Console.WriteLine("경고: 부상자가 위험함");
+                //app.Play2D(dieAlias);
+
+                Script script = new Script(
+                    "이대원",
+                    "환자분이 위급합니다.",
+                    "",
+                    "patient_dangerous"
+                    );
+
+                notificatingProcess = new DialogProcess(
+                    app,
+                    scriptView,
+                    new Talking(
+                        new Script[] { script }
+                        )
+                    );
+
+                player.State = PlayerState.Notificating;
+                notificatingProcess.Start();
+            }
 		}
 
 
@@ -449,9 +484,6 @@ namespace 행방불명.Game
 					}
 					continue;
 				}
-				// 사운드 재생할게 없음
-				if (surv.Relief == null)
-					continue;
 				
 				// 이미 구했음 ㅋ
 				var way = map.GetWaypoint(surv.Id);
@@ -462,8 +494,14 @@ namespace 행방불명.Game
 					dy = pos.Y - surv.Y;
 				float len2 = dx * dx + dy * dy;
 
+                // 구조 요청 재생
 				if (len2 < surv.DetectRadius * surv.DetectRadius)
-				{
+                {
+                    surv.IsFound = true;
+
+                    // 사운드 재생할게 없음
+                    if (surv.Relief == null)
+                        continue;
 					Console.WriteLine(
 						"Play3D {0} LISTEN({1}, {2}) SOURCE({3}, {4})",
 						surv.Relief,
@@ -472,8 +510,8 @@ namespace 행방불명.Game
 						surv.SX,
 						surv.SY
 						);
-					app.Sound.Play3D(surv.Relief, surv.SX, surv.SY, 0);
-
+                    way.Thanks = app.Sound.Play3D(surv.Relief, surv.SX, surv.SY, 0);
+                    
 					//app.Sound.Play2D(surv.Relief);
 					/*
 					var source = app.Sound.GetSoundSource(surv.Relief);
@@ -623,7 +661,8 @@ namespace 행방불명.Game
 						script = new Script(
 							"이대원",
 							"별 거 아닙니다.",
-							null
+							null,
+                            "nothing"
 							);
 
 					var p = new DialogProcess(
@@ -633,11 +672,13 @@ namespace 행방불명.Game
 							script
 							)
 						);
-					processes.Add(new DelayProcess(3));
-					processes.Add(p);
-					
-					if (mis.Bomb)
-						processes.Add(new CheckMiteryProcess(mis));
+                    if (!player.RunningAway)
+                    {
+                        processes.Add(new DelayProcess(3));
+                        processes.Add(p);
+                    }
+                    if (mis.Bomb)
+                        processes.Add(new CheckMiteryProcess(mis));
 				}
 				else if (value.Equals("무시해"))
 				{
@@ -674,34 +715,39 @@ namespace 행방불명.Game
 
 			gameView.OnDraw();
 
-			float scale = (float)(Math.Sin(playerAngle) / 5 + 1);
-			Matrix3x2.Scaling(scale, scale, ref center, out matrix);
-			matrix *= Matrix3x2.Rotation(playerAngle, center);
+            if(!fadeout || fadeoutRate < 0.5)
+            {
+                float scale = (float)(Math.Sin(playerAngle) / 5 + 1);
+                Matrix3x2.Scaling(scale, scale, ref center, out matrix);
+                matrix *= Matrix3x2.Rotation(playerAngle, center);
 
-			app.Graphics2D.RenderTarget.Transform = matrix;
-			app.Graphics2D.DrawCenter(playerBitmap, app.Width / 2, app.Height / 2);
+                app.Graphics2D.RenderTarget.Transform = matrix;
+                app.Graphics2D.DrawCenter(playerBitmap, app.Width / 2, app.Height / 2);
+            
+                if (pingDelta < 1)
+                {
+                    scale = pingDelta * 1.5f;
+                    Matrix3x2.Scaling(scale, scale, ref center, out matrix);
 
-			if (pingDelta < 1)
-			{
-				scale = pingDelta * 1.5f;
-				Matrix3x2.Scaling(scale, scale, ref center, out matrix);
+                    app.Graphics2D.RenderTarget.Transform = matrix;
 
-				app.Graphics2D.RenderTarget.Transform = matrix;
+                    float opacity = pingDelta / 2.0f;
+                    app.Graphics2D.DrawCenter(ping, app.Width / 2, app.Height / 2, 1 - pingDelta * pingDelta);
+                }
 
-				float opacity = pingDelta / 2.0f;
-				app.Graphics2D.DrawCenter(ping, app.Width / 2, app.Height / 2, 1 - pingDelta * pingDelta);
-			}
-	
-			app.Graphics2D.RenderTarget.Transform = Matrix3x2.Identity;
-
+                app.Graphics2D.RenderTarget.Transform = Matrix3x2.Identity;
+            }
+			
 			DrawGameObjects();
 			container.Draw();
 
-			if (fadeout)
+			
+            if (fadeout && fadeoutRate > 0.8f)
 			{
 				fadeoutBrush.Color = new Color4(0, 0, 0, fadeoutRate);
 				rt.FillRectangle(app.RectF, fadeoutBrush);
 			}
+            
 
 
 			rt.EndDraw();
@@ -732,7 +778,25 @@ namespace 행방불명.Game
 				}
 			}
 
-			foreach (var bomb in map.Misteries)
+            if(map.Survivors != null)
+            {
+                var survBitmap = app.Media.BitmapDic["survivor_icon"];
+                foreach (var surv in map.Survivors)
+                {
+                    if (!surv.IsFound) continue;
+
+                    rx = surv.WX - vp.X;
+                    ry = surv.WY - vp.Y;
+
+                    if (rx > 0 && rx < app.Width
+                        && ry > 0 && ry < app.Height)
+                    {
+                        app.Graphics2D.DrawCenter(survBitmap, rx, ry);
+                    }
+                }
+            }
+
+            foreach (var bomb in map.Misteries)
 			{
 				bool drawable = //bomb.Known ||
 								bomb.Checked || bomb.Ignored;
@@ -760,7 +824,7 @@ namespace 행방불명.Game
 						bombCountDrawRect.Y = ry;
 
 						app.Graphics2D.RenderTarget.DrawText(
-							((int)(bomb.Time - bomb.Delta)).ToString(),
+							((int)(bomb.Time + 1 - bomb.Delta)).ToString(),
 							bombCountFormat,
 							bombCountDrawRect,
 							redBrush
