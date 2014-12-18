@@ -2,7 +2,7 @@
 {
 	"background": "map_base.png",
 	"esc_to_skip": false,
-	"player_position": "jellypen_medkit",
+	"player_position": "library_front",
 	"stage": "B1",
 	"waypoints": [
 	

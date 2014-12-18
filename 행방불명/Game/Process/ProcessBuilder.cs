@@ -188,7 +188,7 @@ namespace 행방불명.Game.Process
 									"이대원",
 									"부상자분들을 치료해드렸습니다.",
 									null,
-									"cure_patients#" + app.Random.Next(1, 4)
+									"cure_patients#" + (app.Random.Next(3) + 1)
 									)
 								);
 						}
