@@ -47,8 +47,9 @@ namespace 행방불명.Game
 		public bool HasKey { get; set; }
 		public int NumMedicalKits { get; set; }
 		public float ElapsedTime { get; set; }
-		public bool RunningAway { get; set; }
-		public bool Dead { get; set; }
+        public bool RunningAway { get; set; }
+        public bool Dead { get; set; }
+        public bool LockGasValve { get; set; }
 
 
 		public bool IsArrived
@@ -83,8 +84,9 @@ namespace 행방불명.Game
 			NumDead = 0;
 			ElapsedTime = 0;
 			HasHammer = false;
-			HasKey = false;
-			Dead = false;
+            HasKey = false;
+            Dead = false;
+            LockGasValve = false;
 			RunningAway = false;
 
 
@@ -221,7 +223,6 @@ namespace 행방불명.Game
 			{
 				movedDistance = distance;
 				State = PlayerState.Arrived;
-				RunningAway = false;
 			}
 		}
 	}

@@ -2,7 +2,7 @@
 {
 	"background": "map_base.png",
 	"esc_to_skip": false,
-	"player_position": "jellypen_medkit",
+	"player_position": "lecture_room_door",
 	"stage": "B1",
 	"waypoints": [
 	
@@ -1031,7 +1031,7 @@
 			"id": "kitchen_gas_dangerous",
 			"x": 1358,
 			"y": 1225,
-			"type": "waypoint",
+			"type": "locking_gas_valve",
 			"scripts": [
 				{
 					"target_name": "요리사",
@@ -1724,7 +1724,7 @@
 			"id": "shattered_exit",
 			"x": 126,
 			"y": 1543,
-			"type": "crossroad",
+			"type": "blocked",
 			"scripts": [
 				{
 					"target_name": "이대원",
@@ -1984,7 +1984,7 @@
 			"scripts": [
 				{
 					"target_name": "여종업원",
-					"target_text": "감사합니다.",
+					"target_text": "구해주셔서 감사합니다.",
 					"sfx": "bluehouse_thanks"
 				}
 			],
@@ -2080,10 +2080,11 @@
 	
 	"misteries": [
 		{
+			"id": "shattered_exit",
 			"x": 200,
 			"y": 1540,
 			"bomb": true,
-			"time": 120,
+			"time": 300,
 			"detects": [
 				{
 					"x": 200,
@@ -2110,6 +2111,7 @@
 			]
 		},
 		{
+			"id": "esteregg_junction",
 			"x": 380,
 			"y": 1181,
 			"bomb": true,
@@ -2196,7 +2198,7 @@
 			"id": "aquarium",
 			"x": 2336,
 			"y": 600,
-			"time": 115,
+			"time": 85,
 			"bomb": true,
 			"detects": [
 				{
@@ -2217,7 +2219,7 @@
 			"id": "cloth_store_warehouse_grandpa",
 			"x": 3129,
 			"y": 1459,
-			"time": 20,
+			"time": 60,
 			"bomb": true,
 			"detects": [
 				{
@@ -2332,6 +2334,45 @@
 				{
 					"x": 926,
 					"y": 1652,
+					"radius": 50
+				}
+			]
+		},
+		{
+			"id": "kiwibrashee_interior",
+			"x": 1643,
+			"y": 356,
+			"bomb": false,
+			"detects": [
+				{
+					"x": 1643,
+					"y": 356,
+					"radius": 100
+				}
+			]
+		},
+		{
+			"id": "guard_room_left",
+			"x": 1545,
+			"y": 150,
+			"bomb": false,
+			"detects": [
+				{
+					"x": 1545,
+					"y": 150,
+					"radius": 50
+				}
+			]
+		},
+		{
+			"id": "jellypen",
+			"x": 218,
+			"y": 700,
+			"bomb": false,
+			"detects": [
+				{
+					"x": 218,
+					"y": 700,
 					"radius": 50
 				}
 			]

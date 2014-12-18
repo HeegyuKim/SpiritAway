@@ -20,7 +20,7 @@ namespace 행방불명.Framework.UI
 
 		float margin = 30, lastChangedDelta = 0, queryDelta = 0;
 		RectangleF exitRect, soundRect;
-		Bitmap exit, soundOn, soundOff;
+		Bitmap exit, soundOn, soundOff, mouseOn;
 
 
 		public SettingButtons(Program app)
@@ -33,7 +33,7 @@ namespace 행방불명.Framework.UI
 			exit = app.Media.BitmapDic["exit"];
 			soundOn = app.Media.BitmapDic["sound_on"];
 			soundOff = app.Media.BitmapDic["sound_off"];
-
+            mouseOn = app.Media.BitmapDic["button_mouse_on"];
 
 			exitRect = new SharpDX.RectangleF(
 				0, 0,
@@ -64,6 +64,15 @@ namespace 행방불명.Framework.UI
 			{
 				app.Graphics2D.Draw(soundOff, soundRect.Left, 0);
 			}
+            
+            if(exitRect.Contains(mouse.X, mouse.Y))
+            {
+                app.Graphics2D.Draw(mouseOn, exitRect.Left - 10, -10);
+            }
+            if(soundRect.Contains(mouse.X, mouse.Y))
+            {
+                app.Graphics2D.Draw(mouseOn, soundRect.Left - 10, -10);
+            }
 		}
 
 		bool pressed = false, questioned = false;

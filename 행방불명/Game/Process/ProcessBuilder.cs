@@ -63,12 +63,26 @@ namespace 행방불명.Game.Process
 
 			if (arrived.Links != null)
 			{
-				processes.Add(
-				  new SelectProcess(
-					  stage,
-					  arrived.Links
-					  )
-				  );
+                if(stage.Player.RunningAway)
+                {
+                    Waypoint way = stage.Map.GetWaypoint(
+                        arrived.Links[app.Random.Next(arrived.Links.Count)].Id
+                        );
+
+                    processes.Add(
+                        new StartProcess (
+                            stage,
+                            way
+                            )
+                        );
+                }
+                else
+                    processes.Add(
+				      new SelectProcess(
+					      stage,
+					      arrived.Links
+					      )
+				      );
 			}
 			else if (arrived.Link1 != null && arrived.Link2 != null)
 			{
@@ -100,8 +114,28 @@ namespace 행방불명.Game.Process
 
 			switch (arrived.Type)
 			{
+                case "locking_gas_valve":
+                    stage.Player.LockGasValve = true;
+                    break;
+
+                case "blocked":
+                    if (arrived.Used) 
+                        break;
+
+                    {
+                        var obj = new GameObject(
+                            arrived.X,
+                            arrived.Y,
+                            arrived.Id,
+                            app.Media.BitmapDic["locked"]
+                            );
+                        stage.GameObjects.Add(obj);
+                    }
+                    break;
 				case "gas_valve":
-					if (arrived.Used) break;
+					if (arrived.Used) 
+                        break;
+
 					{
 						var gas = new Script(
 							"요리사",
@@ -127,7 +161,9 @@ namespace 행방불명.Game.Process
 					}
 					break;
 				case "key":
-					{
+                    {
+                        app.Sound.Play2D("notification");
+
 						if (arrived.Used) break;
 
 						stage.Player.HasKey = true;
@@ -166,7 +202,8 @@ namespace 행방불명.Game.Process
 				case "medical_kit":
 					if (!arrived.Used && !stage.Map.IsTutorial() )
 					{
-						
+                        app.Sound.Play2D("notification");
+
 						List<Script> scripts = new List<Script>();
 						scripts.Add(
 							new Script(
@@ -209,7 +246,9 @@ namespace 행방불명.Game.Process
 					break;
 				case "hammer":
 					if (!arrived.Used)
-					{
+                    {
+                        app.Sound.Play2D("notification");
+
 						stage.Player.HasHammer = true;
 
 						var talking = new Talking(
@@ -248,7 +287,7 @@ namespace 행방불명.Game.Process
 					"이대원",
 					"생존자가 있습니다!",
 					null,
-					"find_survivors"
+					"find_survivors#" + (app.Random.Next(2) + 1)
 					)
 				);
 
@@ -259,7 +298,7 @@ namespace 행방불명.Game.Process
 						"이대원",
 						"부상당했습니다",
 						null,
-						"hurt"
+						"hurt#" + (app.Random.Next(2) + 1)
 						)
 					);
 			}
@@ -275,7 +314,7 @@ namespace 행방불명.Game.Process
 						"이대원",
 						"부상자분들을 치료해드렸습니다.",
 						null,
-						"cure_patients"
+						"cure_patients#" + (app.Random.Next(3) + 1)
 						)
 					);
 			}

@@ -31,10 +31,11 @@ namespace 행방불명.Framework.UI
 			: this(g2d)
 		{
 			_bitmap = bitmap;
+            Rect = new SharpDX.RectangleF (0, 0, bitmap.Size.Width, bitmap.Size.Height);
 		}
 
 
-		private void DrawBitmap()
+		public void DrawBitmap()
 		{
 			if (_bitmap == null) return;
 

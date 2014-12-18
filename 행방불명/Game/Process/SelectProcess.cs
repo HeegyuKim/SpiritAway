@@ -166,13 +166,13 @@ namespace 행방불명.Game.Process
 						);
 					ps.Add(this);
 
-					var curr = player.MoveTo;
+					var locked = stage.Map.GetWaypoint(link.Id);
 
 					stage.GameObjects.Add(
 						new GameObject(
-							curr.X,
-							curr.Y,
-							curr.Id,
+                            locked.X,
+                            locked.Y,
+                            locked.Id,
 							stage.App.Media.BitmapDic["locked"]
 							)
 						);
@@ -182,7 +182,7 @@ namespace 행방불명.Game.Process
 				else
 				{
 					var removed = from obj in stage.GameObjects
-								  where obj.key.Equals(player.MoveTo.Id)
+								  where obj.key.Equals(link.Id)
 								  select obj;
 					if (removed.Count() > 0)
 					{

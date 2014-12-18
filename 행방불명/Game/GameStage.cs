@@ -249,7 +249,7 @@ namespace 행방불명.Game
 			}
 		}
 
-		bool ended = false;
+		bool ended = false, failed = false;
 		VoiceControl voice;
 		Player player;
 		Waypoint currWaypoint;
@@ -288,7 +288,7 @@ namespace 행방불명.Game
 		{
 			if (fadeout)
 			{
-				fadeoutRate += delta / 3;
+				fadeoutRate += delta / 5;
 				if (fadeoutRate > 1)
 					ended = true;
 				return;
@@ -324,6 +324,7 @@ namespace 행방불명.Game
 				case PlayerState.Arrived:
 					processes.Clear();
 					processBuilder.AddProcess(processes, player.MoveTo);
+				    player.RunningAway = false;
 					player.State = PlayerState.Processing;
 
 					string sfx = player.MoveTo.Sfx;
@@ -344,7 +345,7 @@ namespace 행방불명.Game
 					else
 					{
 						Console.WriteLine("Ended~");
-						Terminate();
+						Terminate(false);
 					}
 
 					break;
@@ -497,6 +498,9 @@ namespace 행방불명.Game
                 // 구조 요청 재생
 				if (len2 < surv.DetectRadius * surv.DetectRadius)
                 {
+                    if (!surv.IsFound) 
+                        app.Sound.Play2D("notification");
+
                     surv.IsFound = true;
 
                     // 사운드 재생할게 없음
@@ -576,7 +580,7 @@ namespace 행방불명.Game
 						if (mis.IsDamaged(curr.X, curr.Y))
 						{
 							player.Dead = true;
-							Terminate();
+							Terminate(true);
 						}
 
 						continue;
@@ -674,10 +678,13 @@ namespace 행방불명.Game
 						);
                     if (!player.RunningAway)
                     {
+                        processes.Add(new SoundPlayProcess(app, "search"));
                         processes.Add(new DelayProcess(3));
+                        if (mis.Bomb)
+                            processes.Add(new CheckMiteryProcess(mis));
                         processes.Add(p);
                     }
-                    if (mis.Bomb)
+                    else if (mis.Bomb)
                         processes.Add(new CheckMiteryProcess(mis));
 				}
 				else if (value.Equals("무시해"))
@@ -698,10 +705,16 @@ namespace 행방불명.Game
 
 		}
 
-		private void Terminate()
+		private void Terminate(bool failed)
 		{
-			Console.WriteLine("사망");
+            if(failed)
+            {
+                Console.WriteLine("사망"); 
+                app.Sound.StopAllSounds();
+                app.Play2D("game_over");
+            }
 			fadeout = true;
+            this.failed = failed;
 		}
 
 		Matrix3x2 matrix;
@@ -715,7 +728,7 @@ namespace 행방불명.Game
 
 			gameView.OnDraw();
 
-            if(!fadeout || fadeoutRate < 0.5)
+            if(!failed || (!fadeout || fadeoutRate < 0.5))
             {
                 float scale = (float)(Math.Sin(playerAngle) / 5 + 1);
                 Matrix3x2.Scaling(scale, scale, ref center, out matrix);
@@ -742,9 +755,9 @@ namespace 행방불명.Game
 			container.Draw();
 
 			
-            if (fadeout && fadeoutRate > 0.8f)
+            if (fadeout && fadeoutRate > 0.5f)
 			{
-				fadeoutBrush.Color = new Color4(0, 0, 0, fadeoutRate);
+				fadeoutBrush.Color = new Color4(0, 0, 0, 1);
 				rt.FillRectangle(app.RectF, fadeoutBrush);
 			}
             

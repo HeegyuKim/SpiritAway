@@ -9,6 +9,7 @@
     "exit": "res/images/exit_icon.png",
     "sound_on": "res/images/soundon_icon.png",
     "sound_off": "res/images/soundoff_icon.png",
+    "button_mouse_on": "res/images/button_mouse_on.png",
     "character": "res/images/character.png",
     "count_ui": "res/images/count_ui_full.png",
 
@@ -33,6 +34,8 @@
 
     "map": "res/images/map.png",
     "map_icon": "res/images/map_icon.png",
+    "map_icon_pressed": "res/images/map_icon_pressed.png",
+    "esc_to_skip": "res/images/escskip_icon.png",
     "ping_danger" : "res/images/ping_danger.png"
   },
   "fonts": [
@@ -65,6 +68,9 @@
   "sounds" : {
   	"crash": "res/sounds/sfx/crash.wav",
     "bomb": "res/sounds/sfx/bomb.wav",
+    "notification": "res/sounds/sfx/BBB.wav",
+    "game_over": "res/sounds/sfx/노이즈.wav",
+    "search": "res/sounds/sfx/뒤적뒤적.wav",
 
     "start_stage_bgm": "res/sounds/dayofchaos.mp3",
     "prolog1": "res/sounds/prolog/1. 으으으2.wav",
@@ -85,8 +91,10 @@
     "nothing": "res/sounds/character/3.별거.ogg",
     "must_go": "res/sounds/character/4.관리.ogg",
 
-    "find_survivors": "res/sounds/character/6-1. 생존자가 있습니다1.wav",
-    "hurt": "res/sounds/character/6-2. 부상당했습니다2.wav",
+    "find_survivors#1": "res/sounds/character/6-1. 생존자가 있습니다1.wav",
+    "find_survivors#2": "res/sounds/character/6-1. 생존자가 있습니다2.wav",
+    "hurt#1": "res/sounds/character/6-2. 부상당했습니다2.wav",
+    "hurt#2": "res/sounds/character/6-2. 부상당했습니다2.wav",
     "survivor_die": "res/sounds/character/8. 생존자께서 돌아가셨습니다.wav",
     "find_hammer": "res/sounds/character/9. 망치를 찾았습니다.wav",
     "find_bomb": "res/sounds/character/4. 폭탄이 있습니다1.wav",
@@ -132,6 +140,6 @@
     "grandpa_relief": "res/sounds/survivors/할아버지_우리손주어딧니.wav",
 
     "bluehouse_relief": "res/sounds/survivors/냉면_거기누구없어요.ogg",
-    "bluehouse_thanks": "res/sounds/survivors/냉면_살려주세요.ogg"
+    "bluehouse_thanks": "res/sounds/survivors/냉면_감사.ogg"
   }
 }

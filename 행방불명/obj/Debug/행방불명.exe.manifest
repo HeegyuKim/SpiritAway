@@ -204,14 +204,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="행방불명.exe" size="182720">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="행방불명.exe" size="184768">
       <assemblyIdentity name="행방불명" version="0.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>4YXnm0loT/nKeCmVtLd8xiLyunwRx3VVQ+6zGh0FORU=</dsig:DigestValue>
+        <dsig:DigestValue>HWkmadiBVhHVTaqgUnH+d0hoyGCVmc4QF0iySPWJe1U=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

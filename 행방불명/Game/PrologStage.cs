@@ -64,8 +64,15 @@ namespace 행방불명.Game
 				new string[]{"옙"}
 			});
 
+
+            escToSkipView = new ImageView(app.Graphics2D, app.Media.BitmapDic["esc_to_skip"]);
+            escToSkipView.X = app.Width - escToSkipView.Width - 30;
+            escToSkipView.Y = 30;
+            escToSkipView.Draw += escToSkipView.DrawBitmap;
+
             container.Views.Add(scriptView);
             container.Views.Add(btnExit);
+            container.Views.Add(escToSkipView);
 		}
 
 
@@ -80,6 +87,7 @@ namespace 행방불명.Game
 		Container container;
 		SettingButtons btnExit;
 		ScriptView scriptView;
+        ImageView escToSkipView;
 
 
 
@@ -120,7 +128,7 @@ namespace 행방불명.Game
 			var mouse = app.Mouse;
 			var voice = app.VoiceControl;
 
-            if (mouse[0] && scriptView.Rect.Contains(mouse.X, mouse.Y))
+            if (app.KeySpace || (mouse[0] && scriptView.Rect.Contains(mouse.X, mouse.Y)))
 			{
 				pressed = true;
 				scriptView.Script = script2;

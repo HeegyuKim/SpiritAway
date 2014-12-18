@@ -145,6 +145,7 @@
     <Compile Include="Game\Process\ProcessBuilder.cs" />
     <Compile Include="Game\Process\RemoveSurvivorIconProcess.cs" />
     <Compile Include="Game\Process\SelectProcess.cs" />
+    <Compile Include="Game\Process\SoundPlayProcess.cs" />
     <Compile Include="Game\Process\StartProcess.cs" />
     <Compile Include="Game\Map\Talking.cs" />
     <Compile Include="Game\Map\GameMap.cs" />

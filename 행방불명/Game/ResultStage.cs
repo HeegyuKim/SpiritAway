@@ -59,22 +59,29 @@ namespace 행방불명.Game
 
 		private void ComputeRankAndScore()
 		{
-			score = player.NumObtained - player.NumPatients / 2;
-			score -= player.NumDead;
-			score += (int)((900 - player.ElapsedTime) / 60.0f);
+			score = player.NumObtained - player.NumPatients;
+			score -= player.NumDead * 2;
+			score += (int)(Math.Max(0, 600 - Math.Max(player.ElapsedTime, 180)) / 30.0f);
 
-			if (!success)
-				rank = "F";
-			else if (score >= 20)
-				rank = "S";
-			else if (score >= 17)
-				rank = "A";
-			else if (score >= 14)
-				rank = "B";
-			else if (score >= 10)
-				rank = "C";
-			else
-				rank = "F";
+            if (player.LockGasValve)
+                score += 3;
+
+            if (!success)
+            {
+                score -= 10;
+            }
+            if (score < 0) score = 0;
+
+            if (score >= 20)
+                rank = "S";
+            else if (score >= 17)
+                rank = "A";
+            else if (score >= 14)
+                rank = "B";
+            else if (score >= 10)
+                rank = "C";
+            else
+                rank = "F";
 		}
 
 
