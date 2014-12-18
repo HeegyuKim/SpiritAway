@@ -1,0 +1,145 @@
+{
+  "bitmaps": {
+    "character_thumbnail": "res/images/maincharacter.png",
+    "time_ui": "res/images/time_baseui.png",
+    "dialog_bg": "res/images/talk_ui.png",
+    "game_map": "res/images/map_base.png",
+    "start_bg": "res/images/main_title.png",
+    "minister": "res/images/minister.png",
+    "exit": "res/images/exit_icon.png",
+    "sound_on": "res/images/soundon_icon.png",
+    "sound_off": "res/images/soundoff_icon.png",
+    "button_mouse_on": "res/images/button_mouse_on.png",
+    "character": "res/images/character.png",
+    "count_ui": "res/images/count_ui_full.png",
+
+    "hammer": "res/images/hammer_icon.png",
+    "medipack": "res/images/medipack_icon.png",
+    "key": "res/images/key_icon.png",
+    "holder": "res/images/iconholder_ui.png",
+    "ping": "res/images/ping.png",
+    "locked": "res/images/lockeddoor_icon.png",
+    "blocked": "res/images/breakable_icon.png",
+    "danger_icon": "res/images/danger_icon.png",
+    "survivor_icon": "res/images/survivor.png",
+
+    "ending_success": "res/images/ending_ui_success.png",
+    "ending_failure": "res/images/ending_ui_failure.png",
+
+    "rank_s" : "res/images/s_rank.png",
+    "rank_a" : "res/images/a_rank.png",
+    "rank_b" : "res/images/b_rank.png",
+    "rank_c" : "res/images/c_rank.png",
+    "rank_f" : "res/images/f_rank.png",
+
+    "map": "res/images/map.png",
+    "map_icon": "res/images/map_icon.png",
+    "map_icon_pressed": "res/images/map_icon_pressed.png",
+    "esc_to_skip": "res/images/escskip_icon.png",
+    "ping_danger" : "res/images/ping_danger.png"
+  },
+  "fonts": [
+    {
+      "name": "default10",
+      "family_name": "고딕",
+      "size": 10
+    },
+    {
+      "name": "default14",
+      "family_name": "고딕",
+      "size": 14
+    },
+    {
+      "name": "default18",
+      "family_name": "고딕",
+      "size": 18
+    },
+    {
+      "name": "default",
+      "family_name": "고딕",
+      "size": 24
+    },
+    {
+      "name": "default32",
+      "family_name": "고딕",
+      "size" : 32
+    }
+    ],
+  "sounds" : {
+  	"crash": "res/sounds/sfx/crash.wav",
+    "bomb": "res/sounds/sfx/bomb.wav",
+    "notification": "res/sounds/sfx/BBB.wav",
+    "game_over": "res/sounds/sfx/노이즈.wav",
+    "search": "res/sounds/sfx/뒤적뒤적.wav",
+
+    "start_stage_bgm": "res/sounds/dayofchaos.mp3",
+    "prolog1": "res/sounds/prolog/1. 으으으2.wav",
+    "prolog2": "res/sounds/prolog/2. 3소대 이수민입니다.wav",
+    "prolog3": "res/sounds/prolog/3. 알겠습니다.wav",
+    "tutorial1": "res/sounds/tutorial/1. 손전등과 구급 약품들을.wav",
+    "tutorial2": "res/sounds/tutorial/2. 근처에 라노스테크 CEO.wav",
+    "tutorial3": "res/sounds/tutorial/3. 찾았습니다 무사하십니다.wav",
+    "tutorial4": "res/sounds/tutorial/4. 이제 나가서 다른 사람들을.wav",
+
+    "runaway": "res/sounds/character/7. 으아아 도망쳐1.wav",
+    "blocked": "res/sounds/character/5. 길이 막혀있습니다1.wav",
+    "locked": "res/sounds/character/문이 잠겨있습니다 1.mp3",
+    "corpse#1": "res/sounds/character/12. 으 시체가1.wav",
+    "corpse#2": "res/sounds/character/12. 으 시체가2.wav",
+    "need_key": "res/sounds/character/1.비상구.ogg",
+    "patient_dangerous": "res/sounds/character/2.환자.ogg",
+    "nothing": "res/sounds/character/3.별거.ogg",
+    "must_go": "res/sounds/character/4.관리.ogg",
+
+    "find_survivors#1": "res/sounds/character/6-1. 생존자가 있습니다1.wav",
+    "find_survivors#2": "res/sounds/character/6-1. 생존자가 있습니다2.wav",
+    "hurt#1": "res/sounds/character/6-2. 부상당했습니다2.wav",
+    "hurt#2": "res/sounds/character/6-2. 부상당했습니다2.wav",
+    "survivor_die": "res/sounds/character/8. 생존자께서 돌아가셨습니다.wav",
+    "find_hammer": "res/sounds/character/9. 망치를 찾았습니다.wav",
+    "find_bomb": "res/sounds/character/4. 폭탄이 있습니다1.wav",
+    "find_mistery": "res/sounds/character/3. 수상한 물건이 있습니다.wav",
+    "find_medical_kit": "res/sounds/character/10. 의료상자가 있습니다.wav",
+    "cure_patients#1": "res/sounds/character/11. 부상자분들을 치료1.wav",
+    "cure_patients#2": "res/sounds/character/11. 부상자분들을 치료2.wav",
+    "cure_patients#3": "res/sounds/character/11. 부상자분들을 치료3.wav",
+    "ask#1": "res/sounds/character/1. 어디로갈까요1.wav",
+    "ask#2": "res/sounds/character/1. 어디로갈까요2.wav",
+    "ask#3": "res/sounds/character/1. 어디로갈까요3.wav",
+
+
+
+
+
+
+    "infodesk_thanks": "res/sounds/survivors/안내데스크_여직원_데리고 나가주세요.ogg",
+    "infodesk_relief": "res/sounds/survivors/안내데스크_울음2.wav",
+
+    "parkour_relief": "res/sounds/survivors/파쿠르_누가저좀도와줘여.mp3",
+    "library_relief": "res/sounds/survivors/도서관_여대생_밖에누구없어요.wav",
+    "couple_relief": "res/sounds/survivors/커플_울지마우린살수잇어.wav",
+    "chef_relief": "res/sounds/survivors/요리사 도와주세요.ogg",
+    
+    "cloth_child_thanks": "res/sounds/survivors/손자 할아버지.wav",
+    "cloth_child_relief": "res/sounds/survivors/손자_울음소리.wav",
+
+    "iweb_relief": "res/sounds/survivors/사무실_여기요사람있어요.wav",
+    "iweb_ask1": "res/sounds/survivors/사무실_제가도울일이있을까요.wav",
+    "iweb_ask2": "res/sounds/survivors/사무실_아관리사무소로이어진어쩌구저쩌규.wav",
+
+    "chef_check_gas_please": "res/sounds/survivors/요리사 주변에 가스밸브.ogg",
+    "chef_check_gas": "res/sounds/survivors/요리사 가스밸브가 열려잇.ogg",
+    "chef_check_gas_complete": "res/sounds/survivors/요리사 잠겼습니다 어서 빠져.ogg",
+
+
+    "warehouse_thanks": "res/sounds/survivors/창고_감사합니다 덕분에살았어요.ogg",
+    "warehouse_relief": "res/sounds/survivors/창고_도와주세요 거기 아무도없어요.ogg",
+
+    "keyman_script1": "res/sounds/survivors/관리사무소_나가도되겟.wav",
+    "keyman_script2": "res/sounds/survivors/관리사무소_어서나갑시다.wav",
+    "grandpa_relief": "res/sounds/survivors/할아버지_우리손주어딧니.wav",
+
+    "bluehouse_relief": "res/sounds/survivors/냉면_거기누구없어요.ogg",
+    "bluehouse_thanks": "res/sounds/survivors/냉면_감사.ogg"
+  }
+}
