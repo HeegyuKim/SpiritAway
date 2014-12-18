@@ -3,7 +3,7 @@
     "character_thumbnail": "res/images/maincharacter.png",
     "time_ui": "res/images/time_baseui.png",
     "dialog_bg": "res/images/talk_ui.png",
-    "game_map": "res/images/map_base.png",
+    "game_map": "res/images/map_base_test.png",
     "start_bg": "res/images/main_title.png",
     "minister": "res/images/minister.png",
     "exit": "res/images/exit_icon.png",
@@ -93,7 +93,7 @@
 
     "find_survivors#1": "res/sounds/character/6-1. 생존자가 있습니다1.wav",
     "find_survivors#2": "res/sounds/character/6-1. 생존자가 있습니다2.wav",
-    "hurt#1": "res/sounds/character/6-2. 부상당했습니다2.wav",
+    "hurt#1": "res/sounds/character/6-2. 부상당했습니다1.wav",
     "hurt#2": "res/sounds/character/6-2. 부상당했습니다2.wav",
     "survivor_die": "res/sounds/character/8. 생존자께서 돌아가셨습니다.wav",
     "find_hammer": "res/sounds/character/9. 망치를 찾았습니다.wav",

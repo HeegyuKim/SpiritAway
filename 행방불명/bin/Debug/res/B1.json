@@ -2,11 +2,7 @@
 {
 	"background": "map_base.png",
 	"esc_to_skip": false,
-<<<<<<< HEAD
 	"player_position": "lecture_room_door",
-=======
-	"player_position": "library_front",
->>>>>>> 060f04022676f1482f800a351b70ef9a7d00f571
 	"stage": "B1",
 	"waypoints": [
 	
