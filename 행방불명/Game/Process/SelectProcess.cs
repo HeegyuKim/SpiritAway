@@ -127,16 +127,23 @@ namespace 행방불명.Game.Process
 					if (link.Name.Equals(voice.Text) && validateLink(link))
 					{
 						SelectLink(link);
+                        scriptView.Unknown = null;
 						break;
 					}
 				}
 				if (!ended)
-				{
+                {
+                    Console.WriteLine("ㄹㄹ");
+                    scriptView.Unknown = voice.Text + " -?";
 					voice.Recognize();
 				}
 			}
-			else if (!voice.IsRecognizing)
-				voice.Recognize();
+            else if (!voice.IsRecognizing)
+            {
+                Console.WriteLine("ㄹㄹ");
+                scriptView.Unknown = voice.Text + " -?";
+                voice.Recognize();
+            }
 		}
 
 		private void SelectLink(Link link)
@@ -286,6 +293,7 @@ namespace 행방불명.Game.Process
 			Console.WriteLine("select link " + link.Id);
 			player.StartTo(map.GetWaypoint(link.Id));
 			ended = true;
+            scriptView.Unknown = null;
 		}
 
 

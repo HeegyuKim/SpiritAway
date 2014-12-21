@@ -21,7 +21,7 @@ namespace 행방불명.Game
 		public bool isSuccess { get { return success; } }
 		public bool IsLoading { get { return numLoading == 0 ;} }
 		public bool IsRecognizing { get { return recoging; } }
-		public string Text { get { return resultText; } }
+        public string Text { get { return resultText; } set { resultText = value; } }
 		public RecognitionResult Result { get { return result; } }
 		public SpeechRecognitionEngine Engine { get { return engine; } }
 

@@ -83,7 +83,7 @@
 
     "runaway": "res/sounds/character/7. 으아아 도망쳐1.wav",
     "blocked": "res/sounds/character/5. 길이 막혀있습니다1.wav",
-    "locked": "res/sounds/character/문이 잠겨있습니다 1.mp3",
+    "locked": "res/sounds/character/문이 잠겨있습니다.wav",
     "corpse#1": "res/sounds/character/12. 으 시체가1.wav",
     "corpse#2": "res/sounds/character/12. 으 시체가2.wav",
     "need_key": "res/sounds/character/1.비상구.ogg",
@@ -109,7 +109,8 @@
 
 
 
-
+    "minister1": "res/sounds/prolog/장관1.ogg",
+    "minister2": "res/sounds/prolog/장관2.ogg",
 
 
     "infodesk_thanks": "res/sounds/survivors/안내데스크_여직원_데리고 나가주세요.ogg",

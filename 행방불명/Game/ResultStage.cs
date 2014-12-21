@@ -59,7 +59,7 @@ namespace 행방불명.Game
 
 		private void ComputeRankAndScore()
 		{
-			score = player.NumObtained - player.NumPatients;
+			score = player.NumObtained * 3 - player.NumPatients;
 			score -= player.NumDead * 2;
 			score += (int)(Math.Max(0, 600 - Math.Max(player.ElapsedTime, 180)) / 30.0f);
 

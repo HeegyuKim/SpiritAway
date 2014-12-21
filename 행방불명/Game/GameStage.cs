@@ -155,6 +155,15 @@ namespace 행방불명.Game
 				container.Views.Add(timeView);
 			}
 
+
+            if(map.IsTutorial())
+            {
+                var escToSkipView = new ImageView(app.Graphics2D, app.Media.BitmapDic["esc_to_skip"]);
+                escToSkipView.X = app.Width - escToSkipView.Width - 30;
+                escToSkipView.Y = 30;
+                escToSkipView.Draw += escToSkipView.DrawBitmap;
+                container.Views.Add(escToSkipView);
+            }
 			
 			
 		}

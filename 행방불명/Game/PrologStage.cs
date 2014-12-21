@@ -9,6 +9,8 @@ using 행방불명.Game.Map;
 using SharpDX;
 using SharpDX.Direct2D1;
 using SharpDX.DirectWrite;
+using IrrKlang;
+
 
 
 namespace 행방불명.Game
@@ -19,6 +21,7 @@ namespace 행방불명.Game
 		Program app;
 		Script script1,
 				script2;
+        ISound sfx1, sfx2;
 		bool isScript2 = false;
 
 
@@ -51,12 +54,14 @@ namespace 행방불명.Game
 			script1 = new Script(
 				"장관",
 				"김대장, 코엑스에서 테러가 일어나 미처 대피하지 못한 사람들과 우리 대원들이 갇혀 있네,",
-				""
+                null,
+				"minister1"
 				);
 			script2 = new Script(
 				"장관",
 				"대원들과 연락하여 사람들을 구출해 내게나, 외부 출구가 무너져서 지하내부의 상황을 전혀 알 수가 없어.",
-				"옙"
+				"옙",
+                "minister2"
 				);
 			scriptView.Script = script1;
 
@@ -120,19 +125,29 @@ namespace 행방불명.Game
 		{
 			container.Update(delta);
 
+            if(sfx1 == null)
+            {
+                sfx1 = app.Play2D(script1.Sfx);
+            }
+
 			if (app.KeyESC)
 			{
-				yep = true;
+                yep = true;
+                if(sfx1 != null) sfx1.Stop();
+                if(sfx2 != null) sfx2.Stop();
 				return;
 			}
 			var mouse = app.Mouse;
 			var voice = app.VoiceControl;
 
-            if (app.KeySpace || (mouse[0] && scriptView.Rect.Contains(mouse.X, mouse.Y)))
+            if (!isScript2 && (app.KeySpace || (mouse[0] && scriptView.Rect.Contains(mouse.X, mouse.Y))))
 			{
 				pressed = true;
 				scriptView.Script = script2;
 				isScript2 = true;
+                sfx2 = app.Play2D(script2.Sfx);
+                sfx1.Stop();
+
 				return;
 			}
 
@@ -141,6 +156,8 @@ namespace 행방불명.Game
 			if (voice.isSuccess && voice.Text.Equals("옙"))
 			{
 				yep = true;
+                voice.Text = "";
+                sfx2.Stop();
 				Console.Write("다음 스테이지로 ㄱㄱ");
 			}
 			else if (pressed && !mouse[0] && isScript2)

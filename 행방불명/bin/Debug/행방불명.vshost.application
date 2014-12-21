@@ -7,18 +7,14 @@
     <framework targetVersion="4.5" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="행방불명.exe.manifest" size="13943">
+    <dependentAssembly dependencyType="install" codebase="행방불명.exe.manifest" size="13912">
       <assemblyIdentity name="행방불명.exe" version="1.0.0.2" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-<<<<<<< HEAD
-        <dsig:DigestValue>oGk5CKWYt/6RpnZgim6QcclZhFuSnjY2UtbvWmrts24=</dsig:DigestValue>
-=======
-        <dsig:DigestValue>awMP0N1BZ9hVBoWsxAQ4G8UyyEXYS7o20vEshyYNnq8=</dsig:DigestValue>
->>>>>>> 060f04022676f1482f800a351b70ef9a7d00f571
+        <dsig:DigestValue>JBcJFBhmuNFF6cFJKJA1bWydEWeQaPwhbTccM/I1hmk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

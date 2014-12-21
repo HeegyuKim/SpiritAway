@@ -102,9 +102,17 @@ namespace 행방불명.Game.Process
 			if (voice.isSuccess && voice.Text.Equals(talking.Current.PlayerText))
 				NextScript();
 
+            else if(!voice.IsRecognizing && !voice.isSuccess)
+            {
+                scriptView.Unknown = "???";
+                voice.Recognize();
+            }
 			// 대화가 필요한데 인식중이지 않으면 인식해야지
-			else if (talking.HasVoice && !voice.IsRecognizing)
-				voice.Recognize();
+            else if (talking.HasVoice && !voice.IsRecognizing)
+            {
+                scriptView.Unknown = voice.Text;
+                voice.Recognize();
+            }
 		}
 
 		public void End()
@@ -114,12 +122,15 @@ namespace 행방불명.Game.Process
 
 		private void NextScript()
 		{
+            scriptView.Unknown = null;
+
 			if (currSound != null)
 				currSound.Stop();
 
 			if (talking.HasNext)
 			{
 				talking.Next();
+                voice.Recognize();
 				scriptView.Script = talking.Current;
 				currSound = app.Play2D(talking.Current.Sfx);
 			}

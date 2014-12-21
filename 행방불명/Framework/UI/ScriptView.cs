@@ -19,7 +19,7 @@ namespace 행방불명.Framework.UI
 		Program app;
 
 		TextFormat format;
-		TextLayout targetText, playerText;
+		TextLayout targetText, playerText, unknownText;
 		Script script;
 
 		public Script Script 
@@ -85,6 +85,30 @@ namespace 행방불명.Framework.UI
 			}
 		}
 
+        float unknownChangedDelta = 0;
+
+        public String Unknown
+        {
+            set
+            {
+                if(unknownText != null)
+                {
+                    Utilities.Dispose(ref unknownText);
+                }
+
+                if (value == null || value.Length <= 0) return;
+
+                unknownText = new TextLayout(
+                    app.Graphics2D.DWriteFactory,
+                    value,
+                    format,
+                    Width,
+                    50
+                    );
+                unknownText.TextAlignment = TextAlignment.Trailing;
+                unknownChangedDelta = 0;
+            }
+        }
 		public void Clear()
 		{
 			script.TargetName = 
@@ -121,7 +145,18 @@ namespace 행방불명.Framework.UI
 				textColor
 				);
 			Draw += DrawText;
+            Update += UpdateUnknown;
 		}
+
+        private void UpdateUnknown(float dt)
+        {
+            if(unknownText != null)
+            {
+                unknownChangedDelta += dt;
+                if (unknownChangedDelta > 2)
+                    Unknown = "";
+            }
+        }
 
 		private void DrawText()
 		{
@@ -144,6 +179,13 @@ namespace 행방불명.Framework.UI
 			pos.Y += 90;
 			if (playerText != null)
 				rt.DrawTextLayout(pos, playerText, brush);
+
+            if (unknownText != null)
+            {
+                pos.X = 0;
+                pos.Y = app.Height - unknownText.MaxHeight;
+                rt.DrawTextLayout(pos, unknownText, brush);
+            }
 		}
 	}
 }
