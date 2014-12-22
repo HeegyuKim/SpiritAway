@@ -99,7 +99,7 @@ namespace 행방불명.Game.Process
 
 
 			// 음성인식 사용해야 하는 부분일 경우에..
-			if (voice.isSuccess && voice.Text.Equals(talking.Current.PlayerText))
+			if (voice.isSuccess && voice.Text.Length > 0 && voice.Text.Equals(talking.Current.PlayerText))
 				NextScript();
 
             else if(!voice.IsRecognizing && !voice.isSuccess)

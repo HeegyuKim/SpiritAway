@@ -112,10 +112,9 @@ namespace 행방불명.Game
 		private void InitUI()
 		{
 			//player.HasHammer = true;
-			
 			//player.HasKey = true; 
-			player.ElapsedTime = 0;
-			//player.NumMedicalKits = 5;
+            //player.NumMedicalKits = 5;
+            player.ElapsedTime = 0;
 			redBrush = new SolidColorBrush(
 							app.Graphics2D.RenderTarget,
 							new Color4(1, 0, 0, 1)
@@ -331,6 +330,7 @@ namespace 행방불명.Game
 			switch(player.State)
 			{
 				case PlayerState.Arrived:
+                    scriptView.Unknown = null;
 					processes.Clear();
 					processBuilder.AddProcess(processes, player.MoveTo);
 				    player.RunningAway = false;
@@ -360,7 +360,7 @@ namespace 행방불명.Game
 					break;
 
 				case PlayerState.Moving:
-					player.Move(delta * 150);
+					player.Move(delta * 225);
 					CheckPatientsStatus(delta);
 					break;
 
@@ -688,7 +688,7 @@ namespace 행방불명.Game
                     if (!player.RunningAway)
                     {
                         processes.Add(new SoundPlayProcess(app, "search"));
-                        processes.Add(new DelayProcess(3));
+                        processes.Add(new DelayProcess(5));
                         if (mis.Bomb)
                             processes.Add(new CheckMiteryProcess(mis));
                         processes.Add(p);

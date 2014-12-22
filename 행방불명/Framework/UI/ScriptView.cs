@@ -20,6 +20,7 @@ namespace 행방불명.Framework.UI
 
 		TextFormat format;
 		TextLayout targetText, playerText, unknownText;
+        bool hasPlayerText;
 		Script script;
 
 		public Script Script 
@@ -70,9 +71,11 @@ namespace 행방불명.Framework.UI
 						format.FontSize * 0.8f,
 						new TextRange(0, 6)
 						);
+                    hasPlayerText = true;
 				}
                 else
                 {
+                    hasPlayerText = false;
                     playerText = new TextLayout(
                         app.Graphics2D.DWriteFactory,
                         "클릭 혹은 스페이스바를 누르세요",
@@ -80,6 +83,7 @@ namespace 행방불명.Framework.UI
                         Width - 175,
                         100
                         );
+                    Unknown = null;
                 }
 				script = value;
 			}
@@ -96,7 +100,11 @@ namespace 행방불명.Framework.UI
                     Utilities.Dispose(ref unknownText);
                 }
 
-                if (value == null || value.Length <= 0) return;
+                if (value == null || value.Length <= 0 || !hasPlayerText)
+                {
+                    unknownChangedDelta = 0;
+                    return;
+                }
 
                 unknownText = new TextLayout(
                     app.Graphics2D.DWriteFactory,

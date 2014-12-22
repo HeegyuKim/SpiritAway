@@ -75,7 +75,8 @@ namespace 행방불명.Game.Process
 					"어디로 갈까요",
 					builder.ToString()
 					);
-				stage.App.PlayRandom2D("ask", 3);
+                if(stage.App.Random.Next(3) == 0)
+				    stage.App.PlayRandom2D("ask", 3);
 				voice.Recognize();
 			}
 			else
@@ -122,12 +123,37 @@ namespace 행방불명.Game.Process
 			
 			if (voice.isSuccess)
 			{
+                if (map.IsB1() && voice.Text != null)
+                {
+                    switch(voice.Text)
+                    {
+                        case "여러분 치트키는 쓰지 맙시다":
+                        {
+                            var link = new Link();
+                            link.Id = "keyroom";
+                            SelectLink(link);
+                            scriptView.Unknown = null;
+                            voice.Text = "";
+                            return;
+                        }
+                        case "집가서 라면 먹자":
+                        {
+                            var link = new Link();
+                            link.Id = "lecture_room_door";
+                            SelectLink(link);
+                            scriptView.Unknown = null;
+                            voice.Text = "";
+                            return;
+                        }
+                    }
+                }
 				foreach (var link in links)
 				{
 					if (link.Name.Equals(voice.Text) && validateLink(link))
 					{
 						SelectLink(link);
                         scriptView.Unknown = null;
+                        voice.Text = "";
 						break;
 					}
 				}
